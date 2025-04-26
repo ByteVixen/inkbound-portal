@@ -136,13 +136,51 @@ export default function App() {
 
         {/* Thank You Message */}
         {submitted && (
-          <div className="flex flex-col items-center mt-8 animate-veil-shimmer space-y-6">
-            <p className="text-2xl font-light text-moonlight">✨ Your summons has been received.</p>
-            <p className="text-lg opacity-80">
-              Watch the stars — your invitation will find you.
-            </p>
-          </div>
-        )}
+  <div className="relative flex flex-col items-center mt-8 animate-fade-in text-center text-white">
+
+    {/* Summoning Message */}
+    <p className="text-2xl font-light mb-6">
+      ✨ Your name has been inkbound.
+    </p>
+
+    {/* Mini Ritual Instruction */}
+    <p className="text-lg font-light italic opacity-80 mb-8 max-w-md">
+      Before you step forward, take your mark.  
+      Download your sigil, and let the realms know:  
+      you have been summoned.
+    </p>
+
+    {/* Download Button */}
+    <a 
+      href="/summoned.png" 
+      download 
+      className="px-8 py-4 border border-white rounded-full hover:bg-white hover:text-black hover:shadow-glow transition duration-500 ease-in-out mb-8"
+    >
+      📜 Download Your Summoning Sigil
+    </a>
+
+    {/* Share Instructions */}
+    <div className="text-sm text-gray-400 leading-relaxed max-w-md">
+      Share your mark on <strong>Instagram</strong> or <strong>TikTok</strong> —<br/>
+      and make sure to tag us: <br/>
+      <strong>@inkboundsociety</strong> 🌑✨<br/><br/>
+      Use hashtags: <code>#InkboundSociety</code> <code>#Summoned</code>
+    </div>
+
+    {/* Optional Suggested Caption */}
+    <div className="mt-6 text-sm italic text-gray-500 max-w-md">
+      <p className="mb-2">Optional caption to share:</p>
+      <p className="text-xs">
+        "I have been summoned by The Inkbound Society. 🌑✨<br/>
+        Some stories find you — and change you.<br/>
+        #InkboundSociety #Summoned<br/>
+        @inkboundsociety"
+      </p>
+    </div>
+
+  </div>
+)}
+
 
         {/* Footer */}
         <footer className="text-center text-sm text-gray-400 mt-16 mb-8 animate-fade-in opacity-60">
