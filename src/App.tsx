@@ -7,6 +7,8 @@ import * as THREE from "three";
 export default function App() {
   const [vantaEffect, setVantaEffect] = useState<any>(null);
   const vantaRef = useRef(null);
+  const [showForm, setShowForm] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     if (!vantaEffect) {
@@ -14,7 +16,7 @@ export default function App() {
         el: vantaRef.current,
         THREE: THREE,
         mouseControls: true,
-        touchControls: true,
+        touchControls: false,
         gyroControls: false,
         minHeight: 200.0,
         minWidth: 200.0,
@@ -28,7 +30,6 @@ export default function App() {
       });
       setVantaEffect(effect);
 
-      // Force Vanta to refresh after loading
       setTimeout(() => {
         if (effect && effect.resize) {
           effect.resize();
@@ -41,12 +42,31 @@ export default function App() {
     };
   }, [vantaEffect]);
 
+  // ✨ Handle the email submit manually
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("EMAIL");
+
+    const mailchimpUrl = "https://inkboundsociety.us22.list-manage.com/subscribe/post-json?u=3ad07cbf3b00878d5097f3c6b&id=e86c064031&c=?";
+
+    // Mailchimp requires JSONP, weird old format
+    const url = `${mailchimpUrl}&EMAIL=${encodeURIComponent(email as string)}`;
+
+    // Create a script tag to submit (JSONP workaround)
+    const script = document.createElement("script");
+    script.src = url;
+    document.body.appendChild(script);
+
+    setSubmitted(true); // ✅ Show thank you after!
+  };
+
   return (
     <div
       ref={vantaRef}
       className="min-h-screen flex flex-col items-center justify-center text-white relative overflow-hidden px-6 py-12 font-marcellus bg-black"
     >
-      {/* Main Content Container */}
       <div className="z-20 flex flex-col items-center max-w-2xl w-full text-center">
 
         {/* Logo */}
@@ -62,40 +82,52 @@ export default function App() {
           A hidden society stirs beyond the veil.
         </p>
 
-        {/* Mailchimp Form */}
-        <form 
-          action="https://inkboundsociety.us22.list-manage.com/subscribe/post?u=3ad07cbf3b00878d5097f3c6b&amp;id=e86c064031&amp;f_id=00bcc2e1f0" 
-          method="POST"
-          target="_blank"
-          className="flex flex-col items-center mt-8 w-full animate-fade-in space-y-6"
-        >
-          <p className="text-lg max-w-md mx-auto">
-            Whisper your name to be summoned.
-          </p>
-
-          <input
-            type="email"
-            name="EMAIL"
-            id="mce-EMAIL"
-            placeholder="Your email address..."
-            className="px-4 py-3 rounded bg-black border border-white placeholder-gray-400 w-80 text-center text-lg"
-            required
-          />
-
-          {/* Hidden honeypot field for bots */}
-          <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
-            <input type="text" name="b_3ad07cbf3b00878d5097f3c6b_e86c064031" tabIndex={-1} defaultValue="" />
-          </div>
-
+        {/* ✨ Summon Flow */}
+        {!showForm && !submitted && (
           <button
-            type="submit"
-            name="subscribe"
-            id="mc-embedded-subscribe"
-            className="px-8 py-4 w-64 border border-white rounded-full hover:border-moonlight hover:text-moonlight hover:shadow-glow transition duration-500 ease-in-out"
+            onClick={() => setShowForm(true)}
+            className="px-8 py-4 border border-white rounded-full hover:border-moonlight hover:text-moonlight hover:shadow-glow transition duration-500 ease-in-out animate-fade-in mt-8"
           >
-            Answer the Summons
+            Be Summoned
           </button>
-        </form>
+        )}
+
+        {showForm && !submitted && (
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col items-center mt-8 w-full animate-veil-shimmer space-y-6"
+          >
+            <p className="text-lg max-w-md mx-auto">
+              Whisper your name to be summoned.
+            </p>
+
+            <input
+              type="email"
+              name="EMAIL"
+              id="mce-EMAIL"
+              placeholder="Your email address..."
+              className="px-4 py-3 rounded bg-black border border-white placeholder-gray-400 w-80 text-center text-lg"
+              required
+            />
+
+            <button
+              type="submit"
+              className="px-8 py-4 w-64 border border-white rounded-full hover:border-moonlight hover:text-moonlight hover:shadow-glow transition duration-500 ease-in-out"
+            >
+              Answer the Summons
+            </button>
+          </form>
+        )}
+
+        {/* ✨ Thank you message after submit */}
+        {submitted && (
+          <div className="flex flex-col items-center mt-8 animate-veil-shimmer space-y-6">
+            <p className="text-2xl font-light text-moonlight">✨ Your summons has been received.</p>
+            <p className="text-lg opacity-80">
+              Watch the stars — your invitation will find you.
+            </p>
+          </div>
+        )}
 
         {/* Footer */}
         <footer className="text-center text-sm text-gray-400 mt-16 mb-8 animate-fade-in opacity-60">
