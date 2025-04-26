@@ -42,24 +42,21 @@ export default function App() {
     };
   }, [vantaEffect]);
 
-  // ✨ Handle the email submit manually
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // ✨ Handle email submit
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("EMAIL");
+    const form = e.currentTarget;
 
-    const mailchimpUrl = "https://inkboundsociety.us22.list-manage.com/subscribe/post-json?u=3ad07cbf3b00878d5097f3c6b&id=e86c064031&c=?";
+    // Create hidden iframe to submit into
+    const iframe = document.createElement("iframe");
+    iframe.name = "hidden_iframe";
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
 
-    // Mailchimp requires JSONP, weird old format
-    const url = `${mailchimpUrl}&EMAIL=${encodeURIComponent(email as string)}`;
-
-    // Create a script tag to submit (JSONP workaround)
-    const script = document.createElement("script");
-    script.src = url;
-    document.body.appendChild(script);
-
-    setSubmitted(true); // ✅ Show thank you after!
+    form.target = "hidden_iframe"; // Submit into iframe
+    form.submit();
+    setSubmitted(true); // Show thank you after
   };
 
   return (
@@ -72,7 +69,7 @@ export default function App() {
         {/* Logo */}
         <img src="/logo.png" alt="Inkbound Society Logo" className="w-80 md:w-96 mb-10 animate-fade-in" />
 
-        {/* Mysterious Tagline */}
+        {/* Main Tagline */}
         <h1 className="text-5xl font-light mb-4 animate-fade-in text-glow">
           Some stories find you.
         </h1>
@@ -82,7 +79,7 @@ export default function App() {
           A hidden society stirs beyond the veil.
         </p>
 
-        {/* ✨ Summon Flow */}
+        {/* ✨ Summoning Flow */}
         {!showForm && !submitted && (
           <button
             onClick={() => setShowForm(true)}
@@ -95,6 +92,8 @@ export default function App() {
         {showForm && !submitted && (
           <form
             onSubmit={handleSubmit}
+            action="https://inkboundsociety.us22.list-manage.com/subscribe/post?u=3ad07cbf3b00878d5097f3c6b&amp;id=e86c064031"
+            method="POST"
             className="flex flex-col items-center mt-8 w-full animate-veil-shimmer space-y-6"
           >
             <p className="text-lg max-w-md mx-auto">
@@ -110,6 +109,22 @@ export default function App() {
               required
             />
 
+            {/* Honeypot */}
+            <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+              <input type="text" name="b_3ad07cbf3b00878d5097f3c6b_e86c064031" tabIndex={-1} defaultValue="" />
+            </div>
+{/* GDPR Consent */}
+<div className="flex items-center space-x-2 text-sm text-gray-300 max-w-md text-left">
+  <input 
+    type="checkbox" 
+    id="gdpr-consent" 
+    required 
+    className="accent-moonlight"
+  />
+  <label htmlFor="gdpr-consent">
+    I consent to receive emails from The Inkbound Society and understand I can unsubscribe at any time.
+  </label>
+</div>
             <button
               type="submit"
               className="px-8 py-4 w-64 border border-white rounded-full hover:border-moonlight hover:text-moonlight hover:shadow-glow transition duration-500 ease-in-out"
@@ -119,7 +134,7 @@ export default function App() {
           </form>
         )}
 
-        {/* ✨ Thank you message after submit */}
+        {/* Thank You Message */}
         {submitted && (
           <div className="flex flex-col items-center mt-8 animate-veil-shimmer space-y-6">
             <p className="text-2xl font-light text-moonlight">✨ Your summons has been received.</p>
