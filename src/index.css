@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dripping ink animation */
+@keyframes drip {
+  0% { background-position: 50% 0%; }
+  50% { background-position: 50% 100%; }
+  100% { background-position: 50% 0%; }
+}
+
+/* Shimmer animation (optional, VERY subtle) */
+@keyframes shimmer {
+  0% { opacity: 0.1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.1; }
+}
+
+/* Starburst animation */
+@keyframes starburst {
+  0% { transform: scale(0); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* Main backgrounds */
+.bg-ink {
+  background: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgb(32, 31, 31) 70%);
+  background-size: 150% 300%;
+  animation: drip 30s linear infinite;
+}
+
+.bg-shimmer {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.03) 0px,
+    rgba(255,255,255,0.03) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  background-size: 100px 100px;
+  animation: shimmer 10s ease-in-out infinite;
+}
+
+/* Text glow */
+.text-glow {
+  text-shadow: 0 0 8px rgba(212,194,252,0.5);
+}
+
+/* Starburst class */
+.starburst {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+  animation: starburst 2s ease-out forwards;
+  z-index: 10;
+}
