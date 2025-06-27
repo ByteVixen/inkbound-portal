@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 import VantaBackground from "../components/VantaBackground";
-
+// Trigger deploy
 export default function LandingPage() {
   return (
     <div className="relative min-h-screen flex flex-col justify-between font-marcellus text-white overflow-hidden">
