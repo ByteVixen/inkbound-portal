@@ -3,23 +3,31 @@ import LandingPage from "./pages/LandingPage";
 import AuthorHubPage from "./pages/AuthorHubPage";
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import ContactPage from "./pages/ContactPage";
-import Nav from "./components/Nav";
 import AboutPage from "./pages/AboutPage";
+import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import VantaBackground from "./components/VantaBackground";
 
 export default function App() {
   return (
-    <div className="min-h-screen font-marcellus text-white bg-black overflow-hidden pt-20 flex flex-col justify-between">
+    <div className="relative bg-inkblack text-white font-marcellus min-h-screen overflow-hidden">
+      <VantaBackground /> {/* Vanta background stays */}
+
+      {/* Navigation */}
       <Nav />
-      <div className="flex-1">
+
+      {/* Page Content */}
+      <div className="pt-20 relative z-10">
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/authors" element={<AuthorHubPage />} />
           <Route path="/authors/consignment" element={<ConsignmentPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </div>
+
+      {/* Footer */}
       <Footer />
     </div>
   );

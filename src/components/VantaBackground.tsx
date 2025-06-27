@@ -1,13 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+// src/components/VantaBackground.tsx
+import { useState, useLayoutEffect, useRef } from "react";
 import * as THREE from "three";
 // @ts-ignore
 import VANTAFOG from "vanta/dist/vanta.fog.min";
 
 export default function VantaBackground() {
-  const vantaRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState<any>(null);
+  const vantaRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!vantaEffect && vantaRef.current) {
       const effect = VANTAFOG({
         el: vantaRef.current,
@@ -26,11 +27,15 @@ export default function VantaBackground() {
       });
       setVantaEffect(effect);
     }
-
     return () => {
       if (vantaEffect) vantaEffect.destroy();
     };
   }, [vantaEffect]);
 
-  return <div ref={vantaRef} className="absolute inset-0 w-full h-full -z-10 bg-black" />;
+  return (
+    <div
+      ref={vantaRef}
+      className="fixed inset-0 -z-10 w-full h-full"
+    />
+  );
 }

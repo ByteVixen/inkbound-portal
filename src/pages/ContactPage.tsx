@@ -19,9 +19,23 @@ export default function ContactPage() {
       </a>
 
       <p className="text-lg text-amber-400 font-semibold mt-8 mb-2">📍 Location</p>
-      <p className="text-gray-300">
+      <p className="text-gray-300 mb-6">
         The Square, Gort, Co. Galway (Opening soon!)
       </p>
+
+      {/* Map */}
+      <div className="w-full max-w-4xl mx-auto mt-6 rounded-lg overflow-hidden shadow-lg border border-amber-700">
+        <iframe
+          title="Inkbound Bookshop Location"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d599.359059910275!2d-8.820239156692498!3d53.066436411880495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x485b82aae678e38f%3A0xc69f3df32e6086e2!2sTimeless%20Barber!5e0!3m2!1sen!2sie!4v1750980342550!5m2!1sen!2sie"
+          width="100%"
+          height="450"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
     </div>
   );
 }
