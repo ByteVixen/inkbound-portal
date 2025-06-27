@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import AuthorHubPage from "./pages/AuthorHubPage";
-import ConsignmentPage from "./pages/ConsignmentPage";
+import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import ContactPage from "./pages/ContactPage";
 import Nav from "./components/Nav";
 import AboutPage from "./pages/AboutPage";
