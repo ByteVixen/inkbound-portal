@@ -1,7 +1,6 @@
-
 import { Link } from "react-router-dom";
 import VantaBackground from "../components/VantaBackground";
-// Trigger deploy
+
 export default function LandingPage() {
   return (
     <div className="relative min-h-screen flex flex-col justify-between font-marcellus text-white overflow-hidden">
@@ -57,6 +56,20 @@ export default function LandingPage() {
             <div className="text-4xl mb-2">📮</div>
             <h2 className="text-xl font-semibold text-amber-400">Contact</h2>
             <p className="text-sm text-gray-400">Summon the Society</p>
+          </Link>
+        </div>
+
+        {/* 📚 Featured Books Teaser */}
+        <div className="mt-20 text-center">
+          <h2 className="text-2xl text-amber-400 mb-2">📚 On Our Shelves Soon</h2>
+          <p className="text-base text-gray-400 mb-4 max-w-md mx-auto">
+            Discover what’s coming to Inkbound — and imagine your story among them.
+          </p>
+          <Link
+            to="/books"
+            className="inline-block bg-black/50 border border-amber-700 px-6 py-3 rounded-full text-white hover:bg-amber-700 transition"
+          >
+            See Featured Books
           </Link>
         </div>
       </div>

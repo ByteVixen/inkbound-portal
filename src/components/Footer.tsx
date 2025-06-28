@@ -12,14 +12,20 @@ export default function Footer() {
         >
           <Instagram />
         </a>
+
         <a
           href="https://www.tiktok.com/@the.inkbound.society"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-amber-400 text-xl"
+          className="hover:opacity-80 transition"
         >
-          🎵
+          <img
+            src="images/tiktok.png"
+            alt="TikTok"
+            className="w-5 h-5 md:w-6 md:h-6 inline-block"
+          />
         </a>
+
         <a
           href="https://www.facebook.com/profile.php?id=61577178964903"
           target="_blank"
@@ -28,6 +34,7 @@ export default function Footer() {
         >
           <Facebook />
         </a>
+
         <a
           href="mailto:summon@inkboundsociety.com"
           className="hover:text-amber-400"
@@ -35,6 +42,7 @@ export default function Footer() {
           <Mail />
         </a>
       </div>
+
       <p className="text-gray-500">
         © {new Date().getFullYear()} The Inkbound Society
       </p>
