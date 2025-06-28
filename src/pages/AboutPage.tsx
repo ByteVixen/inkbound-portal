@@ -3,7 +3,7 @@ export default function AboutPage() {
       <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 max-w-3xl mx-auto">
         {/* Profile Image */}
         <img
-          src="/images/amanda.png"
+          src="/amanda.png"
           alt="Amanda Kilkenny"
           className="w-40 h-40 rounded-full object-cover mb-4 border-4 border-amber-500 shadow-lg"
         />
