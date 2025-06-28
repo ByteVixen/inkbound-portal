@@ -4,9 +4,11 @@ import AuthorHubPage from "./pages/AuthorHubPage";
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
+import FeaturedBooksPage from "./pages/FeaturedBooksPage"; 
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import VantaBackground from "./components/VantaBackground";
+
 
 export default function App() {
   return (
@@ -24,6 +26,8 @@ export default function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/authors" element={<AuthorHubPage />} />
           <Route path="/authors/consignment" element={<ConsignmentPage />} />
+          <Route path="/books" element={<FeaturedBooksPage />} />
+
         </Routes>
       </div>
 

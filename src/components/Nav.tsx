@@ -16,6 +16,7 @@ export default function Nav() {
   const authorItems = [
     { label: "Author Hub", path: "/authors" },
     { label: "Bookshop Consignment", path: "/authors/consignment" },
+    { label: "See Who's On Our Shelves", path: "/books" }, 
   ];
 
   return (
