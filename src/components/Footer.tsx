@@ -20,7 +20,7 @@ export default function Footer() {
           className="hover:opacity-80 transition"
         >
           <img
-            src="images/tiktok.png"
+            src="/tiktok.png"
             alt="TikTok"
             className="w-5 h-5 md:w-6 md:h-6 inline-block"
           />
