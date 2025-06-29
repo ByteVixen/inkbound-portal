@@ -101,7 +101,7 @@ const InfoPage: React.FC = () => {
               <p>We accept indie books for physical display in the Gort bookshop:</p>
               <ul className="list-disc list-inside space-y-1">
                 <li>3-month term minimum</li>
-                <li>60/40 revenue split (author/bookshop)</li>
+                <li>70/30 revenue split (author/bookshop)</li>
                 <li>Author handles delivery/shipping</li>
                 <li>Returns or donations at end of term</li>
               </ul>

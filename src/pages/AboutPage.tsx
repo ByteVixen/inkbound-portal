@@ -31,7 +31,7 @@ export default function AboutPage() {
             tucked away in the heart of Gort, Co. Galway. Founded by me — Amanda,
             a lifelong local from the Ardrahan–Peterswell area — Inkbound is the
             kind of space I always wished existed growing up. Despite Gort’s deep
-            literary ties (WB Yeats, anyone?), it never had a bookshop. I wanted to
+            literary ties (W.B Yeats, anyone?), it never had a bookshop. I wanted to
             change that.
           </p>
 
