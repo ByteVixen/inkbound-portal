@@ -62,7 +62,7 @@ const ConsignmentPage = () => {
 
         <section id="submit">
           <a
-            href="https://forms.gle/cvQxKwM6hzGrwhSw7"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSeIMXyYKL5uRvpVkY6rhtMR_KLgeOi36NjtRP0XUPzElDO0zg/viewform?usp=header"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transition"
