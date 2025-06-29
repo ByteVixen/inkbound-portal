@@ -1,4 +1,4 @@
-import React from 'react';
+
 import VantaBackground from '../components/VantaBackground';
 
 export default function PrivacyPolicyPage() {
