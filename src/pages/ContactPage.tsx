@@ -23,7 +23,7 @@ export default function ContactPage() {
 
           <p className="text-lg text-amber-400 font-semibold mb-2">📮 Email</p>
           <a
-            href="mailto:summoning@inkboundsociety.com"
+            href="mailto:summon@inkboundsociety.com"
             className="text-white underline hover:text-amber-400"
           >
             summon@inkboundsociety.com
