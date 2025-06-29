@@ -3,12 +3,15 @@ import VantaBackground from "../components/VantaBackground";
 
 export default function LandingPage() {
   return (
-    <div className="relative min-h-screen flex flex-col justify-between font-marcellus text-white overflow-hidden">
+    <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
       {/* Vanta Background */}
-      <VantaBackground />
+      <div className="absolute inset-0 z-0">
+        <VantaBackground />
+      </div>
 
-      {/* Hero Content */}
-      <div className="flex flex-col items-center text-center px-6 py-24 z-10">
+      {/* Main Content Layer */}
+      <div className="relative z-10 flex flex-col items-center text-center px-6 py-24 max-w-7xl mx-auto">
+        {/* Logo */}
         <img
           src="/logo.png"
           alt="Inkbound Logo"
@@ -23,17 +26,40 @@ export default function LandingPage() {
           Stock your book. Join the Society.
         </p>
 
+        {/* Explore Our Shelves */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center max-w-4xl w-full mb-16">
+          <Link
+            to="/featured-books"
+            className="bg-black/50 border border-amber-700 rounded-xl p-6 hover:shadow-xl transition hover:scale-105"
+          >
+            <div className="text-4xl mb-2">🏪</div>
+            <h2 className="text-xl font-semibold text-amber-400">Stocked in Our Bookshop</h2>
+            <p className="text-sm text-gray-400">
+              Discover books physically shelved at the Inkbound Bookshop in Gort
+            </p>
+          </Link>
+
+          <Link
+            to="/virtual-shelf"
+            className="bg-black/50 border border-amber-700 rounded-xl p-6 hover:shadow-xl transition hover:scale-105"
+          >
+            <div className="text-4xl mb-2">🌐</div>
+            <h2 className="text-xl font-semibold text-amber-400">On the Virtual Shelf</h2>
+            <p className="text-sm text-gray-400">
+              Browse digital listings from Inkbound authors around the world
+            </p>
+          </Link>
+        </div>
+
         {/* CTA Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center max-w-4xl w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center max-w-6xl w-full">
           <Link
             to="/authors"
             className="bg-black/50 border border-amber-700 rounded-xl p-6 hover:shadow-xl transition hover:scale-105"
           >
             <div className="text-4xl mb-2">🖋️</div>
             <h2 className="text-xl font-semibold text-amber-400">Author Hub</h2>
-            <p className="text-sm text-gray-400">
-              Get stocked, submit quests, connect
-            </p>
+            <p className="text-sm text-gray-400">Get stocked, submit quests, connect</p>
           </Link>
 
           <Link
@@ -41,12 +67,8 @@ export default function LandingPage() {
             className="bg-black/50 border border-amber-700 rounded-xl p-6 hover:shadow-xl transition hover:scale-105"
           >
             <div className="text-4xl mb-2">🕯️</div>
-            <h2 className="text-xl font-semibold text-amber-400">
-              About the Society
-            </h2>
-            <p className="text-sm text-gray-400">
-              The story behind the shelves
-            </p>
+            <h2 className="text-xl font-semibold text-amber-400">About the Society</h2>
+            <p className="text-sm text-gray-400">The story behind the shelves</p>
           </Link>
 
           <Link
@@ -59,14 +81,14 @@ export default function LandingPage() {
           </Link>
         </div>
 
-        {/* 📚 Featured Books Teaser */}
+        {/* Featured Books Teaser */}
         <div className="mt-20 text-center">
           <h2 className="text-2xl text-amber-400 mb-2">📚 On Our Shelves Soon</h2>
           <p className="text-base text-gray-400 mb-4 max-w-md mx-auto">
             Discover what’s coming to Inkbound — and imagine your story among them.
           </p>
           <Link
-            to="/books"
+            to="/featured-books"
             className="inline-block bg-black/50 border border-amber-700 px-6 py-3 rounded-full text-white hover:bg-amber-700 transition"
           >
             See Featured Books
@@ -75,10 +97,8 @@ export default function LandingPage() {
       </div>
 
       {/* Newsletter Signup */}
-      <div className="bg-black/70 py-12 text-center border-t border-amber-700 z-10 px-4">
-        <p className="text-xl mb-4">
-          📍 Inkbound Bookshop is opening soon in Gort!
-        </p>
+      <div className="relative z-10 bg-black/70 py-12 text-center border-t border-amber-700 px-4">
+        <p className="text-xl mb-4">📍 Inkbound Bookshop is opening soon in Gort!</p>
         <p className="text-base text-gray-400 mb-8">
           Join our community and be first to hear about shelves, events & quests.
         </p>
