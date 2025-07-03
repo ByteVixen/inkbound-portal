@@ -1,37 +1,44 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar: React.FC = () => {
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
   const [virtualOpen, setVirtualOpen] = useState(false);
   const [authorOpen, setAuthorOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [narratorOpen, setNarratorOpen] = useState(false);
 
-  const closeDropdowns = () => {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "auto";
+  }, [menuOpen]);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
     setVirtualOpen(false);
     setAuthorOpen(false);
-    setMenuOpen(false);
+    setNarratorOpen(false);
   };
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav className="bg-black text-white px-6 py-4 shadow-md z-50 relative">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="text-xl font-bold" onClick={closeDropdowns}>
+        <Link to="/" className="text-xl font-bold text-glow" onClick={closeMenu}>
           The Inkbound Bookshop
         </Link>
 
-        {/* Hamburger Button */}
-        <button
-          className="md:hidden text-white focus:outline-none"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+        {/* Hamburger */}
+        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden">
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -42,88 +49,107 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="hover:text-amber-400" onClick={closeDropdowns}>Home</Link>
-          <Link to="/about" className="hover:underline" onClick={closeDropdowns}>About</Link>
-          <Link to="/featured-books" className="hover:underline" onClick={closeDropdowns}>
-            Stocked in Our Bookshop
-          </Link>
+          <Link to="/" className={isActive("/") ? "text-amber-400" : "hover:text-amber-400"}>Home</Link>
+          <Link to="/about" className={isActive("/about") ? "text-amber-400" : "hover:text-amber-400"}>About</Link>
+          <Link to="/featured-books" className={isActive("/featured-books") ? "text-amber-400" : "hover:text-amber-400"}>Stocked In-Store</Link>
 
-          {/* Virtual Shelf */}
-          <div className="relative">
+          <div className="relative group">
             <button
               onClick={() => {
                 setVirtualOpen(!virtualOpen);
                 setAuthorOpen(false);
+                setNarratorOpen(false);
               }}
-              className="hover:underline"
+              className="hover:text-amber-400 transition duration-300"
             >
               Virtual Shelf ▾
             </button>
             {virtualOpen && (
-              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-48 z-50">
-                <Link to="/virtual-shelf" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeDropdowns}>Books</Link>
-                <Link to="/audiobooks" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeDropdowns}>Audiobooks</Link>
+              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-48 z-50 animate-fadeIn">
+                <Link to="/virtual-shelf" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Books</Link>
+                <Link to="/audiobooks" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Audiobooks</Link>
               </div>
             )}
           </div>
 
-          {/* Author Hub */}
-          <div className="relative">
+          <div className="relative group">
             <button
               onClick={() => {
                 setAuthorOpen(!authorOpen);
                 setVirtualOpen(false);
+                setNarratorOpen(false);
               }}
-              className="hover:underline"
+              className="hover:text-amber-400 transition duration-300"
             >
               Author Hub ▾
             </button>
             {authorOpen && (
-              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50">
-                <Link to="/authors/consignment" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeDropdowns}>Become Stocked</Link>
-                <Link to="/virtual-shelfspace" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeDropdowns}>Virtual Shelfspace</Link>
+              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
+                <Link to="/authors/consignment" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Become Stocked</Link>
+                <Link to="/authors/ship-books" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Shipping Info</Link>
+                <Link to="/virtual-shelfspace" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Virtual Shelfspace</Link>
               </div>
             )}
           </div>
 
-          <Link to="/narrator-shelf" className="hover:underline" onClick={closeDropdowns}>Narrator Shelf</Link>
-          <Link to="/narrator-hub" className="hover:underline" onClick={closeDropdowns}>Narrator Hub</Link>
-          <Link to="/info" className="hover:underline" onClick={closeDropdowns}>Info</Link>
-          <Link to="/contact" className="hover:underline" onClick={closeDropdowns}>Contact</Link>
+          <div className="relative group">
+            <button
+              onClick={() => {
+                setNarratorOpen(!narratorOpen);
+                setAuthorOpen(false);
+                setVirtualOpen(false);
+              }}
+              className="hover:text-amber-400 transition duration-300"
+            >
+              Narrators ▾
+            </button>
+            {narratorOpen && (
+              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-56 z-50 animate-fadeIn">
+                <Link to="/narrator-shelf" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Narrator Shelf</Link>
+                <Link to="/narrator-hub" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Narrator Hub</Link>
+              </div>
+            )}
+          </div>
+
+          <Link to="/info" className={isActive("/info") ? "text-amber-400" : "hover:text-amber-400"}>Info</Link>
+          <Link to="/contact" className={isActive("/contact") ? "text-amber-400" : "hover:text-amber-400"}>Contact</Link>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Fullscreen Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden mt-4 space-y-2">
-          <Link to="/" className="block px-2 py-1 hover:text-amber-400" onClick={closeDropdowns}>Home</Link>
-          <Link to="/about" className="block px-2 py-1 hover:text-amber-400" onClick={closeDropdowns}>About</Link>
-          <Link to="/featured-books" className="block px-2 py-1 hover:text-amber-400" onClick={closeDropdowns}>
-            Stocked in Our Bookshop
-          </Link>
+        <div className="fixed inset-0 bg-black/95 text-white z-50 flex flex-col items-center justify-center space-y-6 animate-fadeSlideDown">
+          <Link to="/" className="text-xl hover:text-amber-400" onClick={closeMenu}>Home</Link>
+          <Link to="/about" className="text-xl hover:text-amber-400" onClick={closeMenu}>About</Link>
+          <Link to="/featured-books" className="text-xl hover:text-amber-400" onClick={closeMenu}>Stocked In-Store</Link>
 
-          {/* Virtual Shelf (nested mobile dropdown) */}
-          <details className="px-2">
+          <details className="text-xl">
             <summary className="cursor-pointer hover:text-amber-400">Virtual Shelf</summary>
-            <div className="ml-4 mt-1 space-y-1">
-              <Link to="/virtual-shelf" className="block" onClick={closeDropdowns}>Books</Link>
-              <Link to="/audiobooks" className="block" onClick={closeDropdowns}>Audiobooks</Link>
+            <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/virtual-shelf" onClick={closeMenu}>Books</Link>
+              <Link to="/audiobooks" onClick={closeMenu}>Audiobooks</Link>
             </div>
           </details>
 
-          {/* Author Hub (nested mobile dropdown) */}
-          <details className="px-2">
+          <details className="text-xl">
             <summary className="cursor-pointer hover:text-amber-400">Author Hub</summary>
-            <div className="ml-4 mt-1 space-y-1">
-              <Link to="/authors/consignment" className="block" onClick={closeDropdowns}>Become Stocked</Link>
-              <Link to="/virtual-shelfspace" className="block" onClick={closeDropdowns}>Virtual Shelfspace</Link>
+            <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/authors/consignment" onClick={closeMenu}>Become Stocked</Link>
+              <Link to="/authors/ship-books" onClick={closeMenu}>Shipping Info</Link>
+              <Link to="/virtual-shelfspace" onClick={closeMenu}>Virtual Shelfspace</Link>
             </div>
           </details>
 
-          <Link to="/narrator-shelf" className="block px-2 py-1 hover:text-amber-400" onClick={closeDropdowns}>Narrator Shelf</Link>
-          <Link to="/narrator-hub" className="block px-2 py-1 hover:text-amber-400" onClick={closeDropdowns}>Narrator Hub</Link>
-          <Link to="/info" className="block px-2 py-1 hover:text-amber-400" onClick={closeDropdowns}>Info</Link>
-          <Link to="/contact" className="block px-2 py-1 hover:text-amber-400" onClick={closeDropdowns}>Contact</Link>
+          <details className="text-xl">
+            <summary className="cursor-pointer hover:text-amber-400">Narrators</summary>
+            <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/narrator-shelf" onClick={closeMenu}>Narrator Shelf</Link>
+              <Link to="/narrator-hub" onClick={closeMenu}>Narrator Hub</Link>
+            </div>
+          </details>
+
+          <Link to="/info" className="text-xl hover:text-amber-400" onClick={closeMenu}>Info</Link>
+          <Link to="/contact" className="text-xl hover:text-amber-400" onClick={closeMenu}>Contact</Link>
         </div>
       )}
     </nav>

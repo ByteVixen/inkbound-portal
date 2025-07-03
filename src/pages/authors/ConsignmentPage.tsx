@@ -1,5 +1,7 @@
 // src/pages/authors/ConsignmentPage.tsx
 
+import React from "react";
+
 const ConsignmentPage = () => {
   return (
     <div className="flex flex-col md:flex-row max-w-7xl mx-auto px-6 py-24 text-white font-marcellus">
@@ -11,6 +13,7 @@ const ConsignmentPage = () => {
           <a href="#how" className="block hover:underline">How It Works</a>
           <a href="#receive" className="block hover:underline">What You Receive</a>
           <a href="#submit" className="block hover:underline">Submit</a>
+          <a href="#shipping" className="block hover:underline">Sending Books</a>
           <a href="#fineprint" className="block hover:underline">Fine Print</a>
         </nav>
       </aside>
@@ -70,6 +73,41 @@ const ConsignmentPage = () => {
             Submit Your Book
           </a>
           <p className="text-sm text-gray-400 italic mt-2">This link opens in a new tab.</p>
+        </section>
+
+        <section id="shipping">
+          <h2 className="text-2xl font-semibold text-amber-400 mb-3">📦 Getting Your Books to Inkbound Bookshop</h2>
+          <p className="text-gray-300 mb-4">
+            Thanks for signing your consignment agreement! You're now ready to send your books to us.
+            Below are the options available, whether you're based in Ireland or abroad.
+          </p>
+
+          <h3 className="text-lg text-white mt-4">🇮🇪 Local Authors (Ireland-Based)</h3>
+          <ul className="list-disc list-inside text-gray-300 ml-4 space-y-1">
+            <li><strong>Post or Courier:</strong> Send to Inkbound Bookshop, The Square, Gort, Co. Galway, H91 VW27, Ireland. Include your name and book title(s).</li>
+            <li><strong>In-Person Drop-Off:</strong> Please <a href="/contact" className="underline text-amber-400">contact us</a> to arrange a time.</li>
+          </ul>
+
+          <h3 className="text-lg text-white mt-6">🌍 International Authors</h3>
+          <ul className="list-disc list-inside text-gray-300 ml-4 space-y-1">
+            <li>Use KDP, IngramSpark, or your printer to ship directly to the address above</li>
+            <li>Choose EU/UK printing for faster delivery and reduced customs</li>
+            <li>Include your name, book titles, contact email, and any special notes</li>
+            <li>You may also send books via friends, family, or events in Ireland</li>
+          </ul>
+
+          <h3 className="text-lg text-white mt-6">🖨 Printing Short Runs in Ireland - With Print Bureau</h3>
+          <p className="text-gray-300 mt-2">
+            The Print Bureau do not print ‘on-demand’ one-off books. However, they do offer short runs.
+          </p>
+          <ul className="list-disc list-inside text-gray-300 ml-4 space-y-1">
+            <li>Minimum 25 for softback, 50 for hardback</li>
+            <li>Softbacks ready in ~5 days, hardbacks in ~10 (with print-ready files)</li>
+            <li>Delivery available nationwide</li>
+            <li>Competitive pricing — request a quote</li>
+           
+          </ul>
+          <p className="text-gray-300 mt-2">Contact:  Print Bureau — Tel 01-4733567 / <a className="underline text-amber-400" href="https://www.printbureau.ie" target="_blank">www.printbureau.ie</a></p>
         </section>
 
         <section id="fineprint">

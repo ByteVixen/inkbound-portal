@@ -1,9 +1,8 @@
-// src/main.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom'; // 🛡️ Bring BrowserRouter here
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import './index.css'; // (your Tailwind and other styles)
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

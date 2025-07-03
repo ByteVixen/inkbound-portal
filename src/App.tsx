@@ -1,70 +1,60 @@
-// src/App.tsx
+import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Analytics } from "@vercel/analytics/react";
 
-import LandingPage from "./pages/LandingPage";
+import Navbar from "./components/Nav";
+import Footer from "./components/Footer";
+
+// Pages
+import HomePage from "./pages/LandingPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
+import FeaturedBooksPage from "./pages/FeaturedBooksPage";
 import InfoPage from "./pages/InfoPage";
-import TermsOfServicePage from "./pages/TermsOfServicePage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
 
-import AuthorHubPage from "./pages/AuthorHubPage";
+// Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import VirtualShelfspacePage from "./pages/VirtualShelfspacePage";
-
-import FeaturedBooksPage from "./pages/FeaturedBooksPage";
+import ConsignmentShippingPage from "./pages/ConsignmentShippingPage";
 import VirtualShelfPage from "./pages/VirtualShelfPage";
-import AudiobookShelfPage from "./pages/AudiobookShelfPage";
-
+import AudiobooksPage from "./pages/AudiobookShelfPage";
 import NarratorShelfPage from "./pages/NarratorShelfPage";
 import NarratorHubPage from "./pages/NarratorHubPage";
 
-import Nav from "./components/Nav";
-import Footer from "./components/Footer";
-import VantaBackground from "./components/VantaBackground";
-import { FamiliarProvider } from "./components/FamiliarContext";
-import FamiliarSelector from "./components/FamiliarSelector";
-
-export default function App() {
+const App: React.FC = () => {
   return (
-    <FamiliarProvider>
-      <div className="relative bg-black/30 text-white font-marcellus min-h-screen overflow-hidden">
-        {/* Background and Nav */}
-        <VantaBackground />
-        <Nav />
+    <>
+      <Navbar />
+      <main className="min-h-screen pt-20">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/info" element={<InfoPage />} />
 
-        {/* Main Page Content */}
-        <div className="relative z-10 pt-20 backdrop-blur-md">
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/info" element={<InfoPage />} />
-            <Route path="/terms" element={<TermsOfServicePage />} />
-            <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          {/* Featured / Virtual / Audiobooks */}
+          <Route path="/featured-books" element={<FeaturedBooksPage />} />
+          <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
+          <Route path="/audiobooks" element={<AudiobooksPage />} />
 
-            {/* Shelves */}
-            <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
-            <Route path="/audiobooks" element={<AudiobookShelfPage />} />
-            <Route path="/featured-books" element={<FeaturedBooksPage />} />
+          {/* Author Hub */}
+          <Route path="/authors/consignment" element={<ConsignmentPage />} />
+          <Route path="/virtual-shelfspace" element={<VirtualShelfspacePage />} />
+          <Route path="/authors/ship-books" element={<ConsignmentShippingPage />} />
 
-            {/* Author Hub */}
-            <Route path="/authors" element={<AuthorHubPage />} />
-            <Route path="/authors/consignment" element={<ConsignmentPage />} />
-            <Route path="/virtual-shelfspace" element={<VirtualShelfspacePage />} />
+          {/* Narrators */}
+          <Route path="/narrator-shelf" element={<NarratorShelfPage />} />
+          <Route path="/narrator-hub" element={<NarratorHubPage />} />
 
-            {/* Narrator Hub */}
-            <Route path="/narrator-shelf" element={<NarratorShelfPage />} />
-            <Route path="/narrator-hub" element={<NarratorHubPage />} />
-          </Routes>
-        </div>
-
-        {/* Familiar & Footer */}
-        <FamiliarSelector />
-        <Footer />
-        <Analytics />
-      </div>
-    </FamiliarProvider>
+          {/* Legal */}
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+        </Routes>
+      </main>
+      <Footer />
+    </>
   );
-}
+};
+
+export default App;
