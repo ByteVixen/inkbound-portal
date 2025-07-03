@@ -1,6 +1,6 @@
 // src/pages/authors/ConsignmentPage.tsx
 
-import React from "react";
+
 
 const ConsignmentPage = () => {
   return (
