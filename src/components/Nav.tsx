@@ -53,14 +53,15 @@ const Navbar: React.FC = () => {
           <Link to="/about" className={isActive("/about") ? "text-amber-400" : "hover:text-amber-400"}>About</Link>
           <Link to="/featured-books" className={isActive("/featured-books") ? "text-amber-400" : "hover:text-amber-400"}>Stocked In-Store</Link>
 
-          <div className="relative group">
+          {/* Virtual Shelf Dropdown */}
+          <div className="relative">
             <button
               onClick={() => {
                 setVirtualOpen(!virtualOpen);
                 setAuthorOpen(false);
                 setNarratorOpen(false);
               }}
-              className="hover:text-amber-400 transition duration-300"
+              className="hover:text-amber-400"
             >
               Virtual Shelf ▾
             </button>
@@ -72,14 +73,15 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          <div className="relative group">
+          {/* Author Hub Dropdown */}
+          <div className="relative">
             <button
               onClick={() => {
                 setAuthorOpen(!authorOpen);
                 setVirtualOpen(false);
                 setNarratorOpen(false);
               }}
-              className="hover:text-amber-400 transition duration-300"
+              className="hover:text-amber-400"
             >
               Author Hub ▾
             </button>
@@ -92,14 +94,15 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          <div className="relative group">
+          {/* Narrator Dropdown */}
+          <div className="relative">
             <button
               onClick={() => {
                 setNarratorOpen(!narratorOpen);
                 setAuthorOpen(false);
                 setVirtualOpen(false);
               }}
-              className="hover:text-amber-400 transition duration-300"
+              className="hover:text-amber-400"
             >
               Narrators ▾
             </button>
@@ -111,12 +114,13 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
+          <Link to="/collaborate" className={isActive("/collaborate") ? "text-amber-400" : "hover:text-amber-400"}>Collaborate</Link>
           <Link to="/info" className={isActive("/info") ? "text-amber-400" : "hover:text-amber-400"}>Info</Link>
           <Link to="/contact" className={isActive("/contact") ? "text-amber-400" : "hover:text-amber-400"}>Contact</Link>
         </div>
       </div>
 
-      {/* Fullscreen Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {menuOpen && (
         <div className="fixed inset-0 bg-black/95 text-white z-50 flex flex-col items-center justify-center space-y-6 animate-fadeSlideDown">
           <Link to="/" className="text-xl hover:text-amber-400" onClick={closeMenu}>Home</Link>
@@ -148,6 +152,7 @@ const Navbar: React.FC = () => {
             </div>
           </details>
 
+          <Link to="/collaborate" className="text-xl hover:text-amber-400" onClick={closeMenu}>Collaborate</Link>
           <Link to="/info" className="text-xl hover:text-amber-400" onClick={closeMenu}>Info</Link>
           <Link to="/contact" className="text-xl hover:text-amber-400" onClick={closeMenu}>Contact</Link>
         </div>

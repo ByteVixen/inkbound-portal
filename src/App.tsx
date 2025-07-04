@@ -12,7 +12,7 @@ import FeaturedBooksPage from "./pages/FeaturedBooksPage";
 import InfoPage from "./pages/InfoPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
-
+import BusinessCollaborationsPage from "./pages/BusinessCollaborationsPage";
 // Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import VirtualShelfspacePage from "./pages/VirtualShelfspacePage";
@@ -32,7 +32,7 @@ const App: React.FC = () => {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/info" element={<InfoPage />} />
-
+          <Route path="/collaborate" element={<BusinessCollaborationsPage />} />
           {/* Featured / Virtual / Audiobooks */}
           <Route path="/featured-books" element={<FeaturedBooksPage />} />
           <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
