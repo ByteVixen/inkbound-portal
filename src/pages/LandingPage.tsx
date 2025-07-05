@@ -137,23 +137,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Newsletter Signup */}
-      <div className="relative z-10 bg-black/70 py-12 text-center border-t border-amber-700 px-4 animate-fade-in">
-        <p className="text-xl mb-4">📍 Inkbound Bookshop is opening soon in Gort!</p>
-        <p className="text-base text-gray-400 mb-8">
-          Join our community and be first to hear about shelves, events & quests.
-        </p>
-        <div className="w-full max-w-xl h-[220px] mx-auto rounded-lg overflow-hidden shadow-lg border border-amber-700">
-          <iframe
-            title="Zoho Signup Form"
-            src="https://zcv2-zcmp.maillist-manage.eu/ua/Optin?od=12ba7efe1fcd&zx=14ae65caa7&tD=1341293d90db9159&sD=1341293d90dc6447"
-            width="100%"
-            height="100%"
-            frameBorder="0"
-            style={{ border: "none", background: "transparent" }}
-          />
-        </div>
-      </div>
+  
     </div>
   );
 }

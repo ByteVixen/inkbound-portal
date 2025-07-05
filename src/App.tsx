@@ -9,7 +9,6 @@ import Navbar from "./components/Nav";
 import Footer from "./components/Footer";
 import WhisperForm from "./components/WhisperForm";
 
-
 // Pages
 import HomePage from "./pages/LandingPage";
 import AboutPage from "./pages/AboutPage";
@@ -72,6 +71,20 @@ const App: React.FC = () => {
           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
         </Routes>
       </main>
+
+      {/* Floating Join Button */}
+      <button
+        data-tally-open="nPNMrd"
+        data-tally-align-left="1"
+        data-tally-overlay="1"
+        data-tally-emoji-text="✨"
+        data-tally-emoji-animation="flash"
+        data-tally-auto-close="4000"
+        className="fixed bottom-6 right-6 z-50 bg-amber-600 hover:bg-amber-500 text-black font-semibold px-4 py-3 rounded-full shadow-lg transition-all"
+      >
+        ✨ Join the Society
+      </button>
+
       <Footer />
     </>
   );
