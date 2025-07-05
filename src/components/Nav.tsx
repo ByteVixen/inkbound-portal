@@ -4,9 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar: React.FC = () => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [virtualOpen, setVirtualOpen] = useState(false);
-  const [authorOpen, setAuthorOpen] = useState(false);
-  const [narratorOpen, setNarratorOpen] = useState(false);
+  const [dropdown, setDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -20,23 +18,22 @@ const Navbar: React.FC = () => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
 
+  const isActive = (path: string) => location.pathname === path;
+  const toggleDropdown = (name: string) => setDropdown(dropdown === name ? null : name);
   const closeMenu = () => {
     setMenuOpen(false);
-    setVirtualOpen(false);
-    setAuthorOpen(false);
-    setNarratorOpen(false);
+    setDropdown(null);
   };
-
-  const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav className="bg-black text-white px-6 py-4 shadow-md z-50 relative">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
+        {/* Logo */}
         <Link to="/" className="text-xl font-bold text-glow" onClick={closeMenu}>
           The Inkbound Bookshop
         </Link>
 
-        {/* Hamburger */}
+        {/* Hamburger Toggle */}
         <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden">
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen ? (
@@ -50,22 +47,15 @@ const Navbar: React.FC = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className={isActive("/") ? "text-amber-400" : "hover:text-amber-400"}>Home</Link>
-          <Link to="/about" className={isActive("/about") ? "text-amber-400" : "hover:text-amber-400"}>About</Link>
           <Link to="/featured-books" className={isActive("/featured-books") ? "text-amber-400" : "hover:text-amber-400"}>Stocked In-Store</Link>
+          <Link to="/readers" className={isActive("/readers") ? "text-amber-400" : "hover:text-amber-400"}>Readers</Link>
 
-          {/* Virtual Shelf Dropdown */}
+          {/* Virtual Shelf */}
           <div className="relative">
-            <button
-              onClick={() => {
-                setVirtualOpen(!virtualOpen);
-                setAuthorOpen(false);
-                setNarratorOpen(false);
-              }}
-              className="hover:text-amber-400"
-            >
+            <button onClick={() => toggleDropdown("virtual")} className="hover:text-amber-400">
               Virtual Shelf ▾
             </button>
-            {virtualOpen && (
+            {dropdown === "virtual" && (
               <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-48 z-50 animate-fadeIn">
                 <Link to="/virtual-shelf" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Books</Link>
                 <Link to="/audiobooks" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Audiobooks</Link>
@@ -73,20 +63,14 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* Author Hub Dropdown */}
+          {/* Author Hub */}
           <div className="relative">
-            <button
-              onClick={() => {
-                setAuthorOpen(!authorOpen);
-                setVirtualOpen(false);
-                setNarratorOpen(false);
-              }}
-              className="hover:text-amber-400"
-            >
+            <button onClick={() => toggleDropdown("authors")} className="hover:text-amber-400">
               Author Hub ▾
             </button>
-            {authorOpen && (
+            {dropdown === "authors" && (
               <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
+                <Link to="/authors" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Author Hub Overview</Link>
                 <Link to="/authors/consignment" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Become Stocked</Link>
                 <Link to="/authors/ship-books" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Shipping Info</Link>
                 <Link to="/virtual-shelfspace" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Virtual Shelfspace</Link>
@@ -94,38 +78,42 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* Narrator Dropdown */}
+          {/* Narrators */}
           <div className="relative">
-            <button
-              onClick={() => {
-                setNarratorOpen(!narratorOpen);
-                setAuthorOpen(false);
-                setVirtualOpen(false);
-              }}
-              className="hover:text-amber-400"
-            >
+            <button onClick={() => toggleDropdown("narrators")} className="hover:text-amber-400">
               Narrators ▾
             </button>
-            {narratorOpen && (
-              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-56 z-50 animate-fadeIn">
+            {dropdown === "narrators" && (
+              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
+                <Link to="/narrators" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Narrator Hub Overview</Link>
                 <Link to="/narrator-shelf" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Narrator Shelf</Link>
                 <Link to="/narrator-hub" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Narrator Hub</Link>
               </div>
             )}
           </div>
 
-          <Link to="/collaborate" className={isActive("/collaborate") ? "text-amber-400" : "hover:text-amber-400"}>Collaborate</Link>
-          <Link to="/info" className={isActive("/info") ? "text-amber-400" : "hover:text-amber-400"}>Info</Link>
-          <Link to="/contact" className={isActive("/contact") ? "text-amber-400" : "hover:text-amber-400"}>Contact</Link>
+          {/* Info & Contact */}
+          <div className="relative">
+            <button onClick={() => toggleDropdown("info")} className="hover:text-amber-400">
+              Info & Contact ▾
+            </button>
+            {dropdown === "info" && (
+              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-48 z-50 animate-fadeIn">
+                <Link to="/about" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>About</Link>
+                <Link to="/info" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Info</Link>
+                <Link to="/contact" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Contact</Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Fullscreen Overlay */}
       {menuOpen && (
         <div className="fixed inset-0 bg-black/95 text-white z-50 flex flex-col items-center justify-center space-y-6 animate-fadeSlideDown">
           <Link to="/" className="text-xl hover:text-amber-400" onClick={closeMenu}>Home</Link>
-          <Link to="/about" className="text-xl hover:text-amber-400" onClick={closeMenu}>About</Link>
           <Link to="/featured-books" className="text-xl hover:text-amber-400" onClick={closeMenu}>Stocked In-Store</Link>
+          <Link to="/readers" className="text-xl hover:text-amber-400" onClick={closeMenu}>Readers</Link>
 
           <details className="text-xl">
             <summary className="cursor-pointer hover:text-amber-400">Virtual Shelf</summary>
@@ -138,6 +126,7 @@ const Navbar: React.FC = () => {
           <details className="text-xl">
             <summary className="cursor-pointer hover:text-amber-400">Author Hub</summary>
             <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/authors" onClick={closeMenu}>Author Hub Overview</Link>
               <Link to="/authors/consignment" onClick={closeMenu}>Become Stocked</Link>
               <Link to="/authors/ship-books" onClick={closeMenu}>Shipping Info</Link>
               <Link to="/virtual-shelfspace" onClick={closeMenu}>Virtual Shelfspace</Link>
@@ -147,14 +136,20 @@ const Navbar: React.FC = () => {
           <details className="text-xl">
             <summary className="cursor-pointer hover:text-amber-400">Narrators</summary>
             <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/narrators" onClick={closeMenu}>Narrator Hub Overview</Link>
               <Link to="/narrator-shelf" onClick={closeMenu}>Narrator Shelf</Link>
               <Link to="/narrator-hub" onClick={closeMenu}>Narrator Hub</Link>
             </div>
           </details>
 
-          <Link to="/collaborate" className="text-xl hover:text-amber-400" onClick={closeMenu}>Collaborate</Link>
-          <Link to="/info" className="text-xl hover:text-amber-400" onClick={closeMenu}>Info</Link>
-          <Link to="/contact" className="text-xl hover:text-amber-400" onClick={closeMenu}>Contact</Link>
+          <details className="text-xl">
+            <summary className="cursor-pointer hover:text-amber-400">Info & Contact</summary>
+            <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/about" onClick={closeMenu}>About</Link>
+              <Link to="/info" onClick={closeMenu}>Info</Link>
+              <Link to="/contact" onClick={closeMenu}>Contact</Link>
+            </div>
+          </details>
         </div>
       )}
     </nav>

@@ -1,6 +1,12 @@
+// src/App.tsx
+import './index.css';
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-
+import WhisperForm from "./components/WhisperForm";
+import WhisperFeed from "./components/WhisperFeed";
+import WhispersPage from "./pages/WhispersPage"; 
+import ReadersPage from "./pages/ReadersPage";
+import ReaderQuests from "./pages/ReaderQuests";
 import Navbar from "./components/Nav";
 import Footer from "./components/Footer";
 
@@ -21,6 +27,8 @@ import VirtualShelfPage from "./pages/VirtualShelfPage";
 import AudiobooksPage from "./pages/AudiobookShelfPage";
 import NarratorShelfPage from "./pages/NarratorShelfPage";
 import NarratorHubPage from "./pages/NarratorHubPage";
+import AuthorLanding from "./pages/AuthorLanding";
+import NarratorLanding from "./pages/NarratorLanding";
 
 const App: React.FC = () => {
   return (
@@ -29,6 +37,11 @@ const App: React.FC = () => {
       <main className="min-h-screen pt-20">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/whisper" element={<WhisperForm />} />
+          <Route path="/whispers" element={<WhisperFeed />} />
+          <Route path="/whispers" element={<WhispersPage />} />
+          <Route path="/readers" element={<ReadersPage />} />
+          <Route path="/quests" element={<ReaderQuests />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/info" element={<InfoPage />} />
@@ -39,11 +52,13 @@ const App: React.FC = () => {
           <Route path="/audiobooks" element={<AudiobooksPage />} />
 
           {/* Author Hub */}
+          <Route path="/authors" element={<AuthorLanding />} />
           <Route path="/authors/consignment" element={<ConsignmentPage />} />
           <Route path="/virtual-shelfspace" element={<VirtualShelfspacePage />} />
           <Route path="/authors/ship-books" element={<ConsignmentShippingPage />} />
 
           {/* Narrators */}
+          <Route path="/narrators" element={<NarratorLanding />} />
           <Route path="/narrator-shelf" element={<NarratorShelfPage />} />
           <Route path="/narrator-hub" element={<NarratorHubPage />} />
 
