@@ -1,5 +1,5 @@
 // src/pages/InkboundTBR.tsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import VantaBackground from "../components/VantaBackground";
 import { FaHeart, FaSort } from "react-icons/fa";
 
