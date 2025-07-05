@@ -1,14 +1,14 @@
 // src/App.tsx
-import './index.css';
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import WhisperForm from "./components/WhisperForm";
-import WhisperFeed from "./components/WhisperFeed";
-import WhispersPage from "./pages/WhispersPage"; 
-import ReadersPage from "./pages/ReadersPage";
-import ReaderQuests from "./pages/ReaderQuests";
+import ScrollToTop from "./ScrollToTop";
+import './index.css';
+
+// Components
 import Navbar from "./components/Nav";
 import Footer from "./components/Footer";
+import WhisperForm from "./components/WhisperForm";
+import WhisperFeed from "./components/WhisperFeed";
 
 // Pages
 import HomePage from "./pages/LandingPage";
@@ -19,6 +19,10 @@ import InfoPage from "./pages/InfoPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import BusinessCollaborationsPage from "./pages/BusinessCollaborationsPage";
+import ReadersPage from "./pages/ReadersPage";
+import ReaderQuests from "./pages/ReaderQuests";
+import WhispersPage from "./pages/WhispersPage";
+
 // Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import VirtualShelfspacePage from "./pages/VirtualShelfspacePage";
@@ -34,11 +38,11 @@ const App: React.FC = () => {
   return (
     <>
       <Navbar />
+      <ScrollToTop />
       <main className="min-h-screen pt-20">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/whisper" element={<WhisperForm />} />
-          <Route path="/whispers" element={<WhisperFeed />} />
           <Route path="/whispers" element={<WhispersPage />} />
           <Route path="/readers" element={<ReadersPage />} />
           <Route path="/quests" element={<ReaderQuests />} />
@@ -46,6 +50,7 @@ const App: React.FC = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/info" element={<InfoPage />} />
           <Route path="/collaborate" element={<BusinessCollaborationsPage />} />
+          
           {/* Featured / Virtual / Audiobooks */}
           <Route path="/featured-books" element={<FeaturedBooksPage />} />
           <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
