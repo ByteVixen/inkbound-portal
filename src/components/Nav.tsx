@@ -28,12 +28,10 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-black text-white px-6 py-4 shadow-md z-50 relative">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
         <Link to="/" className="text-xl font-bold text-glow" onClick={closeMenu}>
           The Inkbound Bookshop
         </Link>
 
-        {/* Hamburger Toggle */}
         <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden">
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen ? (
@@ -44,13 +42,22 @@ const Navbar: React.FC = () => {
           </svg>
         </button>
 
-        {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className={isActive("/") ? "text-amber-400" : "hover:text-amber-400"}>Home</Link>
           <Link to="/featured-books" className={isActive("/featured-books") ? "text-amber-400" : "hover:text-amber-400"}>Stocked In-Store</Link>
-          <Link to="/readers" className={isActive("/readers") ? "text-amber-400" : "hover:text-amber-400"}>Readers</Link>
 
-          {/* Virtual Shelf */}
+          <div className="relative">
+            <button onClick={() => toggleDropdown("readers")} className="hover:text-amber-400">
+              Readers ▾
+            </button>
+            {dropdown === "readers" && (
+              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
+                <Link to="/readers" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Reader Hub Overview</Link>
+                <Link to="/inkbound-tbr" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>The Inkbound TBR</Link>
+              </div>
+            )}
+          </div>
+
           <div className="relative">
             <button onClick={() => toggleDropdown("virtual")} className="hover:text-amber-400">
               Virtual Shelf ▾
@@ -63,7 +70,6 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* Author Hub */}
           <div className="relative">
             <button onClick={() => toggleDropdown("authors")} className="hover:text-amber-400">
               Author Hub ▾
@@ -78,7 +84,6 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* Narrators */}
           <div className="relative">
             <button onClick={() => toggleDropdown("narrators")} className="hover:text-amber-400">
               Narrators ▾
@@ -92,7 +97,6 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* Info & Contact */}
           <div className="relative">
             <button onClick={() => toggleDropdown("info")} className="hover:text-amber-400">
               Info & Contact ▾
@@ -108,55 +112,58 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Fullscreen Overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 bg-black/95 text-white z-50 flex flex-col items-center justify-start space-y-6 px-4 animate-fadeSlideDown overflow-y-auto py-10 relative">
-          {/* Close button */}
-          <button
-            className="absolute top-6 right-6 text-white text-3xl hover:text-amber-400"
-            onClick={closeMenu}
-            aria-label="Close menu"
-          >
-            &times;
+        <div className="fixed inset-0 bg-black/95 text-white z-50 flex flex-col items-center justify-start pt-10 space-y-6 overflow-y-auto px-6">
+          <button onClick={closeMenu} className="absolute top-6 right-6 text-white hover:text-amber-400">
+            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
 
           <Link to="/" className="text-xl hover:text-amber-400" onClick={closeMenu}>Home</Link>
           <Link to="/featured-books" className="text-xl hover:text-amber-400" onClick={closeMenu}>Stocked In-Store</Link>
-          <Link to="/readers" className="text-xl hover:text-amber-400" onClick={closeMenu}>Readers</Link>
 
-          <details className="text-xl">
-            <summary className="cursor-pointer hover:text-amber-400">Virtual Shelf</summary>
-            <div className="mt-2 pl-4 text-base space-y-2">
-              <Link to="/virtual-shelf" onClick={closeMenu}>Books</Link>
-              <Link to="/audiobooks" onClick={closeMenu}>Audiobooks</Link>
+          <details className="w-full text-xl">
+            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Readers</summary>
+            <div className="w-full space-y-2 pl-4 text-base">
+              <Link to="/readers" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Reader Hub Overview</Link>
+              <Link to="/inkbound-tbr" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>The Inkbound TBR</Link>
             </div>
           </details>
 
-          <details className="text-xl">
-            <summary className="cursor-pointer hover:text-amber-400">Author Hub</summary>
-            <div className="mt-2 pl-4 text-base space-y-2">
-              <Link to="/authors" onClick={closeMenu}>Author Hub Overview</Link>
-              <Link to="/authors/consignment" onClick={closeMenu}>Become Stocked</Link>
-              <Link to="/authors/ship-books" onClick={closeMenu}>Shipping Info</Link>
-              <Link to="/virtual-shelfspace" onClick={closeMenu}>Virtual Shelfspace</Link>
+          <details className="w-full text-xl">
+            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Virtual Shelf</summary>
+            <div className="w-full space-y-2 pl-4 text-base">
+              <Link to="/virtual-shelf" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Books</Link>
+              <Link to="/audiobooks" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Audiobooks</Link>
             </div>
           </details>
 
-          <details className="text-xl">
-            <summary className="cursor-pointer hover:text-amber-400">Narrators</summary>
-            <div className="mt-2 pl-4 text-base space-y-2">
-              <Link to="/narrators" onClick={closeMenu}>Narrator Hub Overview</Link>
-              <Link to="/narrator-shelf" onClick={closeMenu}>Narrator Shelf</Link>
-              <Link to="/narrator-hub" onClick={closeMenu}>Narrator Hub</Link>
+          <details className="w-full text-xl">
+            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Author Hub</summary>
+            <div className="w-full space-y-2 pl-4 text-base">
+              <Link to="/authors" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Overview</Link>
+              <Link to="/authors/consignment" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Become Stocked</Link>
+              <Link to="/authors/ship-books" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Shipping Info</Link>
+              <Link to="/virtual-shelfspace" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Virtual Shelfspace</Link>
             </div>
           </details>
 
-          <details className="text-xl">
-            <summary className="cursor-pointer hover:text-amber-400">Info & Contact</summary>
-            <div className="mt-2 pl-4 text-base space-y-2">
-              <Link to="/about" onClick={closeMenu}>About</Link>
-              <Link to="/info" onClick={closeMenu}>Info</Link>
-              <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          <details className="w-full text-xl">
+            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Narrators</summary>
+            <div className="w-full space-y-2 pl-4 text-base">
+              <Link to="/narrators" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Overview</Link>
+              <Link to="/narrator-shelf" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Narrator Shelf</Link>
+              <Link to="/narrator-hub" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Narrator Hub</Link>
+            </div>
+          </details>
+
+          <details className="w-full text-xl">
+            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Info & Contact</summary>
+            <div className="w-full space-y-2 pl-4 text-base">
+              <Link to="/about" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>About</Link>
+              <Link to="/info" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Info</Link>
+              <Link to="/contact" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Contact</Link>
             </div>
           </details>
         </div>

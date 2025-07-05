@@ -21,7 +21,7 @@ import BusinessCollaborationsPage from "./pages/BusinessCollaborationsPage";
 import ReadersPage from "./pages/ReadersPage";
 import ReaderQuests from "./pages/ReaderQuests";
 import WhispersPage from "./pages/WhispersPage";
-
+import InkboundTBR from "./pages/InkboundTBR";
 // Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import VirtualShelfspacePage from "./pages/VirtualShelfspacePage";
@@ -49,7 +49,7 @@ const App: React.FC = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/info" element={<InfoPage />} />
           <Route path="/collaborate" element={<BusinessCollaborationsPage />} />
-          
+          <Route path="/Inkbound-tbr" element={<InkboundTBR />} />
           {/* Featured / Virtual / Audiobooks */}
           <Route path="/featured-books" element={<FeaturedBooksPage />} />
           <Route path="/virtual-shelf" element={<VirtualShelfPage />} />

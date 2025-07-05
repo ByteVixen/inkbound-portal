@@ -1,9 +1,11 @@
 // src/pages/LandingPage.tsx
 import { Link } from "react-router-dom";
 import VantaBackground from "../components/VantaBackground";
-import WhisperFeed from "../components/WhisperFeed";
+import TikTokFeedSection from "../components/TikTokFeedSection";
 
 export default function LandingPage() {
+  const fakeUserCount = Math.floor(Math.random() * 12) + 5; // fake live user count
+
   return (
     <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
       {/* Vanta Background */}
@@ -28,12 +30,12 @@ export default function LandingPage() {
         <p className="text-lg text-gray-300 mb-8 opacity-80">
           Whisper your name. Join the Society.
         </p>
-       
+        <div className="text-sm text-gray-400">{fakeUserCount} readers browsing right now...</div>
       </div>
 
       {/* Feature Blocks */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
-        {[
+        {[ 
           {
             to: "/featured-books",
             img: "stocked-on-our-bookshelf.png",
@@ -63,6 +65,12 @@ export default function LandingPage() {
             img: "readers-and-quests.png",
             title: "Readers & Quests",
             desc: "Join challenges, unlock badges, and explore the world of Inkbound",
+          },
+          {
+            to: "/inkbound-tbr",
+            img: "readers-and-quests.png",
+            title: "The Inkbound TBR",
+            desc: "Add your favorite books to our community TBR and discover more",
           },
           {
             to: "/about",
@@ -127,17 +135,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Whisper Feed */}
-      <div className="relative z-10 px-4 max-w-3xl mx-auto mb-20 animate-fade-in">
-        <div className="text-center text-amber-400 text-xl mb-2 animate-pulse">
-          ✨ {Math.floor(Math.random() * 30) + 3} readers whispering now...
-        </div>
-        <div className="glass-panel p-6 border border-amber-500 rounded-xl shadow-lg">
-          <WhisperFeed />
-        </div>
-      </div>
-
-  
+      {/* TikTok Feed Section */}
+      <TikTokFeedSection />
     </div>
   );
 }

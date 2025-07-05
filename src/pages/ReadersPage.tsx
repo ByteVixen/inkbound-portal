@@ -40,8 +40,9 @@ export default function ReadersPage() {
           “Whispers of the Hollow Moon await...”
         </p>
 
-        {/* Quest CTA */}
+        {/* Quest + TBR CTA */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Quest Card */}
           <Link
             to="/quests"
             className="glass-card p-6 rounded-xl border border-amber-700 hover:scale-105 transition"
@@ -53,6 +54,18 @@ export default function ReadersPage() {
             <p className="text-sm text-amber-400">
               {readerCount} reader{readerCount !== 1 && 's'} have completed the quest.
             </p>
+          </Link>
+
+          {/* TBR Card */}
+          <Link
+            to="/inkbound-tbr"
+            className="glass-card p-6 rounded-xl border border-amber-700 hover:scale-105 transition"
+          >
+            <h2 className="text-2xl text-amber-300 mb-2">📚 Inkbound TBR</h2>
+            <p className="text-gray-400 mb-2">
+              Add books to the community TBR, explore trending titles, and track what the Society is reading.
+            </p>
+            <p className="text-sm text-amber-400">Your next favorite read might be waiting...</p>
           </Link>
         </div>
 
