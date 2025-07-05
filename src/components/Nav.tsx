@@ -1,4 +1,3 @@
-// src/components/Nav.tsx
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -111,44 +110,53 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Fullscreen Overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 bg-black/95 text-white z-50 flex flex-col items-center justify-center space-y-6 px-4 animate-fadeSlideDown overflow-y-auto py-10">
+        <div className="fixed inset-0 bg-black/95 text-white z-50 flex flex-col items-center justify-start space-y-6 px-4 animate-fadeSlideDown overflow-y-auto py-10 relative">
+          {/* Close button */}
+          <button
+            className="absolute top-6 right-6 text-white text-3xl hover:text-amber-400"
+            onClick={closeMenu}
+            aria-label="Close menu"
+          >
+            &times;
+          </button>
+
           <Link to="/" className="text-xl hover:text-amber-400" onClick={closeMenu}>Home</Link>
           <Link to="/featured-books" className="text-xl hover:text-amber-400" onClick={closeMenu}>Stocked In-Store</Link>
           <Link to="/readers" className="text-xl hover:text-amber-400" onClick={closeMenu}>Readers</Link>
 
-          <details className="text-xl w-full transition-all duration-300 ease-in-out">
-            <summary className="cursor-pointer hover:text-amber-400 py-2 text-center">Virtual Shelf</summary>
-            <div className="flex flex-col gap-4 mt-2 px-6 text-base text-left w-full">
-              <Link to="/virtual-shelf" onClick={closeMenu} className="hover:text-amber-400">Books</Link>
-              <Link to="/audiobooks" onClick={closeMenu} className="hover:text-amber-400">Audiobooks</Link>
+          <details className="text-xl">
+            <summary className="cursor-pointer hover:text-amber-400">Virtual Shelf</summary>
+            <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/virtual-shelf" onClick={closeMenu}>Books</Link>
+              <Link to="/audiobooks" onClick={closeMenu}>Audiobooks</Link>
             </div>
           </details>
 
-          <details className="text-xl w-full transition-all duration-300 ease-in-out">
-            <summary className="cursor-pointer hover:text-amber-400 py-2 text-center">Author Hub</summary>
-            <div className="flex flex-col gap-4 mt-2 px-6 text-base text-left w-full">
-              <Link to="/authors" onClick={closeMenu} className="hover:text-amber-400">Author Hub Overview</Link>
-              <Link to="/authors/consignment" onClick={closeMenu} className="hover:text-amber-400">Become Stocked</Link>
-              <Link to="/authors/ship-books" onClick={closeMenu} className="hover:text-amber-400">Shipping Info</Link>
-              <Link to="/virtual-shelfspace" onClick={closeMenu} className="hover:text-amber-400">Virtual Shelfspace</Link>
+          <details className="text-xl">
+            <summary className="cursor-pointer hover:text-amber-400">Author Hub</summary>
+            <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/authors" onClick={closeMenu}>Author Hub Overview</Link>
+              <Link to="/authors/consignment" onClick={closeMenu}>Become Stocked</Link>
+              <Link to="/authors/ship-books" onClick={closeMenu}>Shipping Info</Link>
+              <Link to="/virtual-shelfspace" onClick={closeMenu}>Virtual Shelfspace</Link>
             </div>
           </details>
 
-          <details className="text-xl w-full transition-all duration-300 ease-in-out">
-            <summary className="cursor-pointer hover:text-amber-400 py-2 text-center">Narrators</summary>
-            <div className="flex flex-col gap-4 mt-2 px-6 text-base text-left w-full">
-              <Link to="/narrators" onClick={closeMenu} className="hover:text-amber-400">Narrator Hub Overview</Link>
-              <Link to="/narrator-shelf" onClick={closeMenu} className="hover:text-amber-400">Narrator Shelf</Link>
-              <Link to="/narrator-hub" onClick={closeMenu} className="hover:text-amber-400">Narrator Hub</Link>
+          <details className="text-xl">
+            <summary className="cursor-pointer hover:text-amber-400">Narrators</summary>
+            <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/narrators" onClick={closeMenu}>Narrator Hub Overview</Link>
+              <Link to="/narrator-shelf" onClick={closeMenu}>Narrator Shelf</Link>
+              <Link to="/narrator-hub" onClick={closeMenu}>Narrator Hub</Link>
             </div>
           </details>
 
-          <details className="text-xl w-full transition-all duration-300 ease-in-out">
-            <summary className="cursor-pointer hover:text-amber-400 py-2 text-center">Info & Contact</summary>
-            <div className="flex flex-col gap-4 mt-2 px-6 text-base text-left w-full">
-              <Link to="/about" onClick={closeMenu} className="hover:text-amber-400">About</Link>
-              <Link to="/info" onClick={closeMenu} className="hover:text-amber-400">Info</Link>
-              <Link to="/contact" onClick={closeMenu} className="hover:text-amber-400">Contact</Link>
+          <details className="text-xl">
+            <summary className="cursor-pointer hover:text-amber-400">Info & Contact</summary>
+            <div className="mt-2 pl-4 text-base space-y-2">
+              <Link to="/about" onClick={closeMenu}>About</Link>
+              <Link to="/info" onClick={closeMenu}>Info</Link>
+              <Link to="/contact" onClick={closeMenu}>Contact</Link>
             </div>
           </details>
         </div>
