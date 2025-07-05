@@ -8,7 +8,7 @@ import './index.css';
 import Navbar from "./components/Nav";
 import Footer from "./components/Footer";
 import WhisperForm from "./components/WhisperForm";
-import WhisperFeed from "./components/WhisperFeed";
+
 
 // Pages
 import HomePage from "./pages/LandingPage";
