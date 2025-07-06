@@ -77,7 +77,7 @@ export default function LandingPage() {
                 <p><strong>📚 Stock Your Book with Us:</strong> Apply to consign your book at the Inkbound Bookshop in Galway, Ireland. In-store display · Local promotion · Commission-based sales</p>
                 <Link to="/authors/consignment" className="text-amber-400 underline">Consignment Sign-Up →</Link>
                 <p><strong>🌐 Join the Virtual Shelf:</strong> Prefer to stay digital? Add your book to our Virtual Shelf with buy links.</p>
-                <Link to="/virtual-shelf/apply" className="text-amber-400 underline">Virtual Shelf Application →</Link>
+                <Link to="/virtual-shelfspace" className="text-amber-400 underline">Virtual Shelf Application →</Link>
                 <p><strong>✨ Monthly Book Quests (Coming Soon):</strong> Submit your book or series to be featured in our community quests. Collectibles, badges, shared experiences.</p>
               </div>
             </details>
@@ -86,7 +86,7 @@ export default function LandingPage() {
               <summary className="cursor-pointer text-lg text-amber-300">🎙️ For Narrators</summary>
               <div className="pl-4 mt-2 text-gray-300 space-y-2">
                 <p><strong>🎧 Claim a Virtual Shelfspace:</strong> Voice artists can showcase samples, genres, and links to hire or collaborate.</p>
-                <Link to="/narrators/apply" className="text-amber-400 underline">Narrator Application →</Link>
+                <Link to="/narrator-hub" className="text-amber-400 underline">Narrator Application →</Link>
               </div>
             </details>
 
