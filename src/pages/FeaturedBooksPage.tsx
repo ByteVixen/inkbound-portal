@@ -40,7 +40,7 @@ const books: Book[] = [
     author: "Graham Fontaine",
     genre: "Young Adult Fantasy",
     cover: "/books/fatebound.jpeg",
-    quote: "tbc.",
+    quote: "The woman’s smile was all teeth, her eyes far too pale. “Everything grows from something. Some things bloom better in the dark.”",
   },
 ];
 
