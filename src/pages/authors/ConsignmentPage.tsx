@@ -65,7 +65,6 @@ const ConsignmentPage = () => {
   </ul>
 </section>
 
-
         <section id="submit">
           <a
             href="https://tally.so/r/mRQA2K"

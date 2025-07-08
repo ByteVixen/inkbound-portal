@@ -47,7 +47,7 @@ const Navbar: React.FC = () => {
           <Link to="/featured-books" className={isActive("/featured-books") ? "text-amber-400" : "hover:text-amber-400"}>Stocked In-Store</Link>
 
           <div className="relative">
-            <button onClick={() => toggleDropdown("readers")} className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("readers") } className="hover:text-amber-400">
               Readers ▾
             </button>
             {dropdown === "readers" && (
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="relative">
-            <button onClick={() => toggleDropdown("virtual")} className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("virtual") } className="hover:text-amber-400">
               Virtual Shelf ▾
             </button>
             {dropdown === "virtual" && (
@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="relative">
-            <button onClick={() => toggleDropdown("authors")} className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("authors") } className="hover:text-amber-400">
               Author Hub ▾
             </button>
             {dropdown === "authors" && (
@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="relative">
-            <button onClick={() => toggleDropdown("narrators")} className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("narrators") } className="hover:text-amber-400">
               Narrators ▾
             </button>
             {dropdown === "narrators" && (
@@ -98,7 +98,18 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="relative">
-            <button onClick={() => toggleDropdown("info")} className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("collab") } className="hover:text-amber-400">
+              Collaborate ▾
+            </button>
+            {dropdown === "collab" && (
+              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
+                <Link to="/collaborate" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Business Collaborations</Link>
+              </div>
+            )}
+          </div>
+
+          <div className="relative">
+            <button onClick={() => toggleDropdown("info") } className="hover:text-amber-400">
               Info & Contact ▾
             </button>
             {dropdown === "info" && (
@@ -111,63 +122,6 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {menuOpen && (
-        <div className="fixed inset-0 bg-black/95 text-white z-50 flex flex-col items-center justify-start pt-10 space-y-6 overflow-y-auto px-6">
-          <button onClick={closeMenu} className="absolute top-6 right-6 text-white hover:text-amber-400">
-            <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-
-          <Link to="/" className="text-xl hover:text-amber-400" onClick={closeMenu}>Home</Link>
-          <Link to="/featured-books" className="text-xl hover:text-amber-400" onClick={closeMenu}>Stocked In-Store</Link>
-
-          <details className="w-full text-xl">
-            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Readers</summary>
-            <div className="w-full space-y-2 pl-4 text-base">
-              <Link to="/readers" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Reader Hub Overview</Link>
-              <Link to="/inkbound-tbr" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>The Inkbound TBR</Link>
-            </div>
-          </details>
-
-          <details className="w-full text-xl">
-            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Virtual Shelf</summary>
-            <div className="w-full space-y-2 pl-4 text-base">
-              <Link to="/virtual-shelf" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Books</Link>
-              <Link to="/audiobooks" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Audiobooks</Link>
-            </div>
-          </details>
-
-          <details className="w-full text-xl">
-            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Author Hub</summary>
-            <div className="w-full space-y-2 pl-4 text-base">
-              <Link to="/authors" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Overview</Link>
-              <Link to="/authors/consignment" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Become Stocked</Link>
-              <Link to="/authors/ship-books" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Shipping Info</Link>
-              <Link to="/virtual-shelfspace" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Virtual Shelfspace</Link>
-            </div>
-          </details>
-
-          <details className="w-full text-xl">
-            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Narrators</summary>
-            <div className="w-full space-y-2 pl-4 text-base">
-              <Link to="/narrators" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Overview</Link>
-              <Link to="/narrator-shelf" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Narrator Shelf</Link>
-              <Link to="/narrator-hub" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Narrator Hub</Link>
-            </div>
-          </details>
-
-          <details className="w-full text-xl">
-            <summary className="cursor-pointer hover:text-amber-400 w-full text-left py-2">Info & Contact</summary>
-            <div className="w-full space-y-2 pl-4 text-base">
-              <Link to="/about" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>About</Link>
-              <Link to="/info" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Info</Link>
-              <Link to="/contact" className="block px-4 py-2 hover:text-amber-400" onClick={closeMenu}>Contact</Link>
-            </div>
-          </details>
-        </div>
-      )}
     </nav>
   );
 };
