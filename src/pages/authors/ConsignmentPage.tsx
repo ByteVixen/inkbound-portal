@@ -42,30 +42,33 @@ const ConsignmentPage = () => {
           </ul>
         </section>
 
-        <section id="how">
-          <h2 className="text-2xl font-semibold text-amber-400 mb-3">How It Works</h2>
-          <ol className="list-decimal list-inside space-y-1 text-gray-300">
-            <li>Submit your book via our Google Form below</li>
-            <li>We review submissions weekly</li>
-            <li>If selected, we’ll request a limited number of physical copies</li>
-            <li>Your book is stocked on our physical shelf in Gort, Co. Galway</li>
-            <li>You receive a share of each sale (details below)</li>
-          </ol>
-        </section>
+ <section id="how">
+  <h2 className="text-2xl font-semibold text-amber-400 mb-3">Consignment Agreement: How It Works</h2>
+  <p className="text-gray-400 mb-2">By submitting your book, you agree to the terms of our consignment program as outlined below.</p>
+  <ol className="list-decimal list-inside space-y-1 text-gray-300">
+    <li>Complete the Consignment Form at the bottom of this page</li>
+    <li>We review submissions daily and email you once your agreement is logged</li>
+    <li>If your book is fiction, it will be stocked — no approval process required</li>
+    <li>We’ll request a limited number of physical copies for our shop</li>
+    <li>Your book will be stocked at the Inkbound Bookshop in Gort, Co. Galway</li>
+    <li>You receive a share of each sale (see details below)</li>
+  </ol>
+</section>
 
-        <section id="receive">
-          <h2 className="text-2xl font-semibold text-amber-400 mb-3">What You Receive</h2>
-          <ul className="list-disc list-inside space-y-1 text-gray-300">
-            <li>✔ Real-world exposure in a dedicated indie bookshop</li>
-            <li>✔ Promotion via our events, social media, and storefront displays</li>
-            <li>✔ Community support and future feature opportunities</li>
-            <li>✔ No upfront costs — just your story, ready to be read</li>
-          </ul>
-        </section>
+<section id="receive">
+  <h2 className="text-2xl font-semibold text-amber-400 mb-3">What You Receive</h2>
+  <ul className="list-disc list-inside space-y-1 text-gray-300">
+    <li>✔ Shelf space in a real indie bookshop — no fees, just your story</li>
+    <li>✔ Promotion through our events, social media, and curated displays</li>
+    <li>✔ Support from our reader community and future spotlight opportunities</li>
+    <li>✔ A chance to build visibility, locally and beyond</li>
+  </ul>
+</section>
+
 
         <section id="submit">
           <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSeIMXyYKL5uRvpVkY6rhtMR_KLgeOi36NjtRP0XUPzElDO0zg/viewform?usp=header"
+            href="https://tally.so/r/mRQA2K"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transition"
