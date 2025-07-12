@@ -1,4 +1,3 @@
-// src/App.tsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
@@ -22,6 +21,7 @@ import ReadersPage from "./pages/ReadersPage";
 import ReaderQuests from "./pages/ReaderQuests";
 import WhispersPage from "./pages/WhispersPage";
 import InkboundTBR from "./pages/InkboundTBR";
+import LibroPage from "./pages/LibroPage";
 // Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import VirtualShelfspacePage from "./pages/VirtualShelfspacePage";
@@ -35,10 +35,11 @@ import NarratorLanding from "./pages/NarratorLanding";
 
 const App: React.FC = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <ScrollToTop />
-      <main className="min-h-screen pt-20">
+
+      <main className="flex-grow pt-20">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/whisper" element={<WhisperForm />} />
@@ -54,7 +55,7 @@ const App: React.FC = () => {
           <Route path="/featured-books" element={<FeaturedBooksPage />} />
           <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
           <Route path="/audiobooks" element={<AudiobooksPage />} />
-
+          <Route path="/LibroPage" element={<LibroPage />} />
           {/* Author Hub */}
           <Route path="/authors" element={<AuthorLanding />} />
           <Route path="/authors/consignment" element={<ConsignmentPage />} />
@@ -72,6 +73,8 @@ const App: React.FC = () => {
         </Routes>
       </main>
 
+      <Footer />
+
       {/* Floating Join Button */}
       <button
         data-tally-open="nPNMrd"
@@ -84,9 +87,7 @@ const App: React.FC = () => {
       >
         ✨ Join the Society
       </button>
-
-      <Footer />
-    </>
+    </div>
   );
 };
 

@@ -3,11 +3,12 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import VantaBackground from "../components/VantaBackground";
 import TikTokFeedSection from "../components/TikTokFeedSection";
+import CountdownBanner from "../components/CountdownBanner";
 
 export default function LandingPage() {
   const [showGuidebook, setShowGuidebook] = useState(false);
   const guidebookRef = useRef<HTMLDivElement>(null);
-  const fakeUserCount = Math.floor(Math.random() * 12) + 5; // fake live user count
+  const fakeUserCount = Math.floor(Math.random() * 12) + 5;
 
   const handleGuidebookToggle = () => {
     setShowGuidebook(!showGuidebook);
@@ -23,6 +24,9 @@ export default function LandingPage() {
         <VantaBackground />
       </div>
 
+      {/* Countdown Banner */}
+      <CountdownBanner />
+
       {/* Logo */}
       <div className="relative z-10 text-center pt-10 animate-fade-in">
         <img
@@ -34,12 +38,8 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <div className="relative z-10 text-center px-6 pb-10 max-w-4xl mx-auto animate-fade-in">
-        <h1 className="text-5xl font-light mb-4 text-glow">
-          Some stories find you.
-        </h1>
-        <p className="text-lg text-gray-300 mb-8 opacity-80">
-          Whisper your name. Join the Society.
-        </p>
+        <h1 className="text-5xl font-light mb-4 text-glow">Some stories find you.</h1>
+        <p className="text-lg text-gray-300 mb-8 opacity-80">Whisper your name. Join the Society.</p>
         <div className="text-sm text-gray-400">{fakeUserCount} readers browsing right now...</div>
       </div>
 
@@ -100,14 +100,17 @@ export default function LandingPage() {
               </div>
             </details>
 
-            <p className="text-sm text-gray-400 mt-6">Questions or ideas? Reach out at <a href="mailto:summon@inkboundsociety.com" className="underline">summon@inkboundsociety.com</a></p>
+            <p className="text-sm text-gray-400 mt-6">
+              Questions or ideas? Reach out at{" "}
+              <a href="mailto:summon@inkboundsociety.com" className="underline">summon@inkboundsociety.com</a>
+            </p>
           </div>
         </section>
       )}
 
-      {/* Feature Blocks */}
+      {/* Feature Cards */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
-        {[ 
+        {[
           {
             to: "/featured-books",
             img: "stocked-on-our-bookshelf.png",
@@ -168,7 +171,7 @@ export default function LandingPage() {
         ))}
       </div>
 
-      {/* Magic Divider */}
+      {/* Divider */}
       <div className="relative z-10 flex justify-center my-10 animate-fade-in">
         <div className="w-2/3 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent blur-sm animate-pulse" />
       </div>
@@ -191,12 +194,8 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="text-center md:text-left">
-            <h2 className="text-2xl text-amber-400 mb-2 font-marcellus">
-              📜 July Quest: The Marked Ones
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Prove you are among the Marked. Share a quote from a book that changed your path—and earn your reward.
-            </p>
+            <h2 className="text-2xl text-amber-400 mb-2 font-marcellus">📜 July Quest: The Marked Ones</h2>
+            <p className="text-gray-300 mb-3">Prove you are among the Marked. Share a quote from a book that changed your path—and earn your reward.</p>
             <Link
               to="/quests"
               className="inline-block mt-2 px-4 py-2 rounded bg-amber-700 hover:bg-amber-600 text-white font-medium transition shadow-md"
@@ -207,8 +206,46 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* TikTok Feed Section */}
+      {/* TikTok Feed */}
       <TikTokFeedSection />
+
+      {/* Magical Glow Divider */}
+      <div className="relative z-20 flex justify-center mb-4 mt-24">
+        <div className="w-2/3 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent blur-sm animate-pulse" />
+      </div>
+
+      {/* Partnership Logos */}
+      <div className="relative z-20 flex flex-wrap justify-center items-center gap-12 my-12 px-6">
+        <a
+          href="https://libro.fm/inkboundsociety"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transform hover:scale-105 transition"
+        >
+          <img
+            src="/images/Librofm-Logo.png"
+            alt="Libro.fm logo"
+            className="w-40 md:w-56 opacity-90 hover:opacity-100 transition"
+          />
+        </a>
+        <img
+          src="/images/proudindie.png"
+          alt="Proudly Supporting Independent Authors"
+          className="w-40 md:w-56 opacity-90 hover:opacity-100 transition"
+        />
+        <a
+          href="https://discord.gg/gm2HDe9Z"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="transform hover:scale-105 transition"
+        >
+          <img
+            src="/images/InkboundDiscord.png"
+            alt="Join us on Discord"
+            className="w-40 md:w-56 opacity-90 hover:opacity-100 transition"
+          />
+        </a>
+      </div>
     </div>
   );
 }
