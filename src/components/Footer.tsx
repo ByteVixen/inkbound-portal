@@ -1,44 +1,8 @@
 import { Instagram, Facebook, Mail } from "lucide-react";
-import { useEffect, useState } from "react";
-
-const moonPhases: Record<string, string> = {
-  "New Moon": "🌑",
-  "Waxing Crescent": "🌒",
-  "First Quarter": "🌓",
-  "Waxing Gibbous": "🌔",
-  "Full Moon": "🌕",
-  "Waning Gibbous": "🌖",
-  "Last Quarter": "🌗",
-  "Waning Crescent": "🌘",
-};
 
 export default function Footer() {
-  const [phase, setPhase] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch(`https://api.farmsense.net/v1/moonphases/?d=${Date.now()}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const current = data?.[0]?.Phase || "Unknown";
-        setPhase(current);
-      })
-      .catch(() => setPhase(null));
-  }, []);
-
   return (
     <footer className="bg-black/80 border-t border-amber-700 text-center text-sm z-10 font-marcellus">
-      {/* 🌕 Moon Phase Bar */}
-      <div className="w-full text-xs text-amber-300 bg-black/90 py-2 border-b border-amber-800">
-        {phase ? (
-          <span>
-            {moonPhases[phase] || "🌘"} Current Moon Phase:{" "}
-            <span className="italic">{phase}</span>
-          </span>
-        ) : (
-          "🌙 Reading the stars..."
-        )}
-      </div>
-
       {/* 🔗 Social Icons */}
       <div className="flex justify-center space-x-6 my-4">
         <a
