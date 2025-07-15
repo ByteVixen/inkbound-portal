@@ -45,6 +45,19 @@ export default {
           '0%': { backgroundPosition: '200% 0' },
           '100%': { backgroundPosition: '-200% 0' },
         },
+        glow: {
+          '0%, 100%': { boxShadow: "0 0 10px rgba(239, 173, 0, 0.5)" },
+          '50%': { boxShadow: "0 0 20px rgba(239, 173, 0, 1)" },
+        },
+        flicker: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.6' },
+        },
+        magicpop: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '50%': { transform: 'scale(1.05)', opacity: '1' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
       },
       animation: {
         float: 'float 3s ease-in-out infinite',
@@ -52,6 +65,9 @@ export default {
         fadeIn: 'fadeIn 0.5s ease-out',
         flip: 'flip 0.6s ease-in-out forwards',
         shimmer: 'shimmer 3s linear infinite',
+        glow: 'glow 2s ease-in-out infinite',
+        flicker: 'flicker 1.5s infinite ease-in-out',
+        magicpop: 'magicpop 0.6s ease-out',
       },
     },
   },

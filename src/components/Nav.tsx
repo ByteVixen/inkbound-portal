@@ -46,33 +46,43 @@ const Navbar: React.FC = () => {
           <Link to="/" className={isActive("/") ? "text-amber-400" : "hover:text-amber-400"}>Home</Link>
           <Link to="/featured-books" className={isActive("/featured-books") ? "text-amber-400" : "hover:text-amber-400"}>Stocked In-Store</Link>
 
+          {/* Readers Dropdown */}
           <div className="relative">
-            <button onClick={() => toggleDropdown("readers") } className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("readers")} className="hover:text-amber-400">
               Readers ▾
             </button>
             {dropdown === "readers" && (
               <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
-                <Link to="/readers" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Reader Hub Overview</Link>
-                <Link to="/inkbound-tbr" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>The Inkbound TBR</Link>
+                <Link to="/readers" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>
+                  Reader Hub Overview
+                </Link>
+                <Link to="/inkbound-tbr" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>
+                  The Inkbound TBR
+                </Link>
+                <Link to="/readers/fortune" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>
+                  Bookish Fortune
+                </Link>
               </div>
             )}
           </div>
 
+          {/* Virtual Shelf Dropdown */}
           <div className="relative">
-            <button onClick={() => toggleDropdown("virtual") } className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("virtual")} className="hover:text-amber-400">
               Virtual Shelf ▾
             </button>
             {dropdown === "virtual" && (
               <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-48 z-50 animate-fadeIn">
                 <Link to="/virtual-shelf" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Books</Link>
                 <Link to="/audiobooks" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Audiobooks</Link>
-                <Link to="/libro" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Libro.fm</Link>
+                <Link to="/LibroPage" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Libro.fm</Link>
               </div>
             )}
           </div>
 
+          {/* Authors Dropdown */}
           <div className="relative">
-            <button onClick={() => toggleDropdown("authors") } className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("authors")} className="hover:text-amber-400">
               Author Hub ▾
             </button>
             {dropdown === "authors" && (
@@ -85,8 +95,9 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
+          {/* Narrators Dropdown */}
           <div className="relative">
-            <button onClick={() => toggleDropdown("narrators") } className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("narrators")} className="hover:text-amber-400">
               Narrators ▾
             </button>
             {dropdown === "narrators" && (
@@ -98,8 +109,9 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
+          {/* Collaborate Dropdown */}
           <div className="relative">
-            <button onClick={() => toggleDropdown("collab") } className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("collab")} className="hover:text-amber-400">
               Collaborate ▾
             </button>
             {dropdown === "collab" && (
@@ -109,8 +121,9 @@ const Navbar: React.FC = () => {
             )}
           </div>
 
+          {/* Info Dropdown */}
           <div className="relative">
-            <button onClick={() => toggleDropdown("info") } className="hover:text-amber-400">
+            <button onClick={() => toggleDropdown("info")} className="hover:text-amber-400">
               Info & Contact ▾
             </button>
             {dropdown === "info" && (

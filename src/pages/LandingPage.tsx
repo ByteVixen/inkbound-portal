@@ -2,8 +2,8 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import VantaBackground from "../components/VantaBackground";
-import TikTokFeedSection from "../components/TikTokFeedSection";
 import CountdownBanner from "../components/CountdownBanner";
+import GuestBook from "../components/GuestBook";
 
 export default function LandingPage() {
   const [showGuidebook, setShowGuidebook] = useState(false);
@@ -74,11 +74,11 @@ export default function LandingPage() {
             <details className="mb-4">
               <summary className="cursor-pointer text-lg text-amber-300">🖋️ For Authors</summary>
               <div className="pl-4 mt-2 text-gray-300 space-y-2">
-                <p><strong>📚 Stock Your Book with Us:</strong> Apply to consign your book at the Inkbound Bookshop in Galway, Ireland. In-store display · Local promotion · Commission-based sales</p>
+                <p><strong>📚 Stock Your Book with Us:</strong> Apply to consign your book at the Inkbound Bookshop in Galway, Ireland.</p>
                 <Link to="/authors/consignment" className="text-amber-400 underline">Consignment Sign-Up →</Link>
                 <p><strong>🌐 Join the Virtual Shelf:</strong> Prefer to stay digital? Add your book to our Virtual Shelf with buy links.</p>
                 <Link to="/virtual-shelfspace" className="text-amber-400 underline">Virtual Shelf Application →</Link>
-                <p><strong>✨ Monthly Book Quests (Coming Soon):</strong> Submit your book or series to be featured in our community quests. Collectibles, badges, shared experiences.</p>
+                <p><strong>✨ Monthly Book Quests (Coming Soon):</strong> Submit your book or series to be featured in our community quests.</p>
               </div>
             </details>
 
@@ -206,8 +206,36 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* TikTok Feed */}
-      <TikTokFeedSection />
+      {/* Guest Book */}
+      <GuestBook />
+{/* BookTok Unhinged Launch Notice */}
+<div className="relative z-10 flex justify-center mt-12 animate-fade-in px-4">
+  <div className="bg-black/30 backdrop-blur-md rounded-xl border border-purple-700 shadow-xl p-4 max-w-2xl w-full text-center hover:shadow-purple-600 transition">
+    <img
+      src="/images/booktok-unhinged.png"
+      alt="BookTok Unhinged"
+      className="w-64 mx-auto mb-4 drop-shadow-lg"
+    />
+    <p className="text-purple-400 font-semibold text-xl mb-1 tracking-wide">
+      BookTok Unhinged is Coming
+    </p>
+    <p className="text-sm text-purple-200 italic">
+      Where spice goes to die and tropes go to sin.
+    </p>
+    <p className="mt-2 text-xs text-amber-300 uppercase tracking-wider mb-4">
+      Launching Friday · July 18
+    </p>
+    <a
+      href="https://tally.so/r/n0qrYj"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block relative px-6 py-2 rounded-full font-semibold text-white bg-purple-700 hover:bg-purple-800 shadow-[0_0_20px_rgba(168,85,247,0.8)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(168,85,247,1)] group"
+    >
+      <span className="relative z-10">🔮 Summon Interest</span>
+      <span className="absolute inset-0 rounded-full animate-pulse-glow bg-purple-700 opacity-20 blur-sm group-hover:opacity-30" />
+    </a>
+  </div>
+</div>
 
       {/* Magical Glow Divider */}
       <div className="relative z-20 flex justify-center mb-4 mt-24">

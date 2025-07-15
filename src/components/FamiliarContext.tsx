@@ -7,7 +7,7 @@ import React, {
   ReactNode,
 } from "react";
 
-export type FamiliarKey = "raven" | "fox" | "cat" | "wolf" | "rabbit";
+export type FamiliarKey = "raven" | "fox" |"pip" |"cat" | "wolf" | "rabbit";
 
 export interface Familiar {
   name: string;
@@ -78,6 +78,22 @@ export const familiars: Record<FamiliarKey, Familiar> = {
       "Let instinct be your lantern.",
       "Some bonds can't be unbitten.",
       "You're not alone, even when you are.",
+    ],
+    },
+    pip: {
+    name: "Pip",
+    icon: "/familiars/pip.png",
+    whispers: [
+    "Roots remember what you forget.",
+    "Soft steps stir the loudest magic.",
+    "Not all shadows are cast by darkness.",
+    "Grow slow. Grow wild.",
+    "Decay makes room for bloom.",
+    "Whispers thrive where silence settles.",
+    "Even stillness has a heartbeat.",
+    "Fungus never begs—it becomes.",
+    "Follow the spores, not the road.",
+    "The forest keeps your secrets… for now.",
     ],
   },
   rabbit: {
