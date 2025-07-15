@@ -1,7 +1,20 @@
 import path from 'path';
 
-export default ({ env }) => {
-  const client = env('DATABASE_CLIENT', 'sqlite');
+
+type EnvIntType = (key: string, defaultValue?: number) => number;
+type EnvBoolType = (key: string, defaultValue?: boolean) => boolean;
+type EnvArrayType = (key: string) => string[];
+
+interface Env {
+  (key: string, defaultValue?: any): any;
+  int: EnvIntType;
+  bool: EnvBoolType;
+  array: EnvArrayType;
+}
+
+export default ({ env }: { env: Env }) => {
+  const client = env('DATABASE_CLIENT', 'sqlite') as 'mysql' | 'postgres' | 'sqlite';
+
 
   const connections = {
     mysql: {
@@ -12,11 +25,11 @@ export default ({ env }) => {
         user: env('DATABASE_USERNAME', 'strapi'),
         password: env('DATABASE_PASSWORD', 'strapi'),
         ssl: env.bool('DATABASE_SSL', false) && {
-          key: env('DATABASE_SSL_KEY', undefined),
-          cert: env('DATABASE_SSL_CERT', undefined),
-          ca: env('DATABASE_SSL_CA', undefined),
-          capath: env('DATABASE_SSL_CAPATH', undefined),
-          cipher: env('DATABASE_SSL_CIPHER', undefined),
+          key: env('DATABASE_SSL_KEY'),
+          cert: env('DATABASE_SSL_CERT'),
+          ca: env('DATABASE_SSL_CA'),
+          capath: env('DATABASE_SSL_CAPATH'),
+          cipher: env('DATABASE_SSL_CIPHER'),
           rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', true),
         },
       },
@@ -31,11 +44,11 @@ export default ({ env }) => {
         user: env('DATABASE_USERNAME', 'strapi'),
         password: env('DATABASE_PASSWORD', 'strapi'),
         ssl: env.bool('DATABASE_SSL', false) && {
-          key: env('DATABASE_SSL_KEY', undefined),
-          cert: env('DATABASE_SSL_CERT', undefined),
-          ca: env('DATABASE_SSL_CA', undefined),
-          capath: env('DATABASE_SSL_CAPATH', undefined),
-          cipher: env('DATABASE_SSL_CIPHER', undefined),
+          key: env('DATABASE_SSL_KEY'),
+          cert: env('DATABASE_SSL_CERT'),
+          ca: env('DATABASE_SSL_CA'),
+          capath: env('DATABASE_SSL_CAPATH'),
+          cipher: env('DATABASE_SSL_CIPHER'),
           rejectUnauthorized: env.bool('DATABASE_SSL_REJECT_UNAUTHORIZED', true),
         },
         schema: env('DATABASE_SCHEMA', 'public'),

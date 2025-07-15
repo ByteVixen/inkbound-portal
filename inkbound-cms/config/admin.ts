@@ -1,4 +1,8 @@
-export default ({ env }) => ({
+interface Env {
+  (key: string, defaultValue?: any): any;
+}
+
+export default ({ env }: { env: Env }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },
@@ -11,7 +15,7 @@ export default ({ env }) => ({
     },
   },
   flags: {
-    nps: env.bool('FLAG_NPS', true),
-    promoteEE: env.bool('FLAG_PROMOTE_EE', true),
+    nps: env('FLAG_NPS', true),
+    promoteEE: env('FLAG_PROMOTE_EE', true),
   },
 });
