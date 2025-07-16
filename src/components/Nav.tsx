@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 const Navbar: React.FC = () => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdown, setDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -19,11 +18,7 @@ const Navbar: React.FC = () => {
   }, [menuOpen]);
 
   const isActive = (path: string) => location.pathname === path;
-  const toggleDropdown = (name: string) => setDropdown(dropdown === name ? null : name);
-  const closeMenu = () => {
-    setMenuOpen(false);
-    setDropdown(null);
-  };
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <nav className="bg-black text-white px-6 py-4 shadow-md z-50 relative">
@@ -42,100 +37,154 @@ const Navbar: React.FC = () => {
           </svg>
         </button>
 
+        {/* Desktop Nav */}
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className={isActive("/") ? "text-amber-400" : "hover:text-amber-400"}>Home</Link>
           <Link to="/featured-books" className={isActive("/featured-books") ? "text-amber-400" : "hover:text-amber-400"}>Stocked In-Store</Link>
 
-          {/* Readers Dropdown */}
-          <div className="relative">
-            <button onClick={() => toggleDropdown("readers")} className="hover:text-amber-400">
-              Readers ▾
-            </button>
-            {dropdown === "readers" && (
-              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
-                <Link to="/readers" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>
-                  Reader Hub Overview
-                </Link>
-                <Link to="/inkbound-tbr" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>
-                  The Inkbound TBR
-                </Link>
-                <Link to="/readers/fortune" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>
-                  Bookish Fortune
-                </Link>
+          {/* Desktop Dropdowns (Hover-based) */}
+          {[
+            {
+              label: "Readers",
+              items: [
+                { path: "/readers", label: "Reader Hub Overview" },
+                { path: "/inkbound-tbr", label: "The Inkbound TBR" },
+                { path: "/readers/fortune", label: "Bookish Fortune" },
+              ],
+            },
+            {
+              label: "Virtual Shelf",
+              items: [
+                { path: "/virtual-shelf", label: "Books" },
+                { path: "/audiobooks", label: "Audiobooks" },
+                { path: "/LibroPage", label: "Libro.fm" },
+              ],
+            },
+            {
+              label: "Author Hub",
+              items: [
+                { path: "/authors", label: "Author Hub Overview" },
+                { path: "/authors/consignment", label: "Become Stocked" },
+                { path: "/authors/ship-books", label: "Shipping Info" },
+                { path: "/virtual-shelfspace", label: "Virtual Shelfspace" },
+              ],
+            },
+            {
+              label: "Narrators",
+              items: [
+                { path: "/narrators", label: "Narrator Hub Overview" },
+                { path: "/narrator-shelf", label: "Narrator Shelf" },
+                { path: "/narrator-hub", label: "Narrator Hub" },
+              ],
+            },
+            {
+              label: "Collaborate",
+              items: [
+                { path: "/collaborate", label: "Business Collaborations" },
+              ],
+            },
+            {
+              label: "Info & Contact",
+              items: [
+                { path: "/about", label: "About" },
+                { path: "/info", label: "Info" },
+                { path: "/contact", label: "Contact" },
+              ],
+            },
+          ].map((section) => (
+            <div key={section.label} className="relative group">
+              <button className="hover:text-amber-400">{section.label} ▾</button>
+              <div className="absolute hidden group-hover:block bg-black border border-white mt-2 rounded shadow-lg z-50">
+                {section.items.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className="block px-4 py-2 hover:bg-white hover:text-black"
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
-            )}
-          </div>
-
-          {/* Virtual Shelf Dropdown */}
-          <div className="relative">
-            <button onClick={() => toggleDropdown("virtual")} className="hover:text-amber-400">
-              Virtual Shelf ▾
-            </button>
-            {dropdown === "virtual" && (
-              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-48 z-50 animate-fadeIn">
-                <Link to="/virtual-shelf" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Books</Link>
-                <Link to="/audiobooks" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Audiobooks</Link>
-                <Link to="/LibroPage" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Libro.fm</Link>
-              </div>
-            )}
-          </div>
-
-          {/* Authors Dropdown */}
-          <div className="relative">
-            <button onClick={() => toggleDropdown("authors")} className="hover:text-amber-400">
-              Author Hub ▾
-            </button>
-            {dropdown === "authors" && (
-              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
-                <Link to="/authors" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Author Hub Overview</Link>
-                <Link to="/authors/consignment" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Become Stocked</Link>
-                <Link to="/authors/ship-books" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Shipping Info</Link>
-                <Link to="/virtual-shelfspace" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Virtual Shelfspace</Link>
-              </div>
-            )}
-          </div>
-
-          {/* Narrators Dropdown */}
-          <div className="relative">
-            <button onClick={() => toggleDropdown("narrators")} className="hover:text-amber-400">
-              Narrators ▾
-            </button>
-            {dropdown === "narrators" && (
-              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
-                <Link to="/narrators" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Narrator Hub Overview</Link>
-                <Link to="/narrator-shelf" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Narrator Shelf</Link>
-                <Link to="/narrator-hub" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Narrator Hub</Link>
-              </div>
-            )}
-          </div>
-
-          {/* Collaborate Dropdown */}
-          <div className="relative">
-            <button onClick={() => toggleDropdown("collab")} className="hover:text-amber-400">
-              Collaborate ▾
-            </button>
-            {dropdown === "collab" && (
-              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-64 z-50 animate-fadeIn">
-                <Link to="/collaborate" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Business Collaborations</Link>
-              </div>
-            )}
-          </div>
-
-          {/* Info Dropdown */}
-          <div className="relative">
-            <button onClick={() => toggleDropdown("info")} className="hover:text-amber-400">
-              Info & Contact ▾
-            </button>
-            {dropdown === "info" && (
-              <div className="absolute bg-black border border-white mt-2 rounded shadow-lg w-48 z-50 animate-fadeIn">
-                <Link to="/about" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>About</Link>
-                <Link to="/info" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Info</Link>
-                <Link to="/contact" className="block px-4 py-2 hover:bg-white hover:text-black" onClick={closeMenu}>Contact</Link>
-              </div>
-            )}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden mt-4 space-y-4">
+          <Link to="/" onClick={closeMenu} className="block text-lg hover:text-amber-400">Home</Link>
+          <Link to="/featured-books" onClick={closeMenu} className="block text-lg hover:text-amber-400">Stocked In-Store</Link>
+
+          {/* Mobile Dropdowns using <details> */}
+          {[
+            {
+              label: "Readers",
+              items: [
+                { path: "/readers", label: "Reader Hub Overview" },
+                { path: "/inkbound-tbr", label: "The Inkbound TBR" },
+                { path: "/readers/fortune", label: "Bookish Fortune" },
+              ],
+            },
+            {
+              label: "Virtual Shelf",
+              items: [
+                { path: "/virtual-shelf", label: "Books" },
+                { path: "/audiobooks", label: "Audiobooks" },
+                { path: "/LibroPage", label: "Libro.fm" },
+              ],
+            },
+            {
+              label: "Author Hub",
+              items: [
+                { path: "/authors", label: "Author Hub Overview" },
+                { path: "/authors/consignment", label: "Become Stocked" },
+                { path: "/authors/ship-books", label: "Shipping Info" },
+                { path: "/virtual-shelfspace", label: "Virtual Shelfspace" },
+              ],
+            },
+            {
+              label: "Narrators",
+              items: [
+                { path: "/narrators", label: "Narrator Hub Overview" },
+                { path: "/narrator-shelf", label: "Narrator Shelf" },
+                { path: "/narrator-hub", label: "Narrator Hub" },
+              ],
+            },
+            {
+              label: "Collaborate",
+              items: [
+                { path: "/collaborate", label: "Business Collaborations" },
+              ],
+            },
+            {
+              label: "Info & Contact",
+              items: [
+                { path: "/about", label: "About" },
+                { path: "/info", label: "Info" },
+                { path: "/contact", label: "Contact" },
+              ],
+            },
+          ].map((section) => (
+            <details key={section.label} className="text-lg">
+              <summary className="cursor-pointer hover:text-amber-400">{section.label}</summary>
+              <div className="ml-4 space-y-2 mt-1">
+                {section.items.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className="block hover:text-amber-400"
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </details>
+          ))}
+        </div>
+      )}
     </nav>
   );
 };
