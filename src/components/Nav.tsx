@@ -20,6 +20,54 @@ const Navbar: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
   const closeMenu = () => setMenuOpen(false);
 
+  const navSections = [
+    {
+      label: "Readers",
+      items: [
+        { path: "/readers", label: "Reader Hub Overview" },
+        { path: "/inkbound-tbr", label: "The Inkbound TBR" },
+        { path: "/readers/fortune", label: "Bookish Fortune" },
+      ],
+    },
+    {
+      label: "Virtual Shelf",
+      items: [
+        { path: "/virtual-shelf", label: "Books" },
+        { path: "/audiobooks", label: "Audiobooks" },
+        { path: "/LibroPage", label: "Libro.fm" },
+      ],
+    },
+    {
+      label: "Author Hub",
+      items: [
+        { path: "/authors", label: "Author Hub Overview" },
+        { path: "/authors/consignment", label: "Become Stocked" },
+        { path: "/authors/ship-books", label: "Shipping Info" },
+        { path: "/virtual-shelfspace", label: "Virtual Shelfspace" },
+      ],
+    },
+    {
+      label: "Narrators",
+      items: [
+        { path: "/narrators", label: "Narrator Hub Overview" },
+        { path: "/narrator-shelf", label: "Narrator Shelf" },
+        { path: "/narrator-hub", label: "Narrator Hub" },
+      ],
+    },
+    {
+      label: "Collaborate",
+      items: [{ path: "/collaborate", label: "Business Collaborations" }],
+    },
+    {
+      label: "Info & Contact",
+      items: [
+        { path: "/about", label: "About" },
+        { path: "/info", label: "Info" },
+        { path: "/contact", label: "Contact" },
+      ],
+    },
+  ];
+
   return (
     <nav className="bg-black text-white px-6 py-4 shadow-md z-50 relative">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -27,6 +75,7 @@ const Navbar: React.FC = () => {
           The Inkbound Bookshop
         </Link>
 
+        {/* Hamburger */}
         <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden">
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {menuOpen ? (
@@ -42,59 +91,10 @@ const Navbar: React.FC = () => {
           <Link to="/" className={isActive("/") ? "text-amber-400" : "hover:text-amber-400"}>Home</Link>
           <Link to="/featured-books" className={isActive("/featured-books") ? "text-amber-400" : "hover:text-amber-400"}>Stocked In-Store</Link>
 
-          {/* Desktop Dropdowns (Hover-based) */}
-          {[
-            {
-              label: "Readers",
-              items: [
-                { path: "/readers", label: "Reader Hub Overview" },
-                { path: "/inkbound-tbr", label: "The Inkbound TBR" },
-                { path: "/readers/fortune", label: "Bookish Fortune" },
-              ],
-            },
-            {
-              label: "Virtual Shelf",
-              items: [
-                { path: "/virtual-shelf", label: "Books" },
-                { path: "/audiobooks", label: "Audiobooks" },
-                { path: "/LibroPage", label: "Libro.fm" },
-              ],
-            },
-            {
-              label: "Author Hub",
-              items: [
-                { path: "/authors", label: "Author Hub Overview" },
-                { path: "/authors/consignment", label: "Become Stocked" },
-                { path: "/authors/ship-books", label: "Shipping Info" },
-                { path: "/virtual-shelfspace", label: "Virtual Shelfspace" },
-              ],
-            },
-            {
-              label: "Narrators",
-              items: [
-                { path: "/narrators", label: "Narrator Hub Overview" },
-                { path: "/narrator-shelf", label: "Narrator Shelf" },
-                { path: "/narrator-hub", label: "Narrator Hub" },
-              ],
-            },
-            {
-              label: "Collaborate",
-              items: [
-                { path: "/collaborate", label: "Business Collaborations" },
-              ],
-            },
-            {
-              label: "Info & Contact",
-              items: [
-                { path: "/about", label: "About" },
-                { path: "/info", label: "Info" },
-                { path: "/contact", label: "Contact" },
-              ],
-            },
-          ].map((section) => (
+          {navSections.map((section) => (
             <div key={section.label} className="relative group">
               <button className="hover:text-amber-400">{section.label} ▾</button>
-              <div className="absolute hidden group-hover:block bg-black border border-white mt-2 rounded shadow-lg z-50">
+              <div className="absolute left-0 mt-2 hidden group-hover:block opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none group-hover:pointer-events-auto bg-black border border-white rounded shadow-lg z-50 min-w-[200px]">
                 {section.items.map((item) => (
                   <Link
                     key={item.path}
@@ -113,69 +113,20 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden mt-4 space-y-4">
+        <div className="md:hidden mt-4 space-y-6 border-t border-white/20 pt-6 px-4">
           <Link to="/" onClick={closeMenu} className="block text-lg hover:text-amber-400">Home</Link>
           <Link to="/featured-books" onClick={closeMenu} className="block text-lg hover:text-amber-400">Stocked In-Store</Link>
 
-          {/* Mobile Dropdowns using <details> */}
-          {[
-            {
-              label: "Readers",
-              items: [
-                { path: "/readers", label: "Reader Hub Overview" },
-                { path: "/inkbound-tbr", label: "The Inkbound TBR" },
-                { path: "/readers/fortune", label: "Bookish Fortune" },
-              ],
-            },
-            {
-              label: "Virtual Shelf",
-              items: [
-                { path: "/virtual-shelf", label: "Books" },
-                { path: "/audiobooks", label: "Audiobooks" },
-                { path: "/LibroPage", label: "Libro.fm" },
-              ],
-            },
-            {
-              label: "Author Hub",
-              items: [
-                { path: "/authors", label: "Author Hub Overview" },
-                { path: "/authors/consignment", label: "Become Stocked" },
-                { path: "/authors/ship-books", label: "Shipping Info" },
-                { path: "/virtual-shelfspace", label: "Virtual Shelfspace" },
-              ],
-            },
-            {
-              label: "Narrators",
-              items: [
-                { path: "/narrators", label: "Narrator Hub Overview" },
-                { path: "/narrator-shelf", label: "Narrator Shelf" },
-                { path: "/narrator-hub", label: "Narrator Hub" },
-              ],
-            },
-            {
-              label: "Collaborate",
-              items: [
-                { path: "/collaborate", label: "Business Collaborations" },
-              ],
-            },
-            {
-              label: "Info & Contact",
-              items: [
-                { path: "/about", label: "About" },
-                { path: "/info", label: "Info" },
-                { path: "/contact", label: "Contact" },
-              ],
-            },
-          ].map((section) => (
-            <details key={section.label} className="text-lg">
+          {navSections.map((section) => (
+            <details key={section.label} className="text-lg pb-4">
               <summary className="cursor-pointer hover:text-amber-400">{section.label}</summary>
-              <div className="ml-4 space-y-2 mt-1">
+              <div className="ml-4 space-y-2 mt-2">
                 {section.items.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
-                    className="block hover:text-amber-400"
                     onClick={closeMenu}
+                    className="block hover:text-amber-400"
                   >
                     {item.label}
                   </Link>
