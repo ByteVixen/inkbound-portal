@@ -40,7 +40,7 @@ const books: Book[] = [
     title: "Fatebound",
     author: "Graham Fontaine",
     genre: "Young Adult Fantasy",
-    cover: "/books/fatebound.jpeg",
+    cover: "/books/fatebound.JPG",
     quote:
       "The woman’s smile was all teeth, her eyes far too pale. “Everything grows from something. Some things bloom better in the dark.”",
   },

@@ -223,7 +223,7 @@ export default function LandingPage() {
       Where spice goes to die and tropes go to sin.
     </p>
     <p className="mt-2 text-xs text-amber-300 uppercase tracking-wider mb-4">
-      Launching Friday · July 18
+      Launching · July 24th
     </p>
     <a
       href="https://tally.so/r/n0qrYj"
