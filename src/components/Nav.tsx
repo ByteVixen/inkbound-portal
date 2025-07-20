@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
 
-  const isActive = (path: string) => location.pathname === path;
+  
   const closeMenu = () => setMenuOpen(false);
 
   const navSections = [
