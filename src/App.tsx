@@ -3,6 +3,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./index.css";
+import AdminDashboard from './pages/AdminDashboard';
 
 // Components
 import Navbar from "./components/Nav";
@@ -64,6 +65,7 @@ const App: React.FC = () => {
             <Route path="/collaborate" element={<BusinessCollaborationsPage />} />
             <Route path="/Inkbound-tbr" element={<InkboundTBR />} />
             <Route path="/readers/fortune" element={<BookishFortune />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             {/* Featured / Virtual / Audiobooks */}
             <Route path="/featured-books" element={<FeaturedBooksPage />} />
             <Route path="/virtual-shelf" element={<VirtualShelfPage />} />

@@ -24,7 +24,7 @@ export default function LandingPage() {
         <VantaBackground />
       </div>
 
-      {/* Countdown Banner */}
+      {/* Countdown Banner (unchanged) */}
       <CountdownBanner />
 
       {/* Logo */}
@@ -176,7 +176,7 @@ export default function LandingPage() {
         <div className="w-2/3 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent blur-sm animate-pulse" />
       </div>
 
-      {/* July Quest Teaser */}
+      {/* July Quest Teaser (unchanged) */}
       <section className="relative z-10 max-w-5xl mx-auto px-6 animate-fade-in mb-16">
         <div className="glass-panel border border-amber-700 rounded-xl p-6 md:flex items-center gap-6 shadow-lg">
           <div className="w-40 h-40 mx-auto md:mx-0 group perspective mb-6 md:mb-0 relative">
@@ -208,34 +208,48 @@ export default function LandingPage() {
 
       {/* Guest Book */}
       <GuestBook />
-{/* BookTok Unhinged Launch Notice */}
-<div className="relative z-10 flex justify-center mt-12 animate-fade-in px-4">
-  <div className="bg-black/30 backdrop-blur-md rounded-xl border border-purple-700 shadow-xl p-4 max-w-2xl w-full text-center hover:shadow-purple-600 transition">
-    <img
-      src="/images/booktok-unhinged.png"
-      alt="BookTok Unhinged"
-      className="w-64 mx-auto mb-4 drop-shadow-lg"
-    />
-    <p className="text-purple-400 font-semibold text-xl mb-1 tracking-wide">
-      BookTok Unhinged is Coming
-    </p>
-    <p className="text-sm text-purple-200 italic">
-      Where spice goes to die and tropes go to sin.
-    </p>
-    <p className="mt-2 text-xs text-amber-300 uppercase tracking-wider mb-4">
-      Launching · July 24th
-    </p>
-    <a
-      href="https://tally.so/r/n0qrYj"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block relative px-6 py-2 rounded-full font-semibold text-white bg-purple-700 hover:bg-purple-800 shadow-[0_0_20px_rgba(168,85,247,0.8)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(168,85,247,1)] group"
-    >
-      <span className="relative z-10">🔮 Summon Interest</span>
-      <span className="absolute inset-0 rounded-full animate-pulse-glow bg-purple-700 opacity-20 blur-sm group-hover:opacity-30" />
-    </a>
-  </div>
-</div>
+
+      {/* Coming Soon: BookTok Unhinged + InkSprouts */}
+      <section className="relative z-10 animate-fade-in px-4 mt-12">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* BookTok Unhinged (Coming Soon) */}
+          <div className="bg-black/30 backdrop-blur-md rounded-xl border border-purple-700 shadow-xl p-6 text-center hover:shadow-purple-600 transition">
+            <img
+              src="/images/booktok-unhinged.png"
+              alt="BookTok Unhinged"
+              className="w-64 mx-auto mb-4 drop-shadow-lg"
+            />
+            <p className="text-purple-400 font-semibold text-xl mb-1 tracking-wide">
+              BookTok Unhinged
+            </p>
+            <p className="text-sm text-purple-200 italic mb-3">
+              Where spice goes to die and tropes go to sin.
+            </p>
+            {/* Simple Coming Soon pill — no dates, no CTA */}
+            <span className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-purple-700/30 border border-purple-700 text-purple-200">
+              Coming Soon
+            </span>
+          </div>
+
+          {/* InkSprouts (Coming Soon) */}
+          <div className="bg-black/30 backdrop-blur-md rounded-xl border border-emerald-700 shadow-xl p-6 text-center hover:shadow-emerald-600 transition">
+            <img
+              src="/images/inksprouts.png"
+              alt="InkSprouts — Kids of the Inkbound Society"
+              className="w-64 mx-auto mb-4 drop-shadow-lg"
+            />
+            <p className="text-emerald-400 font-semibold text-xl mb-1 tracking-wide">
+              InkSprouts
+            </p>
+            <p className="text-sm text-emerald-200 italic mb-3">
+              The kids’ corner of the Inkbound Society — stories for little sprouts.
+            </p>
+            <span className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-emerald-700/30 border border-emerald-700 text-emerald-200">
+              Coming Soon
+            </span>
+          </div>
+        </div>
+      </section>
 
       {/* Magical Glow Divider */}
       <div className="relative z-20 flex justify-center mb-4 mt-24">
@@ -262,7 +276,7 @@ export default function LandingPage() {
           className="w-40 md:w-56 opacity-90 hover:opacity-100 transition"
         />
         <a
-          href="https://discord.gg/gm2HDe9Z"
+          href="https://discord.gg/BkHyN6hDwJ"
           target="_blank"
           rel="noopener noreferrer"
           className="transform hover:scale-105 transition"
