@@ -63,10 +63,18 @@ const Navbar: React.FC = () => {
         { path: '/narrators', label: 'Narrator Hub Overview' },
         { path: '/narrator-shelf', label: 'Narrator Shelf' },
         { path: '/narrator-hub', label: 'Narrator Hub' },
-      ],
-    },
-    {
-      label: 'Collaborate',
+  ],
+},
+
+{
+  label: 'Creatives',
+  items: [
+    { path: '/creatives', label: 'Creatives Hub' },
+  ],
+},
+
+{
+      label: 'Collab',
       items: [{ path: '/collaborate', label: 'Business Collaborations' }],
     },
     {

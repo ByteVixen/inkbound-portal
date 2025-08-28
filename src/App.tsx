@@ -30,6 +30,7 @@ import WhispersPage from "./pages/WhispersPage";
 import InkboundTBR from "./pages/InkboundTBR";
 import LibroPage from "./pages/LibroPage";
 import BookishFortune from "./pages/BookishFortune";
+import CreativesPage from "./pages/CreativesPage";
 
 // Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
@@ -66,6 +67,7 @@ const App: React.FC = () => {
             <Route path="/Inkbound-tbr" element={<InkboundTBR />} />
             <Route path="/readers/fortune" element={<BookishFortune />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/creatives" element={<CreativesPage />} />
             {/* Featured / Virtual / Audiobooks */}
             <Route path="/featured-books" element={<FeaturedBooksPage />} />
             <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
