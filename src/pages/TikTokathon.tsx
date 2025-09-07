@@ -1,5 +1,5 @@
 // src/pages/TikTokathon.tsx
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import VantaBackground from "../components/VantaBackground";
 import {
   collection,
