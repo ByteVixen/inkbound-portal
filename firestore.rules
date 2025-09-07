@@ -1,0 +1,77 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 💬 Guestbook
+    match /guestbook/{docId} {
+      allow read: if true;
+      allow create: if request.resource.data.message is string
+                    && request.resource.data.name is string
+                    && request.auth == null;
+    }
+
+    // 🧠 Completed Quests
+    match /completed_quests/{docId} {
+      allow read: if true;
+
+      allow create: if
+        request.resource.data.nickname is string &&
+        request.resource.data.book is string &&
+        request.resource.data.quote is string &&
+        request.resource.data.emoji is string &&
+        request.resource.data.likes is number;
+
+      allow update: if
+        request.resource.data.keys().hasOnly(['likes']) &&
+        request.resource.data.likes is number;
+    }
+
+    // ✅ 🔐 Admin-only helper — keep your UID here
+    function isAdmin() {
+      return request.auth != null &&
+             request.auth.uid == "reTG4KXRVeU4jzWdXstO5K78wCF3";
+    }
+
+    // 📚 Public read, admin-only write
+    match /virtual_shelf_books/{docId} { allow read: if true; allow write: if isAdmin(); }
+    match /featured_authors/{docId}    { allow read: if true; allow write: if isAdmin(); }
+    match /narrators/{docId}           { allow read: if true; allow write: if isAdmin(); }
+    match /audiobooks/{docId}          { allow read: if true; allow write: if isAdmin(); }
+
+    // 🧽 Current Quest
+    match /site_content/{docId}        { allow read: if true; allow write: if isAdmin(); }
+
+    // 📜 Archived Quests
+    match /previous_quests/{docId}     { allow read: if true; allow write: if isAdmin(); }
+
+    /* 🎥 TikTokathon slots */
+    match /tiktokathon_slots/{slotId} {
+      allow read: if true;
+
+      allow update: if
+        // only allow these fields to change
+        request.resource.data.diff(resource.data).changedKeys()
+          .hasOnly(['taken','takenByName','bookTitle','email','claimedAt']) &&
+
+        // must flip available -> taken
+        resource.data.taken == false &&
+        request.resource.data.taken == true &&
+
+        // basic validation
+        (request.resource.data.takenByName is string && request.resource.data.takenByName.size() > 0) &&
+        (request.resource.data.bookTitle is string && request.resource.data.bookTitle.size() > 0) &&
+        (request.resource.data.email == null || request.resource.data.email is string) &&
+        (request.resource.data.claimedAt == null || request.resource.data.claimedAt is timestamp) &&
+
+        // prevent changing fixed slot info
+        request.resource.data.index == resource.data.index &&
+        request.resource.data.labelIST == resource.data.labelIST &&
+        (resource.data.labelEST == null || request.resource.data.labelEST == resource.data.labelEST) &&
+        (resource.data.labelCST == null || request.resource.data.labelCST == resource.data.labelCST);
+
+      // seed/cleanup via admin only (or set to false after seeding)
+      allow create, delete: if isAdmin();
+    }
+  }
+}
+

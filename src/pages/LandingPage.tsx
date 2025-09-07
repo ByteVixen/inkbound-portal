@@ -107,7 +107,28 @@ export default function LandingPage() {
           </div>
         </section>
       )}
-
+{/* TikTokathon (CTA) — styled like InkSprouts */}
+<section className="relative z-10 max-w-4xl mx-auto px-6 mb-12 animate-fade-in">
+  <Link
+    to="/tiktokathon"
+    className="block bg-black/30 backdrop-blur-md rounded-xl border border-fuchsia-700 shadow-xl p-6 text-center hover:shadow-fuchsia-600 transition"
+  >
+    <img
+      src="/images/tiktokathon.png"
+      alt="Inkbound TikTokathon"
+      className="w-64 mx-auto mb-4 drop-shadow-lg"
+    />
+    <p className="text-fuchsia-400 font-semibold text-xl mb-1 tracking-wide">
+      Inkbound TikTokathon
+    </p>
+    <p className="text-sm text-fuchsia-200 italic mb-3">
+      Authors: claim a <span className="font-semibold text-white/90">free</span> 20-minute live slot to showcase your book.
+    </p>
+    <span className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-fuchsia-700/30 border border-fuchsia-700 text-fuchsia-200">
+      Claim a Slot →
+    </span>
+  </Link>
+</section>
       {/* Feature Cards */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
         {[
@@ -141,6 +162,8 @@ export default function LandingPage() {
             title: "Readers & Quests",
             desc: "Join challenges, unlock badges, and explore the world of Inkbound",
           },
+         
+
           {
             to: "/inkbound-tbr",
             img: "readers-and-quests.png",

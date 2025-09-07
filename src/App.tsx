@@ -31,7 +31,7 @@ import InkboundTBR from "./pages/InkboundTBR";
 import LibroPage from "./pages/LibroPage";
 import BookishFortune from "./pages/BookishFortune";
 import CreativesPage from "./pages/CreativesPage";
-
+import TikTokathon from "./pages/TikTokathon";
 // Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import VirtualShelfspacePage from "./pages/VirtualShelfspacePage";
@@ -68,6 +68,7 @@ const App: React.FC = () => {
             <Route path="/readers/fortune" element={<BookishFortune />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/creatives" element={<CreativesPage />} />
+            <Route path="/tiktokathon" element={<TikTokathon />} />
             {/* Featured / Virtual / Audiobooks */}
             <Route path="/featured-books" element={<FeaturedBooksPage />} />
             <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
