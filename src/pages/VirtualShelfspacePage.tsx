@@ -24,8 +24,8 @@ const VirtualShelfspacePage: React.FC = () => {
             <h2 className="text-2xl font-semibold text-amber-400">📜 Terms & Visibility Guidelines</h2>
             <ul className="list-disc list-inside space-y-2 text-sm text-gray-300">
               <li><strong>Submission Review:</strong> All entries are reviewed before acceptance.</li>
-              <li><strong>Listing Duration:</strong> Minimum 30 days. Books rotate monthly.</li>
-              <li><strong>Payment Terms:</strong> €5/month, with quarterly, 6-month, and yearly discounts available.</li>
+              <li><strong>Listing Duration:</strong> Will list until author updates/removes.</li>
+      
               <li><strong>Content Standards:</strong> Valid link and cover image required. No harmful or offensive content accepted.</li>
               <li><strong>Featured Slots:</strong> Premium positioning may be offered in future.</li>
               <li><strong>Author Responsibility:</strong> You confirm all rights to submitted content.</li>

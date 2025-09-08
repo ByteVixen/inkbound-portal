@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from 'react';
+// src/pages/InfoPage.tsx
+import { useState } from "react";
 import VantaBackground from "../components/VantaBackground";
 
 const sections = [
-  { id: 'pricing', title: 'Pricing' },
-  { id: 'consignment', title: 'Consignment Policy' },
-  { id: 'virtual', title: 'Virtual Shelf Terms' },
-  { id: 'narrator', title: 'Narrator Terms' },
-  { id: 'promotion', title: 'How We Promote Listings' },
-  { id: 'faq', title: 'FAQs' },
-  { id: 'contact', title: 'Contact' },
+  { id: "virtual", title: "Virtual Shelf (Free for Now)" },
+  { id: "consignment", title: "Consignment Policy" },
+  { id: "narrator", title: "Narrator Terms" },
+  { id: "promotion", title: "How We Promote Listings" },
+  { id: "faq", title: "FAQs" },
+  { id: "contact", title: "Contact" },
 ];
 
-const CollapsibleSection = ({ id, title, children }: { id: string; title: string; children: React.ReactNode }) => {
+const CollapsibleSection = ({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}) => {
   const [open, setOpen] = useState(false);
   return (
     <div id={id} className="mb-8 border-b border-amber-700 pb-4">
@@ -19,34 +27,14 @@ const CollapsibleSection = ({ id, title, children }: { id: string; title: string
         onClick={() => setOpen(!open)}
         className="w-full text-left text-xl font-semibold text-amber-400 hover:underline focus:outline-none"
       >
-        {title} {open ? '▲' : '▼'}
+        {title} {open ? "▲" : "▼"}
       </button>
       {open && <div className="mt-4 text-base text-gray-300 space-y-3">{children}</div>}
     </div>
   );
 };
 
-const InfoPage: React.FC = () => {
-  const [currency, setCurrency] = useState<'EUR' | 'USD' | 'GBP'>('EUR');
-  const [rates, setRates] = useState<{ [key: string]: number }>({ USD: 1.1, GBP: 0.85, EUR: 1 });
-
-  useEffect(() => {
-    fetch('https://api.exchangerate.host/latest?base=EUR&symbols=USD,GBP,EUR')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.rates) {
-          setRates(data.rates);
-        }
-      })
-      .catch(err => console.error("Failed to fetch rates:", err));
-  }, []);
-
-  const convert = (eur: number) => {
-    const rate = rates[currency];
-    const symbol = currency === 'EUR' ? '€' : currency === 'USD' ? '$' : '£';
-    return `${symbol}${(eur * rate).toFixed(2)}`;
-  };
-
+export default function InfoPage() {
   return (
     <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -76,27 +64,34 @@ const InfoPage: React.FC = () => {
               Information & Guidelines
             </h1>
 
-            <CollapsibleSection id="pricing" title="Pricing">
-              <label htmlFor="currency" className="block text-sm mb-1 text-gray-400">View prices in:</label>
-              <select
-                id="currency"
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value as 'EUR' | 'USD' | 'GBP')}
-                className="bg-black border border-white rounded px-2 py-1 mb-4"
-              >
-                <option value="EUR">EUR (€)</option>
-                <option value="USD">USD ($)</option>
-                <option value="GBP">GBP (£)</option>
-              </select>
-
-              <p>Virtual Shelfspace listings cost <strong>{convert(5)}/month</strong>, or save by booking ahead:</p>
+            {/* Virtual Shelf — Free */}
+            <CollapsibleSection id="virtual" title="Virtual Shelf (Free for Now)">
+              <p className="text-emerald-200">
+                🎉 <strong>Launch special:</strong> Virtual Shelfspace is <strong>free</strong> right now.
+              </p>
+              <p>
+                Your listing can include a cover image, title, author name, genres/tropes, a short
+                tagline/quote, and up to two links (e.g., purchase or website).
+              </p>
               <ul className="list-disc list-inside space-y-1">
-                <li><strong>3 Months:</strong> {convert(12)} (save {convert(3)})</li>
-                <li><strong>6 Months:</strong> {convert(25)} (save {convert(5)})</li>
-                <li><strong>12 Months:</strong> {convert(50)} (save {convert(10)})</li>
+                <li>All submissions are reviewed for quality and fit.</li>
+                <li>No harmful or illegal content; we curate at our discretion.</li>
+                <li>Listings rotate and remain visible for a minimum of 30 days.</li>
+                <li>
+                  If pricing ever changes in the future, we’ll announce it in advance — and existing
+                  free listings will get at least 30 days’ notice.
+                </li>
               </ul>
+              <p>
+                Ready to join the shelf? Apply on the{" "}
+                <a href="/virtual-shelfspace" className="underline text-amber-400">
+                  Virtual Shelf Application
+                </a>
+                .
+              </p>
             </CollapsibleSection>
 
+            {/* Consignment */}
             <CollapsibleSection id="consignment" title="Consignment Policy">
               <p>We accept indie books for physical display in the Gort bookshop:</p>
               <ul className="list-disc list-inside space-y-1">
@@ -105,22 +100,31 @@ const InfoPage: React.FC = () => {
                 <li>Author handles delivery/shipping</li>
                 <li>Returns or donations at end of term</li>
               </ul>
-              <p>Submit on the <a href="/authors/consignment" className="underline text-amber-400">Become Stocked page</a>.</p>
+              <p>
+                Submit on the{" "}
+                <a href="/authors/consignment" className="underline text-amber-400">
+                  Become Stocked page
+                </a>
+                .
+              </p>
             </CollapsibleSection>
 
-            <CollapsibleSection id="virtual" title="Virtual Shelf Terms">
-              <ul className="list-disc list-inside space-y-1">
-                <li>All listings are reviewed</li>
-                <li>Cover image and valid link required</li>
-                <li>No harmful, illegal content</li>
-                <li>Books are rotated monthly and visible for minimum 30 days</li>
-              </ul>
-            </CollapsibleSection>
-
+            {/* Narrators */}
             <CollapsibleSection id="narrator" title="Narrator Terms">
-              <p>All narrator submissions are reviewed. Public listing includes name, genres, voice style, and optional link to samples. We reserve the right to curate.</p>
+              <p>
+                All narrator submissions are reviewed. Public listing includes name, genres, voice
+                style, and optional links to samples/hire pages. We reserve the right to curate.
+              </p>
+              <p>
+                Apply via the{" "}
+                <a href="/narrator-hub" className="underline text-amber-400">
+                  Narrator Hub
+                </a>
+                .
+              </p>
             </CollapsibleSection>
 
+            {/* Promotion */}
             <CollapsibleSection id="promotion" title="How We Promote Listings">
               <ul className="list-disc list-inside space-y-1">
                 <li>Instagram stories & reels</li>
@@ -130,19 +134,35 @@ const InfoPage: React.FC = () => {
               </ul>
             </CollapsibleSection>
 
+            {/* FAQs */}
             <CollapsibleSection id="faq" title="FAQs">
-              <p><strong>Can I submit more than one book?</strong> Yes, each needs its own form.</p>
-              <p><strong>What if my book is rejected?</strong> We'll let you know why, if possible, and you can revise/resubmit.</p>
+              <p>
+                <strong>Is Virtual Shelfspace really free?</strong> Yes — during our launch period.
+                If that changes, we’ll give clear notice, and current free listings will remain free
+                for at least 30 days after the announcement.
+              </p>
+              <p>
+                <strong>Can I submit more than one book?</strong> Yes. Please submit one form per
+                title so we can review them individually.
+              </p>
+              <p>
+                <strong>What if my book is rejected?</strong> We’ll try to explain why (when
+                possible) so you can revise and resubmit.
+              </p>
             </CollapsibleSection>
 
+            {/* Contact */}
             <CollapsibleSection id="contact" title="Contact">
-              <p>Still have questions? Email us at <a href="mailto:summon@inkboundsociety.com" className="underline text-amber-400">summon@inkboundsociety.com</a></p>
+              <p>
+                Still have questions? Email{" "}
+                <a href="mailto:summon@inkboundsociety.com" className="underline text-amber-400">
+                  summon@inkboundsociety.com
+                </a>
+              </p>
             </CollapsibleSection>
           </main>
         </div>
       </div>
     </div>
   );
-};
-
-export default InfoPage;
+}
