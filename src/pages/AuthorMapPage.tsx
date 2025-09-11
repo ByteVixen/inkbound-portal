@@ -1,5 +1,5 @@
 // src/pages/AuthorMapPage.tsx
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useLayoutEffect } from "react";
 import * as THREE from "three";
 import Globe from "react-globe.gl";
 import VantaBackground from "../components/VantaBackground";
@@ -333,9 +333,29 @@ type Point = { lat: number; lng: number; label: string };
 
 export default function AuthorMapPage() {
   const globeRef = useRef<any>(null);
+
+  // NEW: wrapper + measured dims so canvas matches container (keeps it centered)
+  const globeWrapRef = useRef<HTMLDivElement>(null);
+  const [dims, setDims] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
+
   const [logoTex, setLogoTex] = useState<THREE.Texture | null>(null);
   const [glowTex, setGlowTex] = useState<THREE.Texture | null>(null);
   const [pointScale, setPointScale] = useState(0.35); // will shrink when you zoom in
+
+  // Measure once + on window resize (no ResizeObserver needed)
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = globeWrapRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const w = Math.max(0, Math.round(rect.width));
+      const h = Math.max(0, Math.round(rect.height));
+      setDims((prev) => (prev.w === w && prev.h === h ? prev : { w, h }));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
   // Load the logo texture
   useEffect(() => {
@@ -362,21 +382,22 @@ export default function AuthorMapPage() {
     }
   }, []);
 
-  // ensure centered on Ireland on load
+  // ensure centered on Ireland *after* size known (prevents drift)
   useEffect(() => {
     const g = globeRef.current;
-    if (!g) return;
-    g.pointOfView({ lat: 53.5, lng: -8.5, altitude: 1.8 }, 0);
-  }, []);
+    if (!g || !dims.w || !dims.h) return;
+    if (typeof g.pointOfView === "function") {
+      g.pointOfView({ lat: 53.5, lng: -8.5, altitude: 1.8 }, 0);
+    }
+  }, [dims.w, dims.h]);
 
   // track camera distance => adjust point size (smaller when zoomed in)
   useEffect(() => {
     let raf = 0;
     const tick = () => {
       const g = globeRef.current;
-      if (g && g.camera) {
+      if (g && typeof g.camera === "function") {
         const dist = g.camera().position.length(); // ~100 is surface distance baseline
-        // Map distance to a reasonable scale (close => smaller)
         const s = Math.min(0.55, Math.max(0.2, (dist - 80) / 200)); // clamp 0.2–0.55
         setPointScale(s);
       }
@@ -386,11 +407,7 @@ export default function AuthorMapPage() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  const points: Point[] = useMemo(
-    () => LOCATIONS.map(resolveLoc),
-    []
-  );
-
+  const points: Point[] = useMemo(() => LOCATIONS.map(resolveLoc), []);
   const arcs = useMemo(
     () =>
       points.map((p) => ({
@@ -446,17 +463,20 @@ export default function AuthorMapPage() {
                 Pins mark places in our community — every thread connects back to our little shop in Gort.
               </p>
               <div className="text-sm text-gray-400">
-                Zoom in to see more — pins shrink so you can hover & read labels cleanly.
+                Zoom in to see more — pins shrink so you can hover &amp; read labels cleanly.
               </div>
             </div>
 
             {/* Globe */}
             <div className="lg:col-span-3">
-              <div className="relative w-full h-[420px] sm:h-[520px] lg:h-[620px] rounded-xl overflow-hidden border border-amber-700 bg-black/50">
+              <div
+                ref={globeWrapRef}
+                className="relative w-full h-[420px] sm:h-[520px] lg:h-[620px] rounded-xl overflow-hidden border border-amber-700 bg-black/50"
+              >
                 <Globe
                   ref={globeRef}
-                  width={undefined}
-                  height={undefined}
+                  width={dims.w || undefined}   // <-- keep globe sized to wrapper
+                  height={dims.h || undefined}  // <-- prevents window-size canvas drift
                   backgroundColor="rgba(0,0,0,0)"
                   globeImageUrl={globeTexture}
                   atmosphereColor="#ffffff"           // avoid alpha warning
