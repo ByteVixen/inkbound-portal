@@ -55,6 +55,7 @@ const Navbar: React.FC = () => {
         { path: '/authors/consignment', label: 'Become Stocked' },
         { path: '/authors/ship-books', label: 'Shipping Info' },
         { path: '/virtual-shelfspace', label: 'Virtual Shelfspace' },
+        { path: "/author-map", label: "Global Author Map" },
       ],
     },
     {

@@ -1,10 +1,10 @@
 // src/App.tsx
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./index.css";
 import AdminDashboard from './pages/AdminDashboard';
-
+import AuthorMapPage from "./pages/AuthorMapPage";
 // Components
 import Navbar from "./components/Nav";
 import Footer from "./components/Footer";
@@ -74,7 +74,8 @@ const App: React.FC = () => {
             <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
             <Route path="/audiobooks" element={<AudiobooksPage />} />
             <Route path="/LibroPage" element={<LibroPage />} />
-
+            <Route path="/author-map" element={<AuthorMapPage />} />
+<Route path="/AuthorMapPage" element={<Navigate to="/author-map" replace />} />
             {/* Author Hub */}
             <Route path="/authors" element={<AuthorLanding />} />
             <Route path="/authors/consignment" element={<ConsignmentPage />} />
