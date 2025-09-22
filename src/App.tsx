@@ -5,7 +5,7 @@ import ScrollToTop from "./ScrollToTop";
 import "./index.css";
 import AdminDashboard from './pages/AdminDashboard';
 import AuthorMapPage from "./pages/AuthorMapPage";
-import ReaderAdventure from "./pages/ReaderAdventure";
+
 // Components
 import Navbar from "./components/Nav";
 import Footer from "./components/Footer";
@@ -79,7 +79,7 @@ const App: React.FC = () => {
             <Route path="/LibroPage" element={<LibroPage />} />
             <Route path="/author-map" element={<AuthorMapPage />} />
 <Route path="/AuthorMapPage" element={<Navigate to="/author-map" replace />} />
-            <Route path="/adventure" element={<ReaderAdventure />} />
+           
             {/* Author Hub */}
             <Route path="/authors" element={<AuthorLanding />} />
             <Route path="/authors/consignment" element={<ConsignmentPage />} />

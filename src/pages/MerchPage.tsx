@@ -1,245 +1,209 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect } from "react";
 import VantaBackground from "../components/VantaBackground";
 
-/** Shopify config (from your snippets) */
+// --- Your Shopify details (from the snippets you pasted) ---
 const SHOPIFY_DOMAIN = "0xu58v-n0.myshopify.com";
-const SHOPIFY_STOREFRONT_TOKEN = "9e614f31b48225c8e9c5bf72475f697e";
-const SHOPIFY_SDK_URL =
-  "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
+const SHOPIFY_TOKEN = "9e614f31b48225c8e9c5bf72475f697e";
 
-/** Singleton loader so we only load the SDK once */
-let shopifyUiPromise: Promise<any> | null = null;
-function getShopifyUI(): Promise<any> {
-  if (shopifyUiPromise) return shopifyUiPromise;
+// Product IDs by section (string or number both ok)
+const HOMEWARES = ["10750034870294", "10749996531734", "10749994139670"];
+const CLOTHING = ["10749990141974", "10750023532566", "10750030774294", "10750028709910"];
+const ACCESSORIES = ["10749997711382", "10750007803926"];
 
-  shopifyUiPromise = new Promise((resolve, reject) => {
-    const init = () => {
-      const w = window as any;
-      const ShopifyBuy = w.ShopifyBuy;
-      if (!ShopifyBuy || !ShopifyBuy.UI) {
-        reject(new Error("ShopifyBuy UI failed to load"));
-        return;
-      }
-      const client = ShopifyBuy.buildClient({
-        domain: SHOPIFY_DOMAIN,
-        storefrontAccessToken: SHOPIFY_STOREFRONT_TOKEN,
-      });
-      ShopifyBuy.UI.onReady(client).then((ui: any) => resolve(ui));
-    };
+// One-time loader for the Shopify Buy Button script
+let shopifyScriptPromise: Promise<void> | null = null;
+function loadShopifyScript() {
+  if (shopifyScriptPromise) return shopifyScriptPromise;
+  shopifyScriptPromise = new Promise((resolve, reject) => {
+    if (typeof window === "undefined") return resolve(); // SSR guard
+    if ((window as any).ShopifyBuy?.UI) return resolve();
 
-    const w = window as any;
-    if (w.ShopifyBuy && w.ShopifyBuy.UI) {
-      init();
-    } else {
-      const existing = document.getElementById("shopify-buy-button-sdk");
-      if (existing) {
-        existing.addEventListener("load", init, { once: true });
-      } else {
-        const script = document.createElement("script");
-        script.id = "shopify-buy-button-sdk";
-        script.async = true;
-        script.src = SHOPIFY_SDK_URL;
-        script.onload = init;
-        script.onerror = (e) => reject(e);
-        document.head.appendChild(script);
-      }
-    }
+    const script = document.createElement("script");
+    script.src = "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+  return shopifyScriptPromise;
+}
+
+function mountProducts(containerIds: string[], productIds: string[]) {
+  const w = window as any;
+  if (!w.ShopifyBuy) return;
+
+  const client = w.ShopifyBuy.buildClient({
+    domain: SHOPIFY_DOMAIN,
+    storefrontAccessToken: SHOPIFY_TOKEN,
   });
 
-  return shopifyUiPromise;
-}
-
-/** Shared BuyButton style (Inkbound theme) */
-const BUTTON_STYLE = {
-  "font-family": "Marcellus, serif",
-  "background-color": "#d97706", // amber-600
-  color: "#000000",
-  "text-transform": "none",
-  "border-radius": "9999px",
-  ":hover": { "background-color": "#f59e0b" }, // amber-500
-  ":focus": { "background-color": "#f59e0b" },
-};
-
-const PRODUCT_OPTIONS = {
-  product: {
-    styles: {
-      product: {
-        "text-align": "left",
-        "max-width": "100%",
-        "margin-left": "0px",
-        "margin-bottom": "0px",
-        "background-color": "transparent",
-        "border-radius": "12px",
-      },
-      title: { color: "#FBBF24" }, // amber-400
-      price: { color: "#E5E7EB" }, // gray-200
-      compareAt: { color: "#9CA3AF" }, // gray-400
-      button: BUTTON_STYLE,
-      quantityInput: {
-        "font-family": "Marcellus, serif",
-        color: "#E5E7EB",
-        "background-color": "#111827", // gray-900
-        "border-color": "#374151", // gray-700
-      },
-    },
-    buttonDestination: "checkout",
-    text: { button: "Buy now" },
-  },
-  modalProduct: {
-    contents: {
-      img: false,
-      imgWithCarousel: true,
-      button: false,
-      buttonWithQuantity: true,
-    },
-    styles: {
-      product: {
-        "max-width": "100%",
-        "margin-left": "0px",
-        "margin-bottom": "0px",
-        "background-color": "#0b0b0b",
-      },
-      title: { color: "#FBBF24" },
-      price: { color: "#E5E7EB" },
-      button: BUTTON_STYLE,
-    },
-    text: { button: "Add to cart" },
-  },
-  option: {},
-  cart: {
-    styles: {
-      button: BUTTON_STYLE,
-      title: { color: "#FBBF24" },
-      header: { color: "#E5E7EB" },
-      lineItems: { color: "#E5E7EB" },
-      subtotalText: { color: "#E5E7EB" },
-      subtotal: { color: "#FBBF24" },
-      noteDescription: { color: "#9CA3AF" },
-    },
-    text: {
-      total: "Subtotal",
-      button: "Checkout",
-    },
-  },
-  toggle: {
-    styles: {
-      toggle: BUTTON_STYLE,
-    },
-  },
-};
-
-/** Reusable product mount */
-function ShopifyProduct({ id }: { id: string }) {
-  const nodeRef = useRef<HTMLDivElement | null>(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    let destroyed = false;
-    getShopifyUI()
-      .then((ui) => {
-        if (destroyed || !nodeRef.current) return;
-        ui.createComponent("product", {
-          id,
-          node: nodeRef.current,
-          moneyFormat: "€{{amount_with_comma_separator}}",
-          options: PRODUCT_OPTIONS,
-        });
-        setReady(true);
-      })
-      .catch((e) => {
-        console.error("Shopify UI error:", e);
+  w.ShopifyBuy.UI.onReady(client).then((ui: any) => {
+    productIds.forEach((id, i) => {
+      const node = document.getElementById(containerIds[i]);
+      if (!node) return;
+      ui.createComponent("product", {
+        id,
+        node,
+        moneyFormat: "€{{amount_with_comma_separator}}",
+        options: {
+          product: {
+            styles: {
+              product: {
+                "@media (min-width: 601px)": {
+                  maxWidth: "calc(25% - 20px)",
+                  marginLeft: "20px",
+                  marginBottom: "50px",
+                },
+              },
+              button: {
+                fontFamily: "Arvo, serif",
+                backgroundColor: "#f59e0b", // amber-500
+                color: "#000000",
+                ":hover": { backgroundColor: "#fbbf24" }, // amber-400
+                ":focus": { backgroundColor: "#fbbf24" },
+                borderRadius: "9999px",
+              },
+            },
+            text: { button: "Buy now" },
+            buttonDestination: "checkout",
+            googleFonts: ["Arvo"],
+          },
+          productSet: {
+            styles: {
+              products: {
+                "@media (min-width: 601px)": {
+                  marginLeft: "-20px",
+                },
+              },
+            },
+          },
+          modalProduct: {
+            contents: {
+              img: false,
+              imgWithCarousel: true,
+              button: false,
+              buttonWithQuantity: true,
+            },
+            styles: {
+              product: {
+                "@media (min-width: 601px)": {
+                  maxWidth: "100%",
+                  marginLeft: "0px",
+                  marginBottom: "0px",
+                },
+              },
+              button: {
+                fontFamily: "Arvo, serif",
+                backgroundColor: "#f59e0b",
+                color: "#000000",
+                ":hover": { backgroundColor: "#fbbf24" },
+                ":focus": { backgroundColor: "#fbbf24" },
+                borderRadius: "9999px",
+              },
+            },
+            text: { button: "Add to cart" },
+            googleFonts: ["Arvo"],
+          },
+          cart: {
+            styles: {
+              button: {
+                fontFamily: "Arvo, serif",
+                backgroundColor: "#f59e0b",
+                color: "#000000",
+                ":hover": { backgroundColor: "#fbbf24" },
+                ":focus": { backgroundColor: "#fbbf24" },
+                borderRadius: "9999px",
+              },
+            },
+            text: { total: "Subtotal", button: "Checkout" },
+            googleFonts: ["Arvo"],
+          },
+          toggle: {
+            styles: {
+              toggle: {
+                fontFamily: "Arvo, serif",
+                backgroundColor: "#f59e0b",
+                color: "#000000",
+                ":hover": { backgroundColor: "#fbbf24" },
+                ":focus": { backgroundColor: "#fbbf24" },
+                borderRadius: "9999px",
+              },
+            },
+            googleFonts: ["Arvo"],
+          },
+        },
       });
-    return () => {
-      destroyed = true;
-      // best-effort cleanup
-      if (nodeRef.current) nodeRef.current.innerHTML = "";
-    };
-  }, [id]);
-
-  return (
-    <div className="rounded-xl border border-amber-700/40 bg-black/30 p-4">
-      {!ready && (
-        <div className="animate-pulse text-sm text-gray-400 mb-2">Loading…</div>
-      )}
-      <div ref={nodeRef} />
-    </div>
-  );
-}
-
-/** Section wrapper with a responsive grid */
-function Section({
-  title,
-  ids,
-}: {
-  title: string;
-  ids: string[];
-}) {
-  const products = useMemo(() => ids, [ids]);
-  return (
-    <section className="mb-10">
-      <h2 className="text-3xl text-amber-400 mb-3">{title}</h2>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((id) => (
-          <ShopifyProduct key={id} id={id} />
-        ))}
-      </div>
-    </section>
-  );
+    });
+  });
 }
 
 export default function MerchPage() {
+  // Build stable container IDs so hydration is deterministic
+  const hwIds = HOMEWARES.map((id, i) => `shopify-hw-${i}`);
+  const clIds = CLOTHING.map((id, i) => `shopify-cl-${i}`);
+  const accIds = ACCESSORIES.map((id, i) => `shopify-acc-${i}`);
+
+  useEffect(() => {
+    let canceled = false;
+    loadShopifyScript()
+      .then(() => {
+        if (canceled) return;
+        mountProducts(hwIds, HOMEWARES);
+        mountProducts(clIds, CLOTHING);
+        mountProducts(accIds, ACCESSORIES);
+      })
+      .catch((e) => console.error("Shopify Buy Button failed to load:", e));
+    return () => {
+      canceled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
-      {/* Background */}
       <div className="absolute inset-0 z-0">
         <VantaBackground />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 py-20 px-6 max-w-7xl mx-auto">
-        <div className="bg-black/60 backdrop-blur-md rounded-xl shadow-xl p-6 md:p-8 border border-amber-700">
-          <div className="flex items-center gap-3 mb-6">
-            <img src="/logo.png" alt="Inkbound" className="w-10 h-10" />
-            <h1 className="text-4xl font-light text-amber-500 text-glow">
-              Inkbound Merch
-            </h1>
-          </div>
-          <p className="text-gray-300 mb-8">
-            Cosy homewares, apparel, and reading accessories from the Inkbound
-            Society. All checkout is handled securely via Shopify.
+        <div className="bg-black/60 backdrop-blur-md rounded-xl shadow-xl p-8 border border-amber-700">
+          <h1 className="text-4xl font-light text-amber-500 text-glow mb-2 text-center">
+            Inkbound Merch
+          </h1>
+          <p className="text-center text-gray-300 mb-8">
+            Cozy homewares, apparel, and reading accessories — powered by Shopify checkout.
           </p>
 
-          {/* Homewares */}
-          <Section
-            title="Homewares"
-            ids={[
-              "10750034870294",
-              "10749996531734",
-              "10749994139670",
-            ]}
-          />
+          {/* Quick in-page nav */}
+          <div className="flex gap-3 justify-center mb-10 text-sm">
+            <a href="#homewares" className="px-3 py-1 rounded-full border border-amber-700 text-amber-300 hover:bg-amber-900/30">Homewares</a>
+            <a href="#clothing" className="px-3 py-1 rounded-full border border-amber-700 text-amber-300 hover:bg-amber-900/30">Clothing</a>
+            <a href="#accessories" className="px-3 py-1 rounded-full border border-amber-700 text-amber-300 hover:bg-amber-900/30">Reading Accessories</a>
+          </div>
 
-          {/* Clothing */}
-          <Section
-            title="Clothing"
-            ids={[
-              "10749990141974",
-              "10750023532566",
-              "10750030774294",
-              "10750028709910",
-            ]}
-          />
-
-          {/* Reading Accessories */}
-          <Section
-            title="Reading Accessories"
-            ids={[
-              "10749997711382",
-              "10750007803926",
-            ]}
-          />
+          {/* Sections */}
+          <Section id="homewares" title="Homewares" containerIds={hwIds} />
+          <Section id="clothing" title="Clothing" containerIds={clIds} />
+          <Section id="accessories" title="Reading Accessories" containerIds={accIds} />
         </div>
       </div>
     </div>
+  );
+}
+
+function Section({ id, title, containerIds }: { id: string; title: string; containerIds: string[] }) {
+  return (
+    <section id={id} className="mb-12">
+      <h2 className="text-2xl text-amber-400 mb-4">{title}</h2>
+      <div className="flex flex-wrap gap-5">
+        {containerIds.map((cid) => (
+          <div
+            key={cid}
+            id={cid}
+            className="min-w-[260px] flex-1 bg-black/30 border border-white/10 rounded-lg p-3"
+          />
+        ))}
+      </div>
+    </section>
   );
 }
