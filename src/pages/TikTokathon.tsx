@@ -308,7 +308,7 @@ export default function TikTokathon() {
                 <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-amber-500/60 via-amber-500/25 to-transparent" />
 
                 <div className="space-y-8">
-                  {scheduleGroups.map((g, gi) => (
+                  {groups.map((g) => (
                     <div key={g.key} className="relative pl-10">
                       {/* Hour marker */}
                       <div className="flex items-center gap-3 mb-3">
