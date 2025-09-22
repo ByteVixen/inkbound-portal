@@ -5,6 +5,7 @@ import ScrollToTop from "./ScrollToTop";
 import "./index.css";
 import AdminDashboard from './pages/AdminDashboard';
 import AuthorMapPage from "./pages/AuthorMapPage";
+import ReaderAdventure from "./pages/ReaderAdventure";
 // Components
 import Navbar from "./components/Nav";
 import Footer from "./components/Footer";
@@ -42,6 +43,7 @@ import NarratorShelfPage from "./pages/NarratorShelfPage";
 import NarratorHubPage from "./pages/NarratorHubPage";
 import AuthorLanding from "./pages/AuthorLanding";
 import NarratorLanding from "./pages/NarratorLanding";
+import MerchPage from "./pages/MerchPage";
 
 const App: React.FC = () => {
   return (
@@ -69,6 +71,7 @@ const App: React.FC = () => {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/creatives" element={<CreativesPage />} />
             <Route path="/tiktokathon" element={<TikTokathon />} />
+             <Route path="/merch" element={<MerchPage />} />
             {/* Featured / Virtual / Audiobooks */}
             <Route path="/featured-books" element={<FeaturedBooksPage />} />
             <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
@@ -76,6 +79,7 @@ const App: React.FC = () => {
             <Route path="/LibroPage" element={<LibroPage />} />
             <Route path="/author-map" element={<AuthorMapPage />} />
 <Route path="/AuthorMapPage" element={<Navigate to="/author-map" replace />} />
+            <Route path="/adventure" element={<ReaderAdventure />} />
             {/* Author Hub */}
             <Route path="/authors" element={<AuthorLanding />} />
             <Route path="/authors/consignment" element={<ConsignmentPage />} />

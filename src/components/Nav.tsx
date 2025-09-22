@@ -73,6 +73,17 @@ const Navbar: React.FC = () => {
     { path: '/creatives', label: 'Creatives Hub' },
   ],
 },
+ // 👇 NEW Merch section
+  {
+    label: 'Merch',
+    items: [
+      { path: '/merch', label: 'Shop Merch' },
+      // If you add anchors inside /merch later, you can list them too:
+      // { path: '/merch#homewares', label: 'Homewares' },
+      // { path: '/merch#clothing', label: 'Clothing' },
+      // { path: '/merch#accessories', label: 'Reading Accessories' },
+    ],
+  },
 
 {
       label: 'Collab',

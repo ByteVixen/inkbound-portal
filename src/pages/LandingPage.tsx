@@ -204,11 +204,10 @@ export default function LandingPage() {
             Inkbound TikTokathon
           </p>
           <p className="text-sm text-fuchsia-200 italic mb-3">
-            Authors: claim a <span className="font-semibold text-white/90">free</span>{" "}
-            20-minute live slot to showcase your book.
+            Authors: All slots are booked for this launch event. Check the schecule to see who is going live when!
           </p>
           <span className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-fuchsia-700/30 border border-fuchsia-700 text-fuchsia-200">
-            Claim a Slot →
+            See the Schedule of authors→
           </span>
         </Link>
       </section>
@@ -247,8 +246,14 @@ export default function LandingPage() {
             desc: "Join challenges, unlock badges, and explore the world of Inkbound",
           },
           {
+  to: "/adventure",
+  img: "crowd-writing.png",
+  title: "Crowd-Woven Tale",
+  desc: "Vote at each fork and watch the story change live",
+},
+          {
             to: "/inkbound-tbr",
-            img: "readers-and-quests.png",
+            img: "inkbound-tbr.png",
             title: "The Inkbound TBR",
             desc: "Add your favorite books to our community TBR and discover more",
           },
