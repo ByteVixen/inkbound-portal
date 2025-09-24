@@ -20,9 +20,9 @@ type Slot = {
   durationMin?: number;  // should be 20
 
   // Legacy fallback labels (if startUtc not present)
-  labelIST?: string;
-  labelEST?: string;
-  labelCST?: string;
+  labelIST?: string;     // IE time, "HH:MM"
+  labelEST?: string;     // ET time, "HH:MM"
+  labelCST?: string;     // CT time, "HH:MM"
 
   taken: boolean;
   takenByName?: string;
@@ -73,8 +73,29 @@ export default function TikTokathon() {
   const fmt = (d: Date, tz: string, opts: Intl.DateTimeFormatOptions) =>
     new Intl.DateTimeFormat("en-GB", { timeZone: tz, ...opts }).format(d);
 
-  const hhmm = (d: Date, tz: string) =>
-    fmt(d, tz, { hour12: false, hour: "2-digit", minute: "2-digit" });
+  // 12-hour (am/pm) formatter with lowercase am/pm and consistent spacing
+  const time12 = (d: Date, tz: string) =>
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone: tz,
+      hour12: true,
+      hour: "numeric",
+      minute: "2-digit",
+    })
+      .format(d)
+      .replace(/\u202F/g, " ")
+      .toLowerCase();
+
+  // Convert legacy "HH:MM" to "h:mm am/pm"
+  const to12hLabel = (s?: string) => {
+    if (!s) return "—";
+    const m = s.trim().match(/^(\d{1,2}):(\d{2})$/);
+    if (!m) return s; // already human-friendly or unexpected
+    let h = parseInt(m[1], 10);
+    const min = m[2];
+    const ampm = h >= 12 ? "pm" : "am";
+    h = ((h + 11) % 12) + 1; // 0->12, 13->1, etc.
+    return `${h}:${min} ${ampm}`;
+  };
 
   const ymd = (d: Date, tz: string) =>
     new Intl.DateTimeFormat("en-CA", {
@@ -93,16 +114,18 @@ export default function TikTokathon() {
     return isNaN(d.getTime()) ? null : d;
   };
 
+  // Labels for a slot (IE/ET/CT) in 12-hour format
   const getLabels = (s: Slot) => {
     const d = safeDate(s.startUtc);
     if (d) {
-      return { d, IE: hhmm(d, TZ_IE), ET: hhmm(d, TZ_ET), CT: hhmm(d, TZ_CT) };
+      return { d, IE: time12(d, TZ_IE), ET: time12(d, TZ_ET), CT: time12(d, TZ_CT) };
     }
+    // Legacy fallback labels (convert HH:MM -> h:mm am/pm)
     return {
       d: null as unknown as Date,
-      IE: s.labelIST ?? "—",
-      ET: s.labelEST ?? "—",
-      CT: s.labelCST ?? "—",
+      IE: to12hLabel(s.labelIST),
+      ET: to12hLabel(s.labelEST),
+      CT: to12hLabel(s.labelCST),
     };
   };
 
@@ -119,7 +142,7 @@ export default function TikTokathon() {
     return Date.now() < new Date(s.startUtc).getTime();
   };
 
-  // ---------- Grouping helper (by Irish date + hour) ----------
+  // ---------- Grouping helper (by Irish date + hour; header shown as 12h) ----------
   type Group = { key: string; header: string; items: Slot[] };
   const groupByIEHour = (list: Slot[]): Group[] => {
     const map = new Map<string, Group>();
@@ -130,15 +153,20 @@ export default function TikTokathon() {
       let header: string;
 
       if (L.d) {
+        // Use 24h hour for stable grouping key, show 12h in header
         const date = ymd(L.d, TZ_IE); // YYYY-MM-DD (IE)
-        const hour = fmt(L.d, TZ_IE, { hour12: false, hour: "2-digit" }); // HH
-        key = `${date} ${hour}:00`;
-        header = `IE ${niceDay(L.d, TZ_IE)} • ${hour}:00`;
+        const hour24 = fmt(L.d, TZ_IE, { hour12: false, hour: "2-digit" }); // "HH"
+        key = `${date} ${hour24}:00`;
+
+        const dTop = new Date(L.d);
+        dTop.setMinutes(0, 0, 0);
+        header = `IE ${niceDay(L.d, TZ_IE)} • ${time12(dTop, TZ_IE)}`;
       } else {
-        // Legacy fallback: group by IE hour
-        const hour = (L.IE && L.IE.includes(":")) ? L.IE.slice(0, 2) : "??";
+        // Legacy fallback: group by original IE hour from labelIST "HH:MM"
+        const rawIE = s.labelIST;
+        const hour = rawIE && rawIE.includes(":") ? rawIE.slice(0, 2) : "00";
         key = `legacy ${hour}:00`;
-        header = `IE ${hour}:00`;
+        header = `IE ${to12hLabel(`${hour}:00`)}`;
       }
 
       if (!map.has(key)) map.set(key, { key, header, items: [] });
@@ -148,15 +176,15 @@ export default function TikTokathon() {
     return Array.from(map.values()).sort((a, b) => a.key.localeCompare(b.key));
   };
 
-  // ---------- Schedule (taken only, unaffected by filter) ----------
+  // ---------- Watch Schedule (taken only; always visible) ----------
   const takenSlots = useMemo(() => slots.filter((s) => s.taken), [slots]);
   const scheduleGroups = useMemo(() => groupByIEHour(takenSlots), [takenSlots]);
 
-  // Build a copyable plain-text schedule (IE · ET · CT + names)
+  // Copyable plain-text schedule (IE · ET · CT + names) in 12-hour
   const scheduleText = useMemo(() => {
     const lines: string[] = [];
     lines.push("Inkbound TikTokathon — Watch Schedule");
-    lines.push("Oct 4, 12:00 (IE) → Oct 5, 12:00 (IE)");
+    lines.push("Oct 4, 12:00 pm (IE) → Oct 5, 12:00 pm (IE)");
     lines.push("");
     scheduleGroups.forEach((g) => {
       lines.push(g.header);
@@ -176,7 +204,7 @@ export default function TikTokathon() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // no-op
+      // ignore
     }
   };
 
@@ -275,8 +303,8 @@ export default function TikTokathon() {
                 <h2 className="text-2xl text-amber-400">Watch Schedule</h2>
                 <p className="text-gray-300 text-sm">
                   Running <span className="text-amber-300">24 hours</span> from{" "}
-                  <span className="text-amber-300">Oct 4, 12:00 (IE)</span> to{" "}
-                  <span className="text-amber-300">Oct 5, 12:00 (IE)</span>. All slots are{" "}
+                  <span className="text-amber-300">Oct 4, 12:00 pm (IE)</span> to{" "}
+                  <span className="text-amber-300">Oct 5, 12:00 pm (IE)</span>. All slots are{" "}
                   <span className="text-amber-300">20 minutes</span>. Times show IE · ET · CT.
                 </p>
               </div>
@@ -308,7 +336,7 @@ export default function TikTokathon() {
                 <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-amber-500/60 via-amber-500/25 to-transparent" />
 
                 <div className="space-y-8">
-                  {groups.map((g) => (
+                  {scheduleGroups.map((g) => (
                     <div key={g.key} className="relative pl-10">
                       {/* Hour marker */}
                       <div className="flex items-center gap-3 mb-3">
