@@ -189,28 +189,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* TikTokathon (CTA) */}
-      <section className="relative z-10 max-w-4xl mx-auto px-6 mb-12 animate-fade-in">
-        <Link
-          to="/tiktokathon"
-          className="block bg-black/30 backdrop-blur-md rounded-xl border border-fuchsia-700 shadow-xl p-6 text-center hover:shadow-fuchsia-600 transition"
-        >
-          <img
-            src="/images/tiktokathon.png"
-            alt="Inkbound TikTokathon"
-            className="w-64 mx-auto mb-4 drop-shadow-lg"
-          />
-          <p className="text-fuchsia-400 font-semibold text-xl mb-1 tracking-wide">
-            Inkbound TikTokathon
-          </p>
-          <p className="text-sm text-fuchsia-200 italic mb-3">
-            Authors: All slots are booked for this launch event. Check the schecule to see who is going live when!
-          </p>
-          <span className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-fuchsia-700/30 border border-fuchsia-700 text-fuchsia-200">
-            See the Schedule of authors→
-          </span>
-        </Link>
-      </section>
+
 
       {/* Feature Cards */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
@@ -286,7 +265,7 @@ export default function LandingPage() {
         <div className="w-2/3 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent blur-sm animate-pulse" />
       </div>
 
-      {/* July Quest Teaser */}
+      {/* November Quest Teaser */}
       <section className="relative z-10 max-w-5xl mx-auto px-6 animate-fade-in mb-16">
         <div className="glass-panel border border-amber-700 rounded-xl p-6 md:flex items-center gap-6 shadow-lg">
           <div className="w-40 h-40 mx-auto md:mx-0 group perspective mb-6 md:mb-0 relative">
@@ -305,7 +284,7 @@ export default function LandingPage() {
           </div>
           <div className="text-center md:text-left">
             <h2 className="text-2xl text-amber-400 mb-2 font-marcellus">
-              📜 July Quest: The Marked Ones
+              📜 November Quest: The Marked Ones
             </h2>
             <p className="text-gray-300 mb-3">
               Prove you are among the Marked. Share a quote from a book that changed

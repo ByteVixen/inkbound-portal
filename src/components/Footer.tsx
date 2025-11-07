@@ -1,4 +1,6 @@
+// src/components/Footer.tsx
 import { Instagram, Facebook, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -36,10 +38,7 @@ export default function Footer() {
           <Facebook />
         </a>
 
-        <a
-          href="mailto:summon@inkboundsociety.com"
-          className="hover:text-amber-400"
-        >
+        <a href="mailto:summon@inkboundsociety.com" className="hover:text-amber-400">
           <Mail />
         </a>
       </div>
@@ -50,12 +49,12 @@ export default function Footer() {
       </p>
 
       <div className="space-x-4 text-xs text-gray-400 pb-4">
-        <a href="/privacy" className="hover:text-amber-400 underline">
+        <Link to="/privacy-policy" className="hover:text-amber-400 underline">
           Privacy Policy
-        </a>
-        <a href="/terms" className="hover:text-amber-400 underline">
+        </Link>
+        <Link to="/terms-of-service" className="hover:text-amber-400 underline">
           Terms of Service
-        </a>
+        </Link>
       </div>
     </footer>
   );
