@@ -12,7 +12,6 @@ const Navbar: React.FC = () => {
     setActiveDropdown(null);
   }, [location]);
 
-  // Delay attaching outside click listener to prevent dropdown auto-close
   useEffect(() => {
     const timeout = setTimeout(() => {
       const handleClickOutside = (event: MouseEvent) => {
@@ -23,7 +22,6 @@ const Navbar: React.FC = () => {
       document.addEventListener('mousedown', handleClickOutside);
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }, 0);
-
     return () => clearTimeout(timeout);
   }, []);
 
@@ -55,7 +53,7 @@ const Navbar: React.FC = () => {
         { path: '/authors/consignment', label: 'Become Stocked' },
         { path: '/authors/ship-books', label: 'Shipping Info' },
         { path: '/virtual-shelfspace', label: 'Virtual Shelfspace' },
-        { path: "/author-map", label: "Global Author Map" },
+        { path: '/author-map', label: 'Global Author Map' },
       ],
     },
     {
@@ -64,28 +62,13 @@ const Navbar: React.FC = () => {
         { path: '/narrators', label: 'Narrator Hub Overview' },
         { path: '/narrator-shelf', label: 'Narrator Shelf' },
         { path: '/narrator-hub', label: 'Narrator Hub' },
-  ],
-},
-
-{
-  label: 'Creatives',
-  items: [
-    { path: '/creatives', label: 'Creatives Hub' },
-  ],
-},
- // 👇 NEW Merch section
-  {
-    label: 'Merch',
-    items: [
-      { path: '/merch', label: 'Shop Merch' },
-      // If you add anchors inside /merch later, you can list them too:
-      // { path: '/merch#homewares', label: 'Homewares' },
-      // { path: '/merch#clothing', label: 'Clothing' },
-      // { path: '/merch#accessories', label: 'Reading Accessories' },
-    ],
-  },
-
-{
+      ],
+    },
+    {
+      label: 'Creatives',
+      items: [{ path: '/creatives', label: 'Creatives Hub' }],
+    },
+    {
       label: 'Collab',
       items: [{ path: '/collaborate', label: 'Business Collaborations' }],
     },
@@ -125,6 +108,17 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className="hover:text-amber-400">Home</Link>
           <Link to="/featured-books" className="hover:text-amber-400">Stocked In-Store</Link>
+          
+          {/* Direct Merch Link */}
+          <a
+            href="https://www.reading-realm.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-amber-400"
+          >
+            Merch
+          </a>
+
           {navSections.map((section) => (
             <div key={section.label} className="relative group">
               <button
@@ -172,6 +166,17 @@ const Navbar: React.FC = () => {
           >
             Stocked In-Store
           </Link>
+
+          {/* Mobile Merch link */}
+          <a
+            href="https://www.reading-realm.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-lg hover:text-amber-400"
+          >
+            Merch
+          </a>
+
           {navSections.map((section) => (
             <details key={section.label} className="text-lg pb-4">
               <summary className="cursor-pointer hover:text-amber-400">
@@ -198,4 +203,3 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
-
