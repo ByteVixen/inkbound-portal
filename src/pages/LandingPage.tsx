@@ -189,6 +189,70 @@ export default function LandingPage() {
         </div>
       </section>
 
+ {/* Black Quill Challenge - BFCM Author Promo */}
+<section className="relative z-10 max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
+  <div className="glass-panel border border-amber-700 rounded-xl p-6 md:p-8 overflow-hidden">
+    {/* Glow accents */}
+    <div className="pointer-events-none absolute inset-0 opacity-20">
+      <div className="absolute -top-10 left-10 h-40 w-40 rounded-full bg-amber-500/20 blur-3xl" />
+      <div className="absolute bottom-0 right-8 h-40 w-40 rounded-full bg-red-900/25 blur-3xl" />
+    </div>
+
+    <div className="relative grid grid-cols-1 md:grid-cols-[2fr,1.3fr] gap-6 items-center">
+      {/* Text side */}
+      <div>
+        <p className="inline-flex items-center gap-2 rounded-full border border-amber-700/70 bg-black/60 px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-amber-300 mb-3">
+          ✦ BFCM • Creator Signal Boost • TikTok Challenge ✦
+        </p>
+        <h2 className="text-2xl md:text-3xl text-amber-400 mb-3 font-marcellus">
+          The Black Quill Challenge
+        </h2>
+        <p className="text-sm md:text-base text-gray-300 mb-3">
+          Four days. One sigil. A blackout spotlight for indie authors.
+          Join our BFCM TikTok challenge and pull your stories into the
+          Inkbound orbit — with featured slots on our site and socials.
+        </p>
+        <ul className="text-xs md:text-sm text-gray-300 space-y-1.5 mb-4">
+          <li>• Post a 15–45s TikTok using&nbsp;
+            <span className="text-amber-300 font-semibold">#BlackQuillChallenge</span> and&nbsp;
+            <span className="text-amber-300 font-semibold">#TheInkboundSociety</span>.
+          </li>
+          <li>• Answer one Black Quill prompt: the summoning, the curse, the world, or the bargain.</li>
+          <li>• Tag your book + clear hook. We’ll feature standouts in the Hall of Black Quills.</li>
+        </ul>
+
+        <div className="flex flex-wrap gap-3">
+          <Link
+            to="/black-quill-challenge"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-amber-500 text-black text-[0.7rem] md:text-xs font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(245,197,94,0.7)] hover:bg-amber-400 hover:shadow-[0_0_26px_rgba(245,197,94,1)] transition-all"
+          >
+            Join the Challenge
+          </Link>
+          <a
+            href="https://www.tiktok.com/tag/blackquillchallenge"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full border border-amber-600/80 bg-black/60 text-[0.7rem] md:text-xs font-semibold uppercase tracking-[0.18em] text-amber-300 hover:text-amber-200 hover:border-amber-400 transition-all"
+          >
+            View the Tag on TikTok
+          </a>
+        </div>
+      </div>
+
+      {/* Visual / Logo side */}
+      <div className="relative flex flex-col items-center justify-center">
+        <img
+          src="/images/black-quill-logo.png"  // <-- Add your generated image here
+          alt="The Black Quill Challenge Logo"
+          className="w-64 md:w-72 drop-shadow-[0_0_25px_rgba(225,167,48,0.4)] animate-float"
+        />
+        <p className="mt-2 text-[0.65rem] text-gray-400 italic">
+          The sigil that binds the storytellers.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
       {/* Feature Cards */}
