@@ -66,20 +66,36 @@ const InkboundSanta: React.FC = () => {
   // Map of slotId -> taken?
   const [slotTakenMap, setSlotTakenMap] = useState<Record<string, boolean>>({});
 
-  // 🔍 Listen to santa_slots and mark which are taken
-  useEffect(() => {
-    const colRef = collection(db, "santa_slots");
-    const unsubscribe = onSnapshot(colRef, (snapshot) => {
-      const map: Record<string, boolean> = {};
-      snapshot.forEach((doc) => {
-        const data = doc.data() as { taken?: boolean };
-        map[doc.id] = !!data.taken;
-      });
-      setSlotTakenMap(map);
-    });
+// 🔍 Listen to bookings and mark which slots are taken
+useEffect(() => {
+  const colRef = collection(db, "inkbound_santa_bookings");
 
-    return () => unsubscribe();
-  }, []);
+  const unsubscribe = onSnapshot(
+    colRef,
+    (snapshot) => {
+      const map: Record<string, boolean> = {};
+
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data() as { preferredSlot?: string };
+        if (data.preferredSlot) {
+          // If any booking uses this slot, mark it as taken
+          map[data.preferredSlot] = true;
+        }
+      });
+
+      setSlotTakenMap(map);
+    },
+    (err) => {
+      console.error("Error listening to santa bookings:", err);
+    }
+  );
+
+  return () => unsubscribe();
+}, []);
+
+
+
+
 
   const totalChildren = children.filter(
     (c) => c.name.trim() !== "" || c.age.trim() !== ""

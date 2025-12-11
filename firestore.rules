@@ -49,8 +49,17 @@ service cloud.firestore {
       // Anyone can create a booking (no auth required)
       allow create: if true;
 
-      // Only admin can read/update/delete
-      allow read, update, delete: if isAdmin();
+      // Public can read bookings (if you DON'T want this, remove this line)
+      allow read: if true;
+
+      // Only admin can update/delete
+      allow update, delete: if isAdmin();
+    }
+
+    // 🎅 Santa slots (public can see availability)
+    match /santa_slots/{slotId} {
+      allow read: if true;        // frontend can listen to slot availability
+      allow write: if isAdmin();  // only you / functions can change slots
     }
 
     /* 🎥 TikTokathon slots */
@@ -78,7 +87,7 @@ service cloud.firestore {
         (resource.data.labelEST == null || request.resource.data.labelEST == resource.data.labelEST) &&
         (resource.data.labelCST == null || request.resource.data.labelCST == resource.data.labelCST);
 
-      // seed/cleanup via admin only (or set to false after seeding)
+      // seed/cleanup via admin only
       allow create, delete: if isAdmin();
     }
   }
