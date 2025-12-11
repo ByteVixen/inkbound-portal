@@ -298,7 +298,7 @@ useEffect(() => {
               Santa greet them like he&apos;s been reading about them all year.
             </p>
             <ul className="mb-4 space-y-1.5 text-[0.75rem] text-slate-300">
-              <li>• €5 per child — paid on booking.</li>
+              <li>• €5 per child — paid on the day.</li>
               <li>• Each child leaves with a small bookish gift.</li>
               <li>• Gentle, bookish atmosphere — no blaring music or big crowd.</li>
             </ul>
