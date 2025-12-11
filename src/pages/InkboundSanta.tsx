@@ -558,7 +558,7 @@ useEffect(() => {
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-300">Total (€5 per child)</span>
+                      <span className="text-slate-300">Total (€5 per child, Pay on the Day)</span>
                       <span className="font-mono text-[#e1a730]">
                         €{totalCost}
                       </span>
@@ -621,7 +621,7 @@ useEffect(() => {
                     </span>
                   </div>
                   <div className="text-[0.7rem] text-slate-400">
-                    €5 per child — includes a small bookish gift to take home.
+                    €5 per child - Pay on the Day — includes a small bookish gift to take home.
                   </div>
                 </div>
                 <button
