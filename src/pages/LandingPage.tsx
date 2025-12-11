@@ -39,11 +39,21 @@ export default function LandingPage() {
       {/* Hero */}
       <div className="relative z-10 text-center px-6 pb-10 max-w-4xl mx-auto animate-fade-in">
         <h1 className="text-5xl font-light mb-4 text-glow">Some stories find you.</h1>
-        <p className="text-lg text-gray-300 mb-8 opacity-80">
+        <p className="text-lg text-gray-300 mb-4 opacity-80">
           Whisper your name. Join the Society.
         </p>
-        <div className="text-sm text-gray-400">
+        <div className="text-sm text-gray-400 mb-6">
           {fakeUserCount} readers browsing right now...
+        </div>
+
+        {/* 🧑‍🎄 Inkbound Santa CTA */}
+        <div className="flex justify-center">
+          <Link
+            to="/inkbound-santa"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-700/90 hover:bg-amber-600 text-sm font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
+          >
+            🎅 Book Inkbound Santa · 16 Dec
+          </Link>
         </div>
       </div>
 
@@ -189,11 +199,16 @@ export default function LandingPage() {
         </div>
       </section>
 
- 
-
       {/* Feature Cards */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
         {[
+          // 🎅 New Inkbound Santa card
+          {
+            to: "/inkbound-santa",
+            img: "inkbound-santa.png",
+            title: "Inkbound Santa",
+            desc: "Book a cosy 10-minute visit with Santa in the bookshop on 16 December.",
+          },
           {
             to: "/featured-books",
             img: "stocked-on-our-bookshelf.png",
@@ -225,11 +240,11 @@ export default function LandingPage() {
             desc: "Join challenges, unlock badges, and explore the world of Inkbound",
           },
           {
-  to: "/adventure",
-  img: "crowd-writing.png",
-  title: "Crowd-Woven Tale",
-  desc: "Vote at each fork and watch the story change live",
-},
+            to: "/adventure",
+            img: "crowd-writing.png",
+            title: "Crowd-Woven Tale",
+            desc: "Vote at each fork and watch the story change live",
+          },
           {
             to: "/inkbound-tbr",
             img: "inkbound-tbr.png",

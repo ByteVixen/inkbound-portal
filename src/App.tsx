@@ -33,7 +33,7 @@ import LibroPage from "./pages/LibroPage";
 import BookishFortune from "./pages/BookishFortune";
 import CreativesPage from "./pages/CreativesPage";
 import TikTokathon from "./pages/TikTokathon";
-import BlackQuillChallenge from "./pages/BlackQuillChallenge";
+import InkboundSanta from "./pages/inkboundsanta";
 
 // Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
@@ -74,7 +74,7 @@ const App: React.FC = () => {
             <Route path="/creatives" element={<CreativesPage />} />
             <Route path="/tiktokathon" element={<TikTokathon />} />
              <Route path="/merch" element={<MerchPage />} />
-             <Route path="/black-quill-challenge" element={<BlackQuillChallenge />} />
+             <Route path="/inkbound-santa" element={<InkboundSanta />} />
 
             {/* Featured / Virtual / Audiobooks */}
             <Route path="/featured-books" element={<FeaturedBooksPage />} />

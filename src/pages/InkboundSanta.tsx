@@ -1,6 +1,13 @@
 // src/pages/InkboundSanta.tsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../firebase"; // or "../lib/firebase" if that's your path
 
 type ChildInfo = {
   name: string;
@@ -10,12 +17,44 @@ type ChildInfo = {
   secretForSanta: string;
 };
 
+type SantaSlot = {
+  value: string; // "16:00" etc
+  label: string; // "4:00 – 4:10 pm"
+};
+
+const SANTA_TIME_SLOTS: SantaSlot[] = [
+  { value: "16:00", label: "4:00 – 4:10 pm" },
+  { value: "16:10", label: "4:10 – 4:20 pm" },
+  { value: "16:20", label: "4:20 – 4:30 pm" },
+  { value: "16:30", label: "4:30 – 4:40 pm" },
+  { value: "16:40", label: "4:40 – 4:50 pm" },
+  { value: "16:50", label: "4:50 – 5:00 pm" },
+  { value: "17:00", label: "5:00 – 5:10 pm" },
+  { value: "17:10", label: "5:10 – 5:20 pm" },
+  { value: "17:20", label: "5:20 – 5:30 pm" },
+  { value: "17:30", label: "5:30 – 5:40 pm" },
+  { value: "17:40", label: "5:40 – 5:50 pm" },
+  { value: "17:50", label: "5:50 – 6:00 pm" },
+  { value: "18:00", label: "6:00 – 6:10 pm" },
+  { value: "18:10", label: "6:10 – 6:20 pm" },
+  { value: "18:20", label: "6:20 – 6:30 pm" },
+  { value: "18:30", label: "6:30 – 6:40 pm" },
+  { value: "18:40", label: "6:40 – 6:50 pm" },
+  { value: "18:50", label: "6:50 – 7:00 pm" },
+];
+
 const InkboundSanta: React.FC = () => {
   const [parentName, setParentName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [children, setChildren] = useState<ChildInfo[]>([
-    { name: "", age: "", favouriteThings: "", christmasWish: "", secretForSanta: "" },
+    {
+      name: "",
+      age: "",
+      favouriteThings: "",
+      christmasWish: "",
+      secretForSanta: "",
+    },
   ]);
   const [preferredSlot, setPreferredSlot] = useState("");
   const [wantsPhoto, setWantsPhoto] = useState(false);
@@ -23,6 +62,24 @@ const InkboundSanta: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Map of slotId -> taken?
+  const [slotTakenMap, setSlotTakenMap] = useState<Record<string, boolean>>({});
+
+  // 🔍 Listen to santa_slots and mark which are taken
+  useEffect(() => {
+    const colRef = collection(db, "santa_slots");
+    const unsubscribe = onSnapshot(colRef, (snapshot) => {
+      const map: Record<string, boolean> = {};
+      snapshot.forEach((doc) => {
+        const data = doc.data() as { taken?: boolean };
+        map[doc.id] = !!data.taken;
+      });
+      setSlotTakenMap(map);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const totalChildren = children.filter(
     (c) => c.name.trim() !== "" || c.age.trim() !== ""
@@ -41,7 +98,13 @@ const InkboundSanta: React.FC = () => {
   const addChild = () => {
     setChildren((prev) => [
       ...prev,
-      { name: "", age: "", favouriteThings: "", christmasWish: "", secretForSanta: "" },
+      {
+        name: "",
+        age: "",
+        favouriteThings: "",
+        christmasWish: "",
+        secretForSanta: "",
+      },
     ]);
   };
 
@@ -63,6 +126,17 @@ const InkboundSanta: React.FC = () => {
       return;
     }
 
+    if (!preferredSlot) {
+      setError("Please choose a time slot.");
+      return;
+    }
+
+    const slotIsTaken = slotTakenMap[preferredSlot];
+    if (slotIsTaken) {
+      setError("That time slot has just been taken. Please choose another.");
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -76,13 +150,31 @@ const InkboundSanta: React.FC = () => {
         notes,
         totalChildren,
         totalCost,
+        eventDate: "2025-12-16",
+        status: "pending",
+        createdAt: serverTimestamp(),
       };
 
-      // TODO: Replace this with your real submission logic
-      console.log("Inkbound Santa booking submitted:", payload);
+      await addDoc(collection(db, "inkbound_santa_bookings"), payload);
 
-      await new Promise((resolve) => setTimeout(resolve, 800));
       setSubmitted(true);
+
+      // Reset form
+      setParentName("");
+      setEmail("");
+      setPhone("");
+      setChildren([
+        {
+          name: "",
+          age: "",
+          favouriteThings: "",
+          christmasWish: "",
+          secretForSanta: "",
+        },
+      ]);
+      setPreferredSlot("");
+      setWantsPhoto(false);
+      setNotes("");
     } catch (err) {
       console.error(err);
       setError(
@@ -135,15 +227,20 @@ const InkboundSanta: React.FC = () => {
 
             <p className="max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base">
               The bookshop will be dressed in fairy lights, stories, and soft shadows. On{" "}
-              <span className="font-semibold text-slate-100">Tuesday 16 December from 4pm</span>,
-              Inkbound Santa will be waiting with time to listen, a cosy chair, and a{" "}
-              <span className="font-semibold text-[#e1a730]">bookish gift for each child</span>.
-              Booking keeps visits gentle, calm, and a world away from crowded grottos.
+              <span className="font-semibold text-slate-100">
+                Tuesday 16 December from 4pm
+              </span>
+              , Inkbound Santa will be waiting with time to listen, a cosy chair, and a{" "}
+              <span className="font-semibold text-[#e1a730]">
+                bookish gift for each child
+              </span>
+              . Booking keeps visits gentle, calm, and a world away from crowded grottos.
             </p>
 
             <div className="space-y-2 text-[0.8rem] text-slate-300">
               <p>
-                • <span className="font-semibold">€5 per child</span> — includes a small bookish gift. <br />
+                • <span className="font-semibold">€5 per child</span> — includes a small
+                bookish gift. <br />
                 • A quieter, sensory-friendly Santa visit inside the bookshop. <br />
                 • One booking per family — list all children attending below.
               </p>
@@ -179,10 +276,10 @@ const InkboundSanta: React.FC = () => {
               What to expect
             </h2>
             <p className="mb-3 text-[0.8rem] leading-relaxed text-slate-300">
-              Think fairy lights, stacked books, and a quiet corner away from the rush. Your
-              child or children will have a few minutes to talk to Santa without pressure,
-              noise, or a long queue watching. The details you share below help Santa greet
-              them like he&apos;s been reading about them all year.
+              Think fairy lights, stacked books, and a quiet corner away from the rush.
+              Your child or children will have a few minutes to talk to Santa without
+              pressure, noise, or a long queue watching. The details you share below help
+              Santa greet them like he&apos;s been reading about them all year.
             </p>
             <ul className="mb-4 space-y-1.5 text-[0.75rem] text-slate-300">
               <li>• €5 per child — paid on booking.</li>
@@ -194,9 +291,9 @@ const InkboundSanta: React.FC = () => {
                 <span>📸</span> Photos & privacy
               </p>
               <p>
-                We can take a quick photo during your visit and email it to you if requested.
-                No images of children will ever be shared on our socials or website. Their
-                moment stays theirs.
+                We can take a quick photo during your visit and email it to you if
+                requested. No images of children will ever be shared on our socials or
+                website. Their moment stays theirs.
               </p>
             </div>
           </aside>
@@ -208,9 +305,9 @@ const InkboundSanta: React.FC = () => {
             Book your visit with Inkbound Santa
           </h2>
           <p className="text-[0.8rem] text-slate-300 max-w-2xl">
-            Please fill in the details below so we can prepare for your visit. The more you
-            share, the easier it is for Santa to make each child feel seen, safe, and a little
-            bit spellbound.
+            Please fill in the details below so we can prepare for your visit. The more
+            you share, the easier it is for Santa to make each child feel seen, safe, and
+            a little bit spellbound.
           </p>
 
           {submitted ? (
@@ -220,9 +317,9 @@ const InkboundSanta: React.FC = () => {
                 <span>Your visit with Inkbound Santa is booked</span>
               </h3>
               <p className="text-[0.85rem] text-emerald-50/90">
-                Thank you for booking. You should receive a confirmation shortly. If you need
-                to change anything, please contact the bookshop and mention your Inkbound
-                Santa booking for{" "}
+                Thank you for booking. You should receive a confirmation shortly. If you
+                need to change anything, please contact the bookshop and mention your
+                Inkbound Santa booking for{" "}
                 <span className="font-semibold text-emerald-200">16 December</span>.
               </p>
             </div>
@@ -298,8 +395,8 @@ const InkboundSanta: React.FC = () => {
                   </button>
                 </div>
                 <p className="text-[0.7rem] text-slate-400">
-                  Add details for each child attending. Santa will use this to greet them by
-                  name and pick up on the little things that make them light up.
+                  Add details for each child attending. Santa will use this to greet them
+                  by name and pick up on the little things that make them light up.
                 </p>
 
                 <div className="space-y-6">
@@ -331,7 +428,9 @@ const InkboundSanta: React.FC = () => {
                             type="text"
                             className="w-full rounded-xl border border-white/15 bg-black/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/80"
                             value={child.name}
-                            onChange={(e) => updateChild(index, "name", e.target.value)}
+                            onChange={(e) =>
+                              updateChild(index, "name", e.target.value)
+                            }
                           />
                         </div>
                         <div className="space-y-1">
@@ -343,7 +442,9 @@ const InkboundSanta: React.FC = () => {
                             min="0"
                             className="w-full rounded-xl border border-white/15 bg-black/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/80"
                             value={child.age}
-                            onChange={(e) => updateChild(index, "age", e.target.value)}
+                            onChange={(e) =>
+                              updateChild(index, "age", e.target.value)
+                            }
                           />
                         </div>
                       </div>
@@ -406,22 +507,31 @@ const InkboundSanta: React.FC = () => {
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-1">
                     <label className="text-[0.7rem] font-medium text-slate-200">
-                      Preferred time window (optional)
+                      Preferred time slot <span className="text-[#e1a730]">*</span>
                     </label>
                     <select
                       className="w-full rounded-xl border border-white/15 bg-black/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400/80"
                       value={preferredSlot}
                       onChange={(e) => setPreferredSlot(e.target.value)}
+                      required
                     >
                       <option value="">Select a time</option>
-                      <option value="16:00">Around 4:00pm</option>
-                      <option value="16:30">Around 4:30pm</option>
-                      <option value="17:00">Around 5:00pm</option>
-                      <option value="17:30">Later in the afternoon</option>
+                      {SANTA_TIME_SLOTS.map((slot) => {
+                        const isTaken = slotTakenMap[slot.value];
+                        return (
+                          <option
+                            key={slot.value}
+                            value={slot.value}
+                            disabled={isTaken}
+                          >
+                            {slot.label} {isTaken ? "— FULL" : ""}
+                          </option>
+                        );
+                      })}
                     </select>
                     <p className="text-[0.65rem] text-slate-500 mt-1">
-                      We&apos;ll do our best to honour this and will confirm your rough time by
-                      email.
+                      We&apos;ll confirm your exact time by email. Slots marked FULL are no
+                      longer available.
                     </p>
                   </div>
                   <div className="space-y-1 text-sm rounded-2xl border border-slate-700/70 bg-black/60 px-4 py-3">
@@ -449,8 +559,8 @@ const InkboundSanta: React.FC = () => {
                     <span>Photography & memories</span>
                   </h3>
                   <p className="text-[0.75rem] text-slate-300">
-                    Photos may be taken during your child&apos;s visit with Inkbound Santa.
-                    These are for families only and are never shared publicly.
+                    Photos may be taken during your child&apos;s visit with Inkbound
+                    Santa. These are for families only and are never shared publicly.
                   </p>
                   <label className="flex items-start gap-2 text-[0.8rem] text-slate-200">
                     <input

@@ -44,6 +44,15 @@ service cloud.firestore {
     // 📜 Archived Quests
     match /previous_quests/{docId}     { allow read: if true; allow write: if isAdmin(); }
 
+    // 🎅 Inkbound Santa bookings
+    match /inkbound_santa_bookings/{docId} {
+      // Anyone can create a booking (no auth required)
+      allow create: if true;
+
+      // Only admin can read/update/delete
+      allow read, update, delete: if isAdmin();
+    }
+
     /* 🎥 TikTokathon slots */
     match /tiktokathon_slots/{slotId} {
       allow read: if true;
@@ -74,4 +83,3 @@ service cloud.firestore {
     }
   }
 }
-

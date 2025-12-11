@@ -1,6 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+// src/lib/firebase.ts  (or src/firebase.ts – match your existing path)
+
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 // 🔥 Use your existing firebase config here
 const firebaseConfig = {
@@ -12,56 +14,12 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
+// Avoid re-initialising in dev with hot reload
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-// Test document path
-const testDocRef = doc(db, "virtual_shelf_books", "test_rule_doc");
+// ✅ This is what you need in InkboundSanta
+export const db = getFirestore(app);
 
-async function testPublicRead() {
-  console.log("🟡 Testing public read (no auth)...");
-  await signOut(auth); // force logout
-  try {
-    const snap = await getDoc(testDocRef);
-    console.log("✅ Public read allowed:", snap.exists());
-  } catch (err) {
-    console.error("❌ Public read failed:", err);
-  }
-}
-
-async function testPublicWrite() {
-  console.log("🟡 Testing public write (no auth)...");
-  await signOut(auth); // force logout
-  try {
-    await setDoc(testDocRef, { name: "Anon User", bookTitle: "Should Fail" });
-    console.error("❌ Public write succeeded (NOT expected!)");
-  } catch (err) {
-    console.log("✅ Public write blocked as expected:", err);
-  }
-}
-
-async function testAdminWrite() {
-  console.log("🟡 Testing admin write (with Google login)...");
-  const provider = new GoogleAuthProvider();
-  const result = await signInWithPopup(auth, provider);
-  console.log("Signed in as:", result.user.uid);
-
-  try {
-    await setDoc(testDocRef, {
-      name: "Admin User",
-      bookTitle: "This should succeed",
-      updatedAt: new Date(),
-    });
-    console.log("✅ Admin write succeeded");
-  } catch (err) {
-    console.error("❌ Admin write failed:", err);
-  }
-}
-
-// Run tests in order
-(async () => {
-  await testPublicRead();
-  await testPublicWrite();
-  await testAdminWrite();
-})();
+// Optional: keep these for your admin dashboard / auth features
+export const auth = getAuth(app);
+export const googleProvider = new GoogleAuthProvider();
