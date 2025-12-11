@@ -33,7 +33,7 @@ import LibroPage from "./pages/LibroPage";
 import BookishFortune from "./pages/BookishFortune";
 import CreativesPage from "./pages/CreativesPage";
 import TikTokathon from "./pages/TikTokathon";
-import InkboundSanta from "./pages/inkboundsanta";
+import InkboundSanta from "./pages/InkboundSanta";
 
 // Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
