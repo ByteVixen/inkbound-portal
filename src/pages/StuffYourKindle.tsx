@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const TALLY_FORM_URL = "https://tally.so/r/aQ9XY9";
 
 // Event moments (Dublin is UTC+0 on Jan 1)

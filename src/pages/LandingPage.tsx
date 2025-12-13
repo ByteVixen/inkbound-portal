@@ -5,8 +5,6 @@ import VantaBackground from "../components/VantaBackground";
 import CountdownBanner from "../components/CountdownBanner";
 import GuestBook from "../components/GuestBook";
 
-const TALLY_FORM_URL = "https://tally.so/r/aQ9XY9";
-
 export default function LandingPage() {
   const [showGuidebook, setShowGuidebook] = useState(false);
   const guidebookRef = useRef<HTMLDivElement>(null);
