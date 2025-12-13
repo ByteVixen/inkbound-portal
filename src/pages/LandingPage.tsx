@@ -1,9 +1,11 @@
 // src/pages/LandingPage.tsx
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import VantaBackground from "../components/VantaBackground";
 import CountdownBanner from "../components/CountdownBanner";
 import GuestBook from "../components/GuestBook";
+
+const TALLY_FORM_URL = "https://tally.so/r/aQ9XY9";
 
 export default function LandingPage() {
   const [showGuidebook, setShowGuidebook] = useState(false);
@@ -16,6 +18,19 @@ export default function LandingPage() {
       guidebookRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 50);
   };
+
+  // Load Tally embed script once (safe even if it fails — iframe still works)
+  useEffect(() => {
+    const existing = document.querySelector(
+      'script[src="https://tally.so/widgets/embed.js"]'
+    );
+    if (existing) return;
+
+    const script = document.createElement("script");
+    script.src = "https://tally.so/widgets/embed.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
 
   return (
     <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
@@ -274,6 +289,54 @@ export default function LandingPage() {
           </Link>
         ))}
       </div>
+
+ {/* ✨ Stuff Your Kindle – New Year Event */}
+<section className="relative z-10 max-w-5xl mx-auto px-6 mb-14 animate-fade-in">
+  {/* Soft magical glow */}
+  <div className="pointer-events-none absolute -inset-6 opacity-70">
+    <div className="absolute -top-10 left-10 h-56 w-56 rounded-full bg-amber-400/20 blur-3xl" />
+    <div className="absolute top-0 right-10 h-64 w-64 rounded-full bg-red-700/20 blur-3xl" />
+    <div className="absolute -bottom-10 left-1/3 h-64 w-64 rounded-full bg-emerald-700/20 blur-3xl" />
+  </div>
+
+  <div className="relative glass-panel border border-amber-700 rounded-xl p-6 md:p-8 text-center overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-amber-500/10 via-transparent to-emerald-500/10 opacity-70" />
+
+    {/* Logos */}
+    <div className="relative flex flex-wrap justify-center items-center gap-4 mb-4">
+    
+      <img
+        src="/images/inkxiaac.png"
+        alt="Inkbound x Indie Author Advocate Community"
+        className="h-16 w-auto rounded-lg border border-amber-700/50 bg-black/30 p-2"
+      />
+    </div>
+
+    {/* Text */}
+    <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
+      ✦ Stuff Your Kindle • New Year’s Resolution Edition
+    </p>
+
+    <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
+      Free Indie Ebooks · January 1st, 2026
+    </h2>
+
+    <p className="text-gray-300 max-w-2xl mx-auto mb-5 opacity-90">
+      Inkbound is partnering with the Indie Author Advocate Community to host a
+      one-day Stuff Your Kindle event dedicated entirely to indie and
+      self-published authors — across all genres, worldwide.
+    </p>
+
+    {/* CTA */}
+    <Link
+      to="/stuff-your-kindle"
+      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
+    >
+      ✨ Learn more & submit your book →
+    </Link>
+  </div>
+</section>
+
 
       {/* Divider */}
       <div className="relative z-10 flex justify-center my-10 animate-fade-in">

@@ -78,3 +78,82 @@ button:disabled {
   mask-composite: exclude;
   -webkit-mask-composite: xor;
 }
+/* =========================
+   Stuff Your Kindle — Sparkles + Glow
+   CSS-only, no canvas
+   ========================= */
+
+   @keyframes sykeSparkleDrift {
+    0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.35; }
+    50%  { transform: translate3d(-2%, -4%, 0) scale(1.03); opacity: 0.55; }
+    100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.35; }
+  }
+  
+  @keyframes sykeSparkleFloat {
+    0%   { background-position: 0px 0px, 0px 0px, 0px 0px; }
+    50%  { background-position: 120px -220px, -180px -140px, 220px -90px; }
+    100% { background-position: 0px 0px, 0px 0px, 0px 0px; }
+  }
+  
+  /* Overlay layer that looks like subtle floating sparkles */
+  .syke-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: normal;
+    opacity: 0.7;
+    animation: sykeSparkleDrift 10s ease-in-out infinite;
+  }
+  
+  .syke-sparkles::before,
+  .syke-sparkles::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background-repeat: repeat;
+    animation: sykeSparkleFloat 18s ease-in-out infinite;
+    filter: blur(0.2px);
+  }
+  
+  /* Tiny stars */
+  .syke-sparkles::before {
+    opacity: 0.55;
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,0.65) 1px, transparent 2px),
+      radial-gradient(circle, rgba(255,255,255,0.45) 1px, transparent 2px);
+    background-size: 180px 180px, 240px 240px;
+  }
+  
+  /* Larger soft glints */
+  .syke-sparkles::after {
+    opacity: 0.35;
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,0.35) 2px, transparent 5px),
+      radial-gradient(circle, rgba(255,255,255,0.25) 2px, transparent 6px);
+    background-size: 420px 420px, 560px 560px;
+    animation-duration: 26s;
+  }
+  
+  /* Countdown glow intensity is driven by CSS variables from React */
+  .syke-countdown-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--sykeGlowOpacity, 0.25);
+    transition: opacity 600ms ease;
+    mix-blend-mode: screen;
+    filter: blur(0px);
+  }
+  
+  .syke-countdown-glow::before {
+    content: "";
+    position: absolute;
+    inset: -30%;
+    background:
+      radial-gradient(circle at 30% 35%, rgba(255, 0, 255, 0.55), transparent 45%),
+      radial-gradient(circle at 70% 30%, rgba(0, 255, 255, 0.45), transparent 48%),
+      radial-gradient(circle at 50% 75%, rgba(255, 230, 0, 0.45), transparent 55%);
+    filter: blur(90px);
+    opacity: 1;
+  }
+ 
