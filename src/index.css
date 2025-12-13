@@ -119,18 +119,20 @@ button:disabled {
   .syke-sparkles::before {
     opacity: 0.55;
     background-image:
-      radial-gradient(circle, rgba(255,255,255,0.65) 1px, transparent 2px),
-      radial-gradient(circle, rgba(255,255,255,0.45) 1px, transparent 2px);
-    background-size: 180px 180px, 240px 240px;
+    radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,200,0,0.6) 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,80,200,0.5) 1px, transparent 2px),
+    radial-gradient(circle, rgba(0,220,255,0.5) 1px, transparent 2px);
+    background-size: 240px 180px, 240px 240px;
   }
   
   /* Larger soft glints */
   .syke-sparkles::after {
     opacity: 0.35;
     background-image:
-      radial-gradient(circle, rgba(255,255,255,0.35) 2px, transparent 5px),
-      radial-gradient(circle, rgba(255,255,255,0.25) 2px, transparent 6px);
-    background-size: 420px 420px, 560px 560px;
+    radial-gradient(circle, rgba(255,80,200,0.5) 2px, transparent 5px),
+    radial-gradient(circle, rgba(0,220,255,0.5) 2px, transparent 6px);
+    background-size: 490px 420px, 560px 560px;
     animation-duration: 26s;
   }
   
