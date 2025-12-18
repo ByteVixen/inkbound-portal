@@ -40,15 +40,26 @@ export default function LandingPage() {
       {/* Countdown Banner */}
       <CountdownBanner />
 
-      {/* Logo */}
-      <div className="relative z-10 text-center pt-10 animate-fade-in">
-        <img
-          src="/logo.png"
-          alt="Inkbound Society Logo"
-          className="mx-auto w-48 h-auto mb-6 drop-shadow-xl"
-        />
-      </div>
+ {/* Logo */}
+<div className="relative z-10 text-center pt-10 animate-fade-in">
+  <div className="mx-auto inline-block relative logo-snow-wrap">
+    <img
+      src="/logo.png"
+      alt="Inkbound Society Logo"
+      className="w-48 sm:w-56 md:w-64 h-auto drop-shadow-xl"
+    />
 
+    {/* Snowcap overlay */}
+    <img
+      src="/images/snowcap.png"
+      alt=""
+      aria-hidden="true"
+      className="logo-snowcap"
+    />
+  </div>
+</div>
+{/* ❄ Snow overlay */}
+<div className="snow-overlay pointer-events-none fixed inset-0 z-20" />
       {/* Hero */}
       <div className="relative z-10 text-center px-6 pb-10 max-w-4xl mx-auto animate-fade-in">
         <h1 className="text-5xl font-light mb-4 text-glow">Some stories find you.</h1>

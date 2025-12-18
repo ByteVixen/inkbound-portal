@@ -158,4 +158,113 @@ button:disabled {
     filter: blur(90px);
     opacity: 1;
   }
- 
+/* =========================
+   Organic Snow Overlay
+   ========================= */
+
+   .snow-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+    mix-blend-mode: screen;
+    opacity: 0.85;
+  }
+  
+  .snow-overlay::before,
+  .snow-overlay::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background-repeat: repeat;
+  }
+  
+  /* Fine snow — lots of tiny flakes */
+  .snow-overlay::before {
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,0.85) 0.8px, transparent 2px),
+      radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 2.6px),
+      radial-gradient(circle, rgba(255,255,255,0.4) 0.6px, transparent 2px);
+    background-size:
+      137px 191px,
+      223px 149px,
+      173px 263px;
+    background-position:
+      12px -40px,
+      -88px 90px,
+      54px 180px;
+    animation: snowFall 14s linear infinite;
+    filter: blur(0.2px);
+  }
+  
+  /* Bigger flakes — slower, drifting */
+  .snow-overlay::after {
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,0.55) 1.6px, transparent 5px),
+      radial-gradient(circle, rgba(255,255,255,0.35) 2px, transparent 6px);
+    background-size:
+      389px 421px,
+      517px 361px;
+    background-position:
+      -120px 0,
+      240px 200px;
+    animation:
+      snowFall 26s linear infinite,
+      snowDrift 11s ease-in-out infinite;
+    filter: blur(0.6px);
+  }
+  
+  /* =========================
+     Keyframes (natural motion)
+     ========================= */
+  
+  @keyframes snowFall {
+    0% {
+      background-position-y: 0, 0, 0;
+    }
+    100% {
+      background-position-y: 1400px, 1100px, 1600px;
+    }
+  }
+  
+  @keyframes snowDrift {
+    0% {
+      background-position-x: 0, 0;
+    }
+    50% {
+      background-position-x: 120px, -180px;
+    }
+    100% {
+      background-position-x: 0, 0;
+    }
+  }
+  /* ===== Snow that "collects" on logo.png (image overlay) ===== */
+
+.logo-snow-wrap {
+  /* lets the snow extend slightly outside without being clipped */
+  overflow: visible;
+}
+
+.logo-snowcap {
+  position: absolute;
+  left: 50%;
+  top: -6%;
+  transform: translateX(-50%);
+  width: 108%;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+
+  /* make it feel like it’s sitting on the logo */
+  filter: drop-shadow(0 10px 16px rgba(255,255,255,0.12));
+  opacity: 0.98;
+
+  /* tiny “alive” shimmer */
+  animation: snowcapBreath 6s ease-in-out infinite;
+}
+
+@keyframes snowcapBreath {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.96; }
+  50%      { transform: translateX(-50%) translateY(1px); opacity: 1; }
+}
