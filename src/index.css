@@ -248,9 +248,9 @@ button:disabled {
 .logo-snowcap {
   position: absolute;
   left: 50%;
-  top: -6%;
+  top: +14%;
   transform: translateX(-50%);
-  width: 108%;
+  width: 20%;
   max-width: none;
   height: auto;
   pointer-events: none;
