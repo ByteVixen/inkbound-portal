@@ -59,15 +59,7 @@ export default function LandingPage() {
           {fakeUserCount} readers browsing right now...
         </div>
 
-        {/* 🧑‍🎄 Inkbound Santa CTA */}
-        <div className="flex justify-center">
-          <Link
-            to="/inkbound-santa"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-700/90 hover:bg-amber-600 text-sm font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
-          >
-            🎅 Book Inkbound Santa · 16 Dec
-          </Link>
-        </div>
+       
       </div>
 
       {/* Guidebook Cover (click to open) */}
@@ -215,19 +207,7 @@ export default function LandingPage() {
       {/* Feature Cards */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
         {[
-          // 🎅 New Inkbound Santa card
-          {
-            to: "/inkbound-santa",
-            img: "inkbound-santa.png",
-            title: "Inkbound Santa",
-            desc: "Book a cosy 10-minute visit with Santa in the bookshop on 16 December.",
-          },
-          {
-            to: "/featured-books",
-            img: "stocked-on-our-bookshelf.png",
-            title: "Stocked in Our Bookshop",
-            desc: "Discover books physically shelved at the Inkbound Bookshop in Gort",
-          },
+         
           {
             to: "/virtual-shelf",
             img: "on-our-virtual shelf.png",
@@ -320,7 +300,7 @@ export default function LandingPage() {
     </h2>
 
     <p className="text-gray-300 max-w-2xl mx-auto mb-5 opacity-90">
-      Inkbound is partnering with the Indie Author Advocate Community to host a
+      Inkbound is partnering with the Indie Author Advocate Community & MommaD to host a
       one-day Stuff Your Kindle event dedicated entirely to indie and
       self-published authors — across all genres, worldwide.
     </p>

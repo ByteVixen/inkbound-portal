@@ -237,7 +237,8 @@ export default function StuffYourKindle() {
             <p className={`mx-auto max-w-3xl text-sm sm:text-base leading-relaxed ${textTheme.muted}`}>
               Every January, people promise to read more. This year, we’re making it easy.
               On <span className="font-semibold">January 1st, 2026</span>, Inkbound is partnering with the{" "}
-              <span className="font-semibold">Indie Author Advocate Community</span> to host a Stuff Your Kindle event
+              <span className="font-semibold">Indie Author Advocate Community</span> & {" "}
+              <span className="font-semibold">MommaD</span> to host a Stuff Your Kindle event
               dedicated entirely to indie and self-published authors — across all genres.
             </p>
 
