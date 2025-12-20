@@ -35,7 +35,7 @@ import CreativesPage from "./pages/CreativesPage";
 import TikTokathon from "./pages/TikTokathon";
 import InkboundSanta from "./pages/InkboundSanta";
 import StuffYourKindle from "./pages/StuffYourKindle";
-import TreasureClaim from "./pages/treasureclaim";
+
 import Newsletter from "./pages/newsletter";
 
 
@@ -80,7 +80,7 @@ const App: React.FC = () => {
              <Route path="/merch" element={<MerchPage />} />
              <Route path="/inkbound-santa" element={<InkboundSanta />} />
              <Route path="/stuff-your-kindle" element={<StuffYourKindle />} />
-             <Route path="/treasure-claim" element={<TreasureClaim />} />
+             
              <Route path="/newsletter" element={<Newsletter />} />
 
 
