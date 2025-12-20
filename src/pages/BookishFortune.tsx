@@ -22,33 +22,37 @@ const fortunes = [
   "You will become obsessed with a new series. Sleep will suffer.",
   "The moon approves of your current ship.",
   "You’ll meet your next fictional obsession before the week ends.",
-"Your bookmark knows more than you think.",
-"A page will cut you—metaphorically, emotionally, or otherwise.",
-"You’re being watched by a character you forgot.",
-"The next book you open will change everything.",
-"Villains lie, but this one tells the truth.",
-"You’ve crossed into a cursed genre. Good luck.",
-"The trope you hate is about to seduce you.",
-"You will highlight a sentence that haunts you.",
-"A shadow in your TBR whispers your name.",
-"You’ll cry, then immediately recommend it to a friend.",
-"The author is laughing as you read this.",
-"That dog-eared page? It’s a warning.",
-"The love interest is lying—but it’s hot.",
-"You will binge the whole series and forget sleep.",
-"A fictional crown is waiting for you.",
-"The morally gray man has a moral gray twin.",
-"The ink remembers who skipped the prologue.",
-"Something ancient lives between chapters three and four.",
-"Your current book is watching you back.",
+  "Your bookmark knows more than you think.",
+  "A page will cut you—metaphorically, emotionally, or otherwise.",
+  "You’re being watched by a character you forgot.",
+  "The next book you open will change everything.",
+  "Villains lie, but this one tells the truth.",
+  "You’ve crossed into a cursed genre. Good luck.",
+  "The trope you hate is about to seduce you.",
+  "You will highlight a sentence that haunts you.",
+  "A shadow in your TBR whispers your name.",
+  "You’ll cry, then immediately recommend it to a friend.",
+  "The author is laughing as you read this.",
+  "That dog-eared page? It’s a warning.",
+  "The love interest is lying—but it’s hot.",
+  "You will binge the whole series and forget sleep.",
+  "A fictional crown is waiting for you.",
+  "The morally gray man has a moral gray twin.",
+  "The ink remembers who skipped the prologue.",
+  "Something ancient lives between chapters three and four.",
+  "Your current book is watching you back.",
 ];
+
+const DECOY_TALLY_URL = "https://tally.so/r/PdD1ZV";
 
 const BookishFortunePage: React.FC = () => {
   const [fortune, setFortune] = useState<string | null>(null);
+  const [sigilUnlocked, setSigilUnlocked] = useState(false);
 
   const drawFortune = () => {
     const random = fortunes[Math.floor(Math.random() * fortunes.length)];
     setFortune(random);
+    setSigilUnlocked(true);
   };
 
   return (
@@ -58,22 +62,39 @@ const BookishFortunePage: React.FC = () => {
       </h1>
 
       <div className="relative">
-        {/* Glowing aura behind */}
         <div className="absolute inset-0 rounded-full blur-2xl bg-purple-600 opacity-40 animate-pulse" />
 
-        {/* Crystal Ball */}
         <img
           src="/images/crystal-ball.gif"
           alt="Crystal Ball"
-          className="w-64 md:w-80 z-10 relative"
+          className="w-64 md:w-80 z-10 relative select-none"
           onClick={drawFortune}
         />
 
-        {/* Fortune inside the ball */}
         {fortune && (
-          <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-6 text-sm md:text-lg text-black font-script animate-fade-in z-20">
+          <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center px-6 text-sm md:text-lg text-black font-script animate-fade-in z-20">
             “{fortune}”
           </p>
+        )}
+
+        {sigilUnlocked && (
+          <button
+            type="button"
+            aria-label="Hidden sigil"
+            title="Something is wrong with this image…"
+            onClick={() => window.open(DECOY_TALLY_URL, "_blank", "noopener,noreferrer")}
+            className="
+              absolute bottom-[18%] right-[22%]
+              h-3 w-3 rounded-full
+              cursor-pointer
+              opacity-[0.06]
+              hover:opacity-25
+              focus:opacity-100
+              focus:outline-none
+              sigil-glitch sigil-hint sigil-hitbox
+              z-30
+            "
+          />
         )}
       </div>
 

@@ -268,3 +268,80 @@ button:disabled {
   0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.96; }
   50%      { transform: translateX(-50%) translateY(1px); opacity: 1; }
 }
+/* ✨ Hidden Sigil — Glitch Shimmer */
+
+@keyframes sigilFlicker {
+  0%, 92%, 100% { opacity: 0.02; }
+  93% { opacity: 0.12; }
+  95% { opacity: 0.04; }
+}
+
+@keyframes sigilGlitch {
+  0%, 96%, 100% {
+    transform: translate(0, 0);
+    filter: none;
+  }
+  97% {
+    transform: translate(-1px, 1px);
+    filter: drop-shadow(1px 0 magenta);
+  }
+  98% {
+    transform: translate(1px, -1px);
+    filter: drop-shadow(-1px 0 cyan);
+  }
+}
+
+.sigil-glitch {
+  animation:
+    sigilFlicker 6s infinite,
+    sigilGlitch 8s infinite;
+}
+@keyframes sigilHintPulse {
+  0%, 92%, 100% { opacity: 0.06; }
+  93% { opacity: 0.18; }
+  95% { opacity: 0.08; }
+}
+
+.sigil-hint {
+  animation: sigilHintPulse 7s infinite;
+}
+/* Newsletter sparkle drift (CSS-only) */
+@keyframes newsletterSparkleFloat {
+  0%   { background-position: 0px 0px, 0px 0px, 0px 0px; opacity: 0.55; }
+  50%  { background-position: 120px -260px, -220px -180px, 260px -120px; opacity: 0.75; }
+  100% { background-position: 0px 0px, 0px 0px, 0px 0px; opacity: 0.55; }
+}
+
+.newsletter-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.65;
+}
+
+.newsletter-sparkles::before,
+.newsletter-sparkles::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background-repeat: repeat;
+  animation: newsletterSparkleFloat 18s ease-in-out infinite;
+}
+
+.newsletter-sparkles::before {
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.65) 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 2px);
+  background-size: 190px 190px, 320px 320px;
+  opacity: 0.6;
+}
+
+.newsletter-sparkles::after {
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.28) 2px, transparent 6px),
+    radial-gradient(circle, rgba(255,255,255,0.18) 2px, transparent 7px);
+  background-size: 520px 520px, 680px 680px;
+  opacity: 0.35;
+  animation-duration: 26s;
+}

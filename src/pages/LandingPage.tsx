@@ -5,8 +5,15 @@ import VantaBackground from "../components/VantaBackground";
 import CountdownBanner from "../components/CountdownBanner";
 import GuestBook from "../components/GuestBook";
 
+const TALLY_CLAIM_URL = "https://tally.so/r/PdD1ZV";
+const HUNT_CODE = "MUG-GLINT-01"; // change whenever you want
+
 export default function LandingPage() {
   const [showGuidebook, setShowGuidebook] = useState(false);
+  const [showHuntModal, setShowHuntModal] = useState(false);
+  const [showDecoyModal, setShowDecoyModal] = useState(false);
+  
+
   const guidebookRef = useRef<HTMLDivElement>(null);
   const fakeUserCount = Math.floor(Math.random() * 12) + 5;
 
@@ -17,7 +24,7 @@ export default function LandingPage() {
     }, 50);
   };
 
-  // Load Tally embed script once (safe even if it fails — iframe still works)
+  // Load Tally embed script once (safe even if it fails)
   useEffect(() => {
     const existing = document.querySelector(
       'script[src="https://tally.so/widgets/embed.js"]'
@@ -30,6 +37,14 @@ export default function LandingPage() {
     document.body.appendChild(script);
   }, []);
 
+  const copyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(HUNT_CODE);
+    } catch {
+      // fallback: do nothing (user can manually copy from the code block)
+    }
+  };
+
   return (
     <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
       {/* Vanta Background */}
@@ -40,26 +55,76 @@ export default function LandingPage() {
       {/* Countdown Banner */}
       <CountdownBanner />
 
- {/* Logo */}
-<div className="relative z-10 text-center pt-10 animate-fade-in">
-  <div className="mx-auto inline-block relative logo-snow-wrap">
-    <img
-      src="/logo.png"
-      alt="Inkbound Society Logo"
-      className="w-48 sm:w-56 md:w-64 h-auto drop-shadow-xl"
-    />
+      {/* Logo */}
+      <div className="relative z-10 text-center pt-10 animate-fade-in">
+        <div className="mx-auto inline-block relative logo-snow-wrap">
+          <img
+            src="/logo.png"
+            alt="Inkbound Society Logo"
+            className="w-48 sm:w-56 md:w-64 h-auto drop-shadow-xl"
+          />
 
-    {/* Snowcap overlay */}
-    <img
-      src="/images/snowcap.png"
-      alt=""
-      aria-hidden="true"
-      className="logo-snowcap"
-    />
-  </div>
-</div>
-{/* ❄ Snow overlay */}
-<div className="snow-overlay pointer-events-none fixed inset-0 z-20" />
+          {/* Snowcap overlay */}
+          <img
+            src="/images/snowcap.png"
+            alt=""
+            aria-hidden="true"
+            className="logo-snowcap"
+          />
+
+          {/* 🕵️ REAL hidden hotspot (opens claim modal) */}
+          <button
+            type="button"
+            onClick={() => setShowHuntModal(true)}
+            aria-label="Hidden Inkbound sigil"
+            title="…"
+            className="
+              absolute
+              top-[14%]
+              right-[45%]
+              h-4
+              w-4
+              rounded-full
+              opacity-0
+              cursor-pointer
+              focus:opacity-100
+              focus:outline-none
+              focus:ring-2
+              focus:ring-amber-300
+              focus:ring-offset-2
+              focus:ring-offset-transparent
+            "
+          />
+
+          {/* 😈 DECOY hidden hotspot (opens decoy modal) */}
+          <button
+            type="button"
+            onClick={() => setShowDecoyModal(true)}
+            aria-label="Hidden decoy sigil"
+            title="…"
+            className="
+              absolute
+              top-[30%]
+              left-[30%]
+              h-4
+              w-4
+              rounded-full
+              opacity-0
+              cursor-pointer
+              focus:opacity-100
+              focus:outline-none
+              focus:ring-2
+              focus:ring-fuchsia-300
+              focus:ring-offset-2
+              focus:ring-offset-transparent
+            "
+          />
+        </div>
+      </div>
+
+      {/* ❄ Snow overlay */}
+      <div className="snow-overlay pointer-events-none fixed inset-0 z-20" />
+
       {/* Hero */}
       <div className="relative z-10 text-center px-6 pb-10 max-w-4xl mx-auto animate-fade-in">
         <h1 className="text-5xl font-light mb-4 text-glow">Some stories find you.</h1>
@@ -69,8 +134,6 @@ export default function LandingPage() {
         <div className="text-sm text-gray-400 mb-6">
           {fakeUserCount} readers browsing right now...
         </div>
-
-       
       </div>
 
       {/* Guidebook Cover (click to open) */}
@@ -218,7 +281,6 @@ export default function LandingPage() {
       {/* Feature Cards */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
         {[
-         
           {
             to: "/virtual-shelf",
             img: "on-our-virtual shelf.png",
@@ -279,53 +341,51 @@ export default function LandingPage() {
         ))}
       </div>
 
- {/* ✨ Stuff Your Kindle – New Year Event */}
-<section className="relative z-10 max-w-5xl mx-auto px-6 mb-14 animate-fade-in">
-  {/* Soft magical glow */}
-  <div className="pointer-events-none absolute -inset-6 opacity-70">
-    <div className="absolute -top-10 left-10 h-56 w-56 rounded-full bg-amber-400/20 blur-3xl" />
-    <div className="absolute top-0 right-10 h-64 w-64 rounded-full bg-red-700/20 blur-3xl" />
-    <div className="absolute -bottom-10 left-1/3 h-64 w-64 rounded-full bg-emerald-700/20 blur-3xl" />
-  </div>
+      {/* ✨ Stuff Your Kindle – New Year Event */}
+      <section className="relative z-10 max-w-5xl mx-auto px-6 mb-14 animate-fade-in">
+        {/* Soft magical glow */}
+        <div className="pointer-events-none absolute -inset-6 opacity-70">
+          <div className="absolute -top-10 left-10 h-56 w-56 rounded-full bg-amber-400/20 blur-3xl" />
+          <div className="absolute top-0 right-10 h-64 w-64 rounded-full bg-red-700/20 blur-3xl" />
+          <div className="absolute -bottom-10 left-1/3 h-64 w-64 rounded-full bg-emerald-700/20 blur-3xl" />
+        </div>
 
-  <div className="relative glass-panel border border-amber-700 rounded-xl p-6 md:p-8 text-center overflow-hidden">
-    <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-amber-500/10 via-transparent to-emerald-500/10 opacity-70" />
+        <div className="relative glass-panel border border-amber-700 rounded-xl p-6 md:p-8 text-center overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-amber-500/10 via-transparent to-emerald-500/10 opacity-70" />
 
-    {/* Logos */}
-    <div className="relative flex flex-wrap justify-center items-center gap-4 mb-4">
-    
-      <img
-        src="/images/inkxiaac.png"
-        alt="Inkbound x Indie Author Advocate Community"
-        className="h-16 w-auto rounded-lg border border-amber-700/50 bg-black/30 p-2"
-      />
-    </div>
+          {/* Logos */}
+          <div className="relative flex flex-wrap justify-center items-center gap-4 mb-4">
+            <img
+              src="/images/inkxiaac.png"
+              alt="Inkbound x Indie Author Advocate Community"
+              className="h-16 w-auto rounded-lg border border-amber-700/50 bg-black/30 p-2"
+            />
+          </div>
 
-    {/* Text */}
-    <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
-      ✦ Stuff Your Kindle • New Year’s Resolution Edition
-    </p>
+          {/* Text */}
+          <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
+            ✦ Stuff Your Kindle • New Year’s Resolution Edition
+          </p>
 
-    <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
-      Free Indie Ebooks · January 1st, 2026
-    </h2>
+          <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
+            Free Indie Ebooks · January 1st, 2026
+          </h2>
 
-    <p className="text-gray-300 max-w-2xl mx-auto mb-5 opacity-90">
-      Inkbound is partnering with the Indie Author Advocate Community & MommaD to host a
-      one-day Stuff Your Kindle event dedicated entirely to indie and
-      self-published authors — across all genres, worldwide.
-    </p>
+          <p className="text-gray-300 max-w-2xl mx-auto mb-5 opacity-90">
+            Inkbound is partnering with the Indie Author Advocate Community & MommaD to host a
+            one-day Stuff Your Kindle event dedicated entirely to indie and
+            self-published authors — across all genres, worldwide.
+          </p>
 
-    {/* CTA */}
-    <Link
-      to="/stuff-your-kindle"
-      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
-    >
-      ✨ Learn more & submit your book →
-    </Link>
-  </div>
-</section>
-
+          {/* CTA */}
+          <Link
+            to="/stuff-your-kindle"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
+          >
+            ✨ Learn more & submit your book →
+          </Link>
+        </div>
+      </section>
 
       {/* Divider */}
       <div className="relative z-10 flex justify-center my-10 animate-fade-in">
@@ -448,6 +508,98 @@ export default function LandingPage() {
           />
         </a>
       </div>
+
+      {/* ✅ REAL Treasure Hunt Modal */}
+      {showHuntModal && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setShowHuntModal(false)}
+          />
+          <div className="relative w-full max-w-md rounded-2xl border border-amber-500/40 bg-black/70 p-6 shadow-2xl">
+            <button
+              onClick={() => setShowHuntModal(false)}
+              className="absolute right-3 top-3 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80 hover:bg-white/10"
+            >
+              ✕
+            </button>
+
+            <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
+              You found it.
+            </p>
+
+            <h3 className="text-2xl text-amber-400 mb-3 font-marcellus">
+              Inkbound Treasure Sigil
+            </h3>
+
+            <p className="text-gray-200 mb-3">Your redemption phrase:</p>
+
+            <div className="flex items-center justify-between gap-3 rounded-xl border border-amber-500/30 bg-black/40 px-4 py-3">
+              <code className="text-amber-200 font-semibold tracking-widest">
+                {HUNT_CODE}
+              </code>
+
+              <button
+                onClick={copyCode}
+                className="rounded-full bg-amber-700 hover:bg-amber-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white"
+              >
+                Copy
+              </button>
+            </div>
+
+            <p className="text-sm text-gray-300 mt-4">
+              Put this into the claim form so I can verify you.
+            </p>
+
+            <a
+              href={TALLY_CLAIM_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-amber-700 hover:bg-amber-600 px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
+            >
+              Claim prize →
+            </a>
+
+            <p className="mt-3 text-[0.75rem] text-gray-400">
+              One entry per person. First 5 valid entries win.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* 😈 DECOY Modal */}
+      {showDecoyModal && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setShowDecoyModal(false)}
+          />
+          <div className="relative w-full max-w-md rounded-2xl border border-fuchsia-500/40 bg-black/70 p-6 shadow-2xl">
+            <button
+              onClick={() => setShowDecoyModal(false)}
+              className="absolute right-3 top-3 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80 hover:bg-white/10"
+            >
+              ✕
+            </button>
+
+            <p className="text-xs uppercase tracking-[0.18em] text-fuchsia-300/90 mb-2">
+              Nice try.
+            </p>
+
+            <h3 className="text-2xl text-fuchsia-200 mb-3 font-marcellus">
+              Wrong Sigil
+            </h3>
+
+            <p className="text-gray-200">
+              This one’s a decoy. The real treasure is still hiding on this page.
+            </p>
+
+            <p className="text-sm text-gray-400 mt-4">
+              Tip: it’s closer to the “cold” part of the logo than the “bright” part.
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
