@@ -45,7 +45,7 @@ export default function Footer() {
 
       {/* 📜 Legal */}
       <p className="text-gray-500 mb-1">
-        © {new Date().getFullYear()} The Inkbound Society
+        © {new Date().getFullYear()} The Inkbound Society™️
       </p>
 
       <div className="space-x-4 text-xs text-gray-400 pb-4">
