@@ -12,7 +12,7 @@ type TeamMember = {
 const originalMembers: TeamMember[] = [
   {
     name: "Amanda Kilkenny",
-    role: "Original Member",
+    role: "CEO - Founder",
     lore: "Built the bookshop she wished existed as a kid and turned it into a portal for readers and writers, member of the racoon burrito trio.",
     socialHandle: "@the.inkbound.society",
     socialUrl: "https://www.tiktok.com/@the.inkbound.society?lang=en-GB",
@@ -20,28 +20,28 @@ const originalMembers: TeamMember[] = [
   },
   {
     name: "Ria",
-    role: "Original Member",
+    role: "COO",
     lore: "Author, original Inkbound co-founder with Amanda, crafter, list-maker and the rare soul who actually remembers to bring the list.",
     socialHandle: "@riak233",
     socialUrl: "https://www.tiktok.com/@riak233?lang=en-GB",
   },
   {
     name: "Roma",
-    role: "Original Member",
+    role: "VP of Talent Acquisitions",
     lore: "There would be no books in Inkbound without her, PA extraordinaire, chaos-wrangler, and an all-round incredible human.",
     socialHandle: "@roma_booktok",
     socialUrl: "https://www.tiktok.com/@roma_booktok?lang=en-GB",
   },
   {
     name: "Gina",
-    role: "Original Member",
+    role: "VP of Marketing and Innovation",
     lore: "Exceptional author and organiser of absolutely everything, the formatter who quietly makes impossible timelines work and Creator of the Fall for Grace Series on Tiktok.",
     socialHandle: "@ginaparrillo",
     socialUrl: "https://www.tiktok.com/@ginaparrillo?lang=en-GB",
   },
   {
     name: "Ethan",
-    role: "Original Member",
+    role: "VP of Narration and Communications Lead",
     lore: "Author, indie author advocate, and exceptional voice actor, keeper of everyone’s sanity and bringer of perfectly timed humour.",
     socialHandle: "@ethanmorrisvoice",
     socialUrl: "https://www.tiktok.com/@ethanmorrisvoice?lang=en-GB",
