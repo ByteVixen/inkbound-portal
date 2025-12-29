@@ -561,35 +561,7 @@ export const BOOKS = [
       }
     ]
   },
-  {
-    "id": "Xx7B1Zd",
-    "title": "Magic Bites",
-    "author": "Eris Marriott",
-    "socials": "@erismarriottauthor Instagram: @erismarriott",
-    "series": "Part of a Series",
-    "genres": [
-      "Fantasy",
-      "Romance"
-    ],
-    "blurb": "As princess of Sunfall, Adelaide faces more than threats of marriage and stuffy dresses. As secondary heir to a distinguished lineage blessed by the gods themselves, she lives with the crushing reality that the divine powers that be skipped over her. Her father and brother wield divine light as easily as some breathe, imbuing their weapons and armor with protections against the vampires that loom beyond the kingdom walls.\n\nAt twenty-six, the only thing saving Adelaide from a life of marriage and death by childbirth is her keen skills with a sword, whose imbued steel has propelled her to the top of her kingdom’s ranks and earned her a reputation of skill and prowess with her soldiers. She knows her life will find its end in the clutches of some beast’s fangs on the battlefield, just as her mother was claimed by them sixteen years ago.\n\nWith King Alaric’s power waning and her brother’s inability to produce an heir, Adelaide finds herself on the chopping block. Even the chance of producing an heir that can wield the divine light of Siralto puts her on the nobles’ radar. Powerless, she’s never going to escape the fate she tried so hard to ignore.\n\nBut all this changes the day her brother-in-law returns home from war. The problem? Only Shadow Folk come back from the dead. And if Finch is alive, well, and within their walls, it’s only a matter of time before the Shadow King himself comes to claim the vengeance he’s sought for almost two decades. Adelaide is powerless to stop him.\n\nOr is she?\n\nMagic Bites is the first in the Tales of the Shadow Folk. Perfect for fans of dark, epic romantasies with slow burn, enemies-to-lovers romances, Magic Bites has plenty of twists and turns in store. Do you dare to fight back against the Shadow Folk? Or will you, too, be swept away by sweet, simmering lies and sultry fangs?",
-    "hook": "Forgotten by the gods, Adelaide forges her power in the sweet judgment of the sword — her only weapon against the shadow folk that would burn her kingdom to ashes and feast upon its people.",
-    "reps": [
-      "Mental health themes"
-    ],
-    "spice": "Level 2 (light on-page)",
-    "contentLevel": "Level 3 (heavy themes)",
-    "warnings": "Murder, violence, discussions of child loss/fertility struggles (nothing graphic or detailed on page for this)",
-    "links": [
-      {
-        "label": "Amazon",
-        "url": "https://books2read.com/u/4DVK1O"
-      },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
-    ]
-  },
+
   {
     "id": "PdNBbJe",
     "title": "Remember the Stars",
@@ -600,7 +572,7 @@ export const BOOKS = [
       "YA",
       "Other (please specify)"
     ],
-    "blurb": "(I just realized Magic bites is not eligible for a free promo til end of January, so I’m submitting this one instead — so sorry about that! Misread the date it renews in Jan)\n\nFrom the moment she was born, Clarisse Monroe was able to create and command stars—a skill that perturbed her parents and landed her in a cult to cleanse her of her forbidden yet divine gift.\n\nAfter years of being forced to shut away her powers and pretend to be a normal child, she is tired. That is, until the Shadow Reaper arrives. Terrence whispers promises to her: promises of freedom, magic, and power beyond her wildest dreams. All she has to do is embrace the same light she’s closed off in her veins, guarding it from the view of other mortals.\n\nSpurred to action, she begins to forge a life for herself beyond the clutches of the Church of Light and her greedy parents. As she leans into her power, she discovers some uncomfortable truths about Terrence and the real consequences of magic.\n\nWith the Grim Reaper now lurking in the shadows, begging her to stop, she realizes that her newfound freedom and friendship come at a cost. Now, she must ask herself: is magic worth dying for?\n\nFans of grimdark fantasy will love Remember the Stars, the first in the Tales of the Selyento, a series about what it means to be blessed by gods long forgotten and hunted by monsters that lurk beyond the grave.",
+    "blurb": "From the moment she was born, Clarisse Monroe was able to create and command stars—a skill that perturbed her parents and landed her in a cult to cleanse her of her forbidden yet divine gift.\n\nAfter years of being forced to shut away her powers and pretend to be a normal child, she is tired. That is, until the Shadow Reaper arrives. Terrence whispers promises to her: promises of freedom, magic, and power beyond her wildest dreams. All she has to do is embrace the same light she’s closed off in her veins, guarding it from the view of other mortals.\n\nSpurred to action, she begins to forge a life for herself beyond the clutches of the Church of Light and her greedy parents. As she leans into her power, she discovers some uncomfortable truths about Terrence and the real consequences of magic.\n\nWith the Grim Reaper now lurking in the shadows, begging her to stop, she realizes that her newfound freedom and friendship come at a cost. Now, she must ask herself: is magic worth dying for?\n\nFans of grimdark fantasy will love Remember the Stars, the first in the Tales of the Selyento, a series about what it means to be blessed by gods long forgotten and hunted by monsters that lurk beyond the grave.",
     "hook": "Divine light is forbidden in the hands of mortals. To use it is to condemn oneself to death and damnation.",
     "reps": [
       "Neurodivergent rep",
@@ -717,7 +689,7 @@ export const BOOKS = [
     "genres": [
       "Sci-Fi"
     ],
-    "blurb": "In the year 3197 AD, humanity has reached the stars and has terraformed and colonized a small section of the Milky Way. It has been 6 years since the end of the Isolde Revolution, a war that split humanity into two political blocs at the cost of hundreds of millions of lives. The Federation of Human Planets licks its wounds and tries to adapt after a third of its population broke away. The Independent Frontier Systems Alliance, IFSA, desperately rebuilds its devastated worlds with a shaky economy that can't survive another war.\n\nErina and her sister Ashley were living a simple life when they came across an interesting job opportunity for both of them aboard a ship to work as freighters. The sisters meet the owners of the ship, two cousins and veterans of the Isolde Revolution. The tall cousin, Francis, is the captain and owner of the freight business. A man with charisma and a big smile, he leads the crew of Silver Bow. The other cousin, Charlie, is the taciturn first officer haunted by his past and the betrayal that almost killed him three years before.\n\nWhile the crew restores Silver Bow to get it flight ready, they learn to work with each other and their various personalities, but they discover that a local mafia boss has other plans, and their safety and lives hang in the balance.",
+    "blurb": "Book 1 - In the year 3197 AD, humanity has reached the stars and has terraformed and colonized a small section of the Milky Way. It has been 6 years since the end of the Isolde Revolution, a war that split humanity into two political blocs at the cost of hundreds of millions of lives. The Federation of Human Planets licks its wounds and tries to adapt after a third of its population broke away. The Independent Frontier Systems Alliance, IFSA, desperately rebuilds its devastated worlds with a shaky economy that can't survive another war.\n\nErina and her sister Ashley were living a simple life when they came across an interesting job opportunity for both of them aboard a ship to work as freighters. The sisters meet the owners of the ship, two cousins and veterans of the Isolde Revolution. The tall cousin, Francis, is the captain and owner of the freight business. A man with charisma and a big smile, he leads the crew of Silver Bow. The other cousin, Charlie, is the taciturn first officer haunted by his past and the betrayal that almost killed him three years before.\n\nWhile the crew restores Silver Bow to get it flight ready, they learn to work with each other and their various personalities, but they discover that a local mafia boss has other plans, and their safety and lives hang in the balance.",
     "hook": "To be a good protector, you must be willing to be a monster.",
     "reps": [
       "Disability representation",
@@ -749,7 +721,7 @@ export const BOOKS = [
     "genres": [
       "Sci-Fi"
     ],
-    "blurb": "Silver Bow is finished and finally underway to start its journey as a freighter, and although Charlie is initially in a good mood, his demeanor sours and gets worse. Eri tries to get to the bottom of it, but he continues to push her and the rest of the crew away.\n\nAsh and Francis begin to feel drawn to each other, but Francis’ feelings towards his estranged wife continue to keep him away from the security officer, and Kai is unfortunately often caught in the middle.\n\nWhile the crew begin to work jobs, something brews in the Federation. Tristan, Charlie’s brother in the FIA, has developed a plan to capture Charlie. He has developed a team to do it, and it may have something to do with what Charlie finds on a derelict ship out in deep space.",
+    "blurb": "Book 2 - Silver Bow is finished and finally underway to start its journey as a freighter, and although Charlie is initially in a good mood, his demeanor sours and gets worse. Eri tries to get to the bottom of it, but he continues to push her and the rest of the crew away.\n\nAsh and Francis begin to feel drawn to each other, but Francis’ feelings towards his estranged wife continue to keep him away from the security officer, and Kai is unfortunately often caught in the middle.\n\nWhile the crew begin to work jobs, something brews in the Federation. Tristan, Charlie’s brother in the FIA, has developed a plan to capture Charlie. He has developed a team to do it, and it may have something to do with what Charlie finds on a derelict ship out in deep space.",
     "hook": "Out in deep space, a signal awaits",
     "reps": [
       "LGBTQIA+",
