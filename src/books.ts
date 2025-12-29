@@ -149,7 +149,7 @@ export const BOOKS = [
   },
   {
     "id": "pbNANXB",
-    "title": "The Ruin That Loves Ms",
+    "title": "The Ruin That Loves Me",
     "author": "Dahlia Graves",
     "socials": "@dahliagravesbooks",
     "series": "Part of a Series",
@@ -237,7 +237,7 @@ export const BOOKS = [
   },
   {
     "id": "J9r0JOd",
-    "title": "Hard Timr",
+    "title": "Hard Time",
     "author": "Edward Lee",
     "socials": "Edwardleeauthor",
     "series": "Part of a Series",
