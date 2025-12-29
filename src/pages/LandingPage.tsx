@@ -341,51 +341,77 @@ export default function LandingPage() {
         ))}
       </div>
 
-      {/* ✨ Stuff Your Kindle – New Year Event */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 mb-14 animate-fade-in">
-        {/* Soft magical glow */}
-        <div className="pointer-events-none absolute -inset-6 opacity-70">
-          <div className="absolute -top-10 left-10 h-56 w-56 rounded-full bg-amber-400/20 blur-3xl" />
-          <div className="absolute top-0 right-10 h-64 w-64 rounded-full bg-red-700/20 blur-3xl" />
-          <div className="absolute -bottom-10 left-1/3 h-64 w-64 rounded-full bg-emerald-700/20 blur-3xl" />
-        </div>
+     {/* ✨ Stuff Your Kindle – New Year Event */}
+<section className="relative z-10 max-w-5xl mx-auto px-6 mb-14 animate-fade-in">
+  {/* Soft magical glow */}
+  <div className="pointer-events-none absolute -inset-6 opacity-70">
+    <div className="absolute -top-10 left-10 h-56 w-56 rounded-full bg-amber-400/20 blur-3xl" />
+    <div className="absolute top-0 right-10 h-64 w-64 rounded-full bg-red-700/20 blur-3xl" />
+    <div className="absolute -bottom-10 left-1/3 h-64 w-64 rounded-full bg-emerald-700/20 blur-3xl" />
+  </div>
 
-        <div className="relative glass-panel border border-amber-700 rounded-xl p-6 md:p-8 text-center overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-amber-500/10 via-transparent to-emerald-500/10 opacity-70" />
+  <div className="relative glass-panel border border-amber-700 rounded-xl p-6 md:p-8 text-center overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-amber-500/10 via-transparent to-emerald-500/10 opacity-70" />
 
-          {/* Logos */}
-          <div className="relative flex flex-wrap justify-center items-center gap-4 mb-4">
-            <img
-              src="/images/inkxiaac.png"
-              alt="Inkbound x Indie Author Advocate Community"
-              className="h-16 w-auto rounded-lg border border-amber-700/50 bg-black/30 p-2"
-            />
-          </div>
+    {/* Logos */}
+    <div className="relative flex flex-wrap justify-center items-center gap-4 mb-4">
+      <img
+        src="/images/inkxiaac.png"
+        alt="Inkbound x Indie Author Advocate Community"
+        className="h-16 w-auto rounded-lg border border-amber-700/50 bg-black/30 p-2"
+      />
+    </div>
 
-          {/* Text */}
-          <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
-            ✦ Stuff Your Kindle • New Year’s Resolution Edition
-          </p>
+    {/* Eyebrow */}
+    <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
+      ✦ Stuff Your Kindle • New Year’s Resolution Edition
+    </p>
 
-          <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
-            Free Indie Ebooks · January 1st, 2026
-          </h2>
+    {/* Heading */}
+    <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
+      Free Indie Ebooks · January 1st, 2026
+    </h2>
 
-          <p className="text-gray-300 max-w-2xl mx-auto mb-5 opacity-90">
-            Inkbound is partnering with the Indie Author Advocate Community & MommaD to host a
-            one-day Stuff Your Kindle event dedicated entirely to indie and
-            self-published authors — across all genres, worldwide.
-          </p>
+    {/* Description */}
+    <p className="text-gray-300 max-w-2xl mx-auto mb-4 opacity-90">
+      Inkbound is partnering with the Indie Author Advocate Community & MommaD to host a
+      one-day Stuff Your Kindle event featuring{" "}
+      <span className="text-amber-200 font-semibold">free indie ebooks</span> across all
+      genres, worldwide. The full book list is already live — with download links unlocking on{" "}
+      <span className="text-amber-200 font-semibold">January 1st, 2026</span>.
+    </p>
 
-          {/* CTA */}
-          <Link
-            to="/stuff-your-kindle"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
-          >
-            ✨ Learn more & submit your book →
-          </Link>
-        </div>
-      </section>
+    {/* Badges */}
+    <div className="flex flex-wrap justify-center gap-2 mb-5 text-[0.8rem]">
+      <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
+        📚 All genres
+      </span>
+      <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
+        🌍 Worldwide
+      </span>
+      <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
+        ⏳ Links unlock Jan 1
+      </span>
+      <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
+        🖤 Content warnings included
+      </span>
+    </div>
+
+    {/* CTA */}
+    <Link
+      to="/stuff-your-kindle"
+      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
+    >
+      ✨ Browse the book list →
+    </Link>
+
+    {/* Helper note */}
+    <p className="mt-3 text-xs text-gray-400 opacity-90">
+      Tip: if a retailer hasn’t updated yet at midnight, give it a few minutes and try again.
+    </p>
+  </div>
+</section>
+
 
       {/* Divider */}
       <div className="relative z-10 flex justify-center my-10 animate-fade-in">
