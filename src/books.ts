@@ -1224,38 +1224,7 @@ export const BOOKS = [
       }
     ]
   },
-  {
-    "id": "7RYk5A2",
-    "title": "Choosing Chais",
-    "author": "Luna Runestorm",
-    "socials": "Luna.Runestorm",
-    "series": "Part of a Series",
-    "genres": [
-      "Romance",
-      "Fantasy",
-      "Paranormal",
-      "Other (please specify)"
-    ],
-    "blurb": "Amethyst Gold has a plan: keep to herself, keep her a roof over her head, and keep her two overachieving cattle dogs from running the whole show.\n\nThen a man named Loki starts “coincidentally” appearing in her small-town life, and strange glowing runes begin seem to be everywhere —leaving Amethyst to decide which is scarier: the impossible patterns in the pines, or how much she wants the one person who seems tied to all of it.",
-    "hook": "A magic-averse woman and the chaos god who can’t stay away from her must decide if falling in love is worth breaking the world a little more.",
-    "reps": [
-      "Mental health themes",
-      "Other (please specify)"
-    ],
-    "spice": "Level 3 (moderate spice)",
-    "contentLevel": "Level 3 (heavy themes)",
-    "warnings": "•\tPast family death (off-page; referenced trauma and grief).\n•\tAnxiety, panic, and self-doubt; fear of “going crazy.”\n•\tGovernment surveillance/harassment and containment-style threat.\n•\tIntense peril and siege scenes (guns drawn, characters thrown by magic, fear for life).\n•\tOn-page sexual content between consenting adults; explicit language.",
-    "links": [
-      {
-        "label": "Amazon",
-        "url": "https://mybook.to/choosingchaos"
-      },
-      {
-        "label": "Kobo",
-        "url": "https://N/a"
-      }
-    ]
-  },
+
   {
     "id": "zxAlZb1",
     "title": "The Baltic Sanction",
@@ -1657,8 +1626,8 @@ export const BOOKS = [
     "warnings": "Alcoholism and drunk driving; graphic scenes of pain, gore, and death; abduction, domestic abuse, and implied sexual assault.",
     "links": [
       {
-        "label": "Amazon",
-        "url": "https://www.amazon.com/dp/B0F7RKP644"
+        "label": "Bookfunnel",
+        "url": "https://dl.bookfunnel.com/x4nhyozx7f"
       },
       {
         "label": "Kobo",
@@ -1977,10 +1946,7 @@ export const BOOKS = [
     "contentLevel": "Level 3 (heavy themes)",
     "warnings": "Death, blood, violence, gore, self-harm, misogyny, abuse, violence towards women  trauma/PTSD",
     "links": [
-      {
-        "label": "Amazon",
-        "url": "https://www.amazon.com/dp/B0F89FPNJ1"
-      },
+    
       {
         "label": "Kobo",
         "url": "https://www.kobo.com/us/en/ebook/on-the-vampire-s-couch"
