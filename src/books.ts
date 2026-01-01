@@ -25,10 +25,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/Fall-Grace-G-M-Parrillo/dp/B0F1H9THHQ/ref=asc_df_B0F1H9THHQ?tag=bingshoppinga-20&linkCode=df0&hvadid=80264547949744&hvnetw=o&hvqmt=e&hvbmt=be&hvdev=c&hvlocint=&hvlocphy=97304&hvtargid=pla-4583864014691011&psc=1&msclkid=72c51a7bf9a71cb5d214734615025286"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+    
     ]
   },
   {
@@ -54,10 +51,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/dp/B0DYL6ZP6W?binding=kindle_edition&qid=1765758763&sr=8-1&ref=dbs_dp_awt_sb_pc_tkin"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+     
     ]
   },
   {
@@ -83,10 +77,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/hFThUVI"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+   
     ]
   },
   {
@@ -111,10 +102,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://books2read.com/u/3kq88R"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+   
     ]
   },
   {
@@ -141,10 +129,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/agCHnQV"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/a"
-      }
+   
     ]
   },
   {
@@ -170,10 +155,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/bQqH2g6"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+    
     ]
   },
   {
@@ -199,10 +181,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/9qyqJQL"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+    
     ]
   },
   {
@@ -229,10 +208,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://books2read.com/u/bPA6Zd"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Not on Kobo"
-      }
+     
     ]
   },
   {
@@ -289,10 +265,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/dp/B0FHC1VMCV/ref=cm_cr_arp_mb_bdcrb_top?ie=UTF8"
       },
-      {
-        "label": "Kobo",
-        "url": "https://I did not have kobo because my book is on Kindle unlimited"
-      }
+    
     ]
   },
   {
@@ -321,10 +294,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/h58kQvR"
       },
-      {
-        "label": "Kobo",
-        "url": "https://n/a"
-      }
+   
     ]
   },
   {
@@ -349,10 +319,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://mybook.to/0F23"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+    
     ]
   },
   {
@@ -377,10 +344,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://mybook.to/1gWC"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+   
     ]
   },
   {
@@ -405,10 +369,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/0V8erVv"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Not available"
-      }
+    
     ]
   },
   {
@@ -435,10 +396,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/jbZV8Je"
       },
-      {
-        "label": "Kobo",
-        "url": "https://I don’t have"
-      }
+  
     ]
   },
   {
@@ -466,10 +424,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/Catalyst-Kaanradi-Saga-Book-1-ebook/dp/B0FBRV7VKN?dplnkId=62fd263f-aa92-4d5b-a5df-0cdad7dcc857&nodl=1"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Na"
-      }
+   
     ]
   },
   {
@@ -497,10 +452,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/dp/B0FL16WSQW?ref_=cm_sw_r_ffobk_cso_cp_mwn_dp_RU3SLQYKOCUZHMQPQ7EM&bestFormat=true"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+    
     ]
   },
   {
@@ -527,10 +479,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/Orchid-Bliss-Ellie-Carmen-ebook/dp/B0FQ3H8NDN/ref=tmm_kin_swatch_0?_encoding=UTF8&dib_tag=se&dib=eyJ2IjoiMSJ9.1CJaAQNwDOdYFat43kSd3A.R-Jftg_PxJsaxm9EOR8FDQBSk5FpHgyjxuv-fRQEoD8&qid=1765836177&sr=8-1"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+      
     ]
   },
   {
@@ -555,10 +504,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/dp/B08M98PHXR?ref_=cm_sw_r_ffobk_cso_cp_mwn_dp_1V06M8BKFYP1ZS5AA013&bestFormat=true"
       },
-      {
-        "label": "Kobo",
-        "url": "https://www.amazon.com/dp/B08M98PHXR?ref_=cm_sw_r_ffobk_cso_cp_mwn_dp_1V06M8BKFYP1ZS5AA013&bestFormat=true"
-      }
+    
     ]
   },
 
@@ -586,10 +532,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://books2read.com/u/4XGDPL"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+    
     ]
   },
   {
@@ -615,10 +558,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/aO9Q8rz"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+     
     ]
   },
   {
@@ -645,10 +585,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/7Nf93RZ"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+   
     ]
   },
   {
@@ -674,10 +611,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/icB6Sqz"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/a"
-      }
+    
     ]
   },
   {
@@ -706,10 +640,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/hwRtHgH"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+   
     ]
   },
   {
@@ -738,10 +669,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/2evdaA7"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+     
     ]
   },
   {
@@ -767,10 +695,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://amzn.asia/d/4XnG43O"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Don't have one"
-      }
+      
     ]
   },
   {
@@ -796,10 +721,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://amzn.asia/d/0i9JnaN"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+    
     ]
   },
   {
@@ -826,10 +748,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/cODZnjW"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+    
     ]
   },
   {
@@ -857,10 +776,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/dp/B0D9N4RM58"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+    
     ]
   },
   {
@@ -889,10 +805,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/dp/B0FGVVM536"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+   
     ]
   },
   {
@@ -951,10 +864,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/Where-Nightmares-Walk-Lucifers-Halo/dp/B0FBL49CHS"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+   
     ]
   },
   {
@@ -980,10 +890,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://buy.bookfunnel.com/22d0s9p8ld"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Na"
-      }
+    
     ]
   },
   {
@@ -1038,10 +945,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://mybook.to/daddys_best_friend"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+     
     ]
   },
   {
@@ -1067,10 +971,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/03unMkp"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Can I send you the link once it’s set up?"
-      }
+    
     ]
   },
   {
@@ -1098,10 +999,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://amzn.eu/d/9MWxKqb"
       },
-      {
-        "label": "Kobo",
-        "url": "https://No kobo"
-      }
+     
     ]
   },
   {
@@ -1129,10 +1027,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://mybook.to/Bu6AG7D"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+   
     ]
   },
   {
@@ -1159,10 +1054,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/9oIqaa5"
       },
-      {
-        "label": "Kobo",
-        "url": "https://n/a"
-      }
+   
     ]
   },
   {
@@ -1190,10 +1082,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/0Em0c3y"
       },
-      {
-        "label": "Kobo",
-        "url": "https://n/a"
-      }
+   
     ]
   },
   {
@@ -1247,10 +1136,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/Baltic-Sanction-Lex-Jackson-Novel-ebook/dp/B0BCWZ9PGR?ref_=ast_author_dp_ff_allFormats_rw&th=1&psc=1&dib=eyJ2IjoiMSJ9.h0Ppza8MBNtT74BPhtx6w_cZkwYt8styu9A3fSBO6e4.A9-mlmrTI69tnGu1cqHPuEJSbqWWGTNZ6eQ7wEWagsU&dib_tag=AUTHOR"
       },
-      {
-        "label": "Kobo",
-        "url": "https://none"
-      }
+     
     ]
   },
   {
@@ -1276,10 +1162,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/hKWxd6x"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+    
     ]
   },
   {
@@ -1305,10 +1188,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/a9DP9TN"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+    
     ]
   },
   {
@@ -1340,10 +1220,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://books2read.com/u/3LzBze"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Not available on Kobo"
-      }
+   
     ]
   },
   {
@@ -1369,10 +1246,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/8JUYbXN"
       },
-      {
-        "label": "Kobo",
-        "url": "https://a.co/d/8JUYbXN"
-      }
+     
     ]
   },
   {
@@ -1400,10 +1274,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://mybook.to/ErosMaxime"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Not on Kobo"
-      }
+    
     ]
   },
   {
@@ -1429,10 +1300,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/Everything-There-Season-Katherine-Banks-ebook/dp/B0FGBHDZ75/ref=pd_aw_ci_mcx_mh_mcx_views_0_image?pd_rd_w=4PiSn&content-id=amzn1.sym.7fb0751d-7a76-4b27-86fb-a444f9c3114b%3Aamzn1.symc.6f25bf6c-6456-4ba5-b75d-5f5614122131&pf_rd_p=7fb0751d-7a76-4b27-86fb-a444f9c3114b&pf_rd_r=YQWXT1PN42YZW644260J&pd_rd_wg=UVZBV&pd_rd_r=e57969fd-f2ac-4125-9fee-9f41a86e36e0&pd_rd_i=B0FGBHDZ75"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/a"
-      }
+    
     ]
   },
   {
@@ -1458,10 +1326,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/4qBqGf7"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+     
     ]
   },
   {
@@ -1486,10 +1351,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://books2read.com/u/bolkYV"
       },
-      {
-        "label": "Kobo",
-        "url": "https://I don’t use Kobo"
-      }
+     
     ]
   },
   {
@@ -1515,10 +1377,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/caK8aDH"
       },
-      {
-        "label": "Kobo",
-        "url": "https://No"
-      }
+      
     ]
   },
   {
@@ -1543,10 +1402,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/beXw0i6"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Na"
-      }
+      
     ]
   },
   {
@@ -1572,10 +1428,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://books2read.com/u/bwlk20"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/a"
-      }
+    
     ]
   },
   {
@@ -1600,10 +1453,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/h9mSDRn"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+      
     ]
   },
   {
@@ -1657,10 +1507,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.ca/gp/aw/d/1069949108?ref=ppx_pt2_mob_b_prod_image#"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Na"
-      }
+     
     ]
   },
   {
@@ -1714,10 +1561,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.ca/Homani-Tried-Book-one-ebook/dp/B0BM6XWKD3/"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+      
     ]
   },
   {
@@ -1744,10 +1588,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://a.co/d/2oSNgbs"
       },
-      {
-        "label": "Kobo",
-        "url": "https://None"
-      }
+      
     ]
   },
   {
@@ -1772,10 +1613,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/dp/B0FWZC6CR3"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+     
     ]
   },
   {
@@ -1801,10 +1639,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/Grimtome-Quest-Goblin-Will-Grey/dp/B0G3K4255G/ref=mp_s_a_1_1?crid=3MOIMLI5RCIK1&dib=eyJ2IjoiMSJ9.zMtxthg5L2Wivf-8VxH4fQ.PgJ_7xmE8KfIPlD-rFcF_48gwJDguzz1Xri7fiYAXfU&dib_tag=se&keywords=grimtome&qid=1766884341&sprefix=grimtome%2Cbooks%2C188&sr=8-1&th=1&psc=1"
       },
-      {
-        "label": "Kobo",
-        "url": "https://Don't have one"
-      }
+      
     ]
   },
   {
@@ -1830,10 +1665,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://www.amazon.com/Nine-Realms-Records-Book-One/dp/B0FKJD547B/ref=mp_s_a_1_1?crid=ZRD4MV5T994K&dib=eyJ2IjoiMSJ9.8apZzbiaURQhbZ0RLsdsKp4PS8t792OyBkWSX8FkR69gR60PTe3HYAqyN0bUXy7nPQ-tTYzWevyFMC28VDMlXxjdX2KXmTHjgxFBWhSzLbslgPksleTwfUtudKBHdISq3WId55we3kQ_ESNDJt6572AM_NbEV-SI-Bj-bx2Xz2gPvTXlilExD2QZ7rJ08w45ma85X7jHhQVlluh7WI6P8A.Tf4q1unKLY0gTGqgf7avN0DcLhhCL41Xj9loNfuIHQA&dib_tag=se&keywords=the%2Bnine%2Brealms&qid=1766887239&sprefix=the%2Bnine%2Bre%2Caps%2C175&sr=8-1&th=1&psc=1"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/A"
-      }
+      
     ]
   },
   {
@@ -1860,10 +1692,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://books2read.com/u/meR1ZV"
       },
-      {
-        "label": "Kobo",
-        "url": "https://It's not wide so I don't have one."
-      }
+      
     ]
   },
   {
@@ -1920,10 +1749,7 @@ export const BOOKS = [
         "label": "Amazon",
         "url": "https://books2read.com/u/4jQMQl"
       },
-      {
-        "label": "Kobo",
-        "url": "https://N/a"
-      }
+      
     ]
   },
   {
