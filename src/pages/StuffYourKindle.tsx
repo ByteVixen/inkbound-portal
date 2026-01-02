@@ -60,7 +60,7 @@ export default function StuffYourKindle() {
         accent: "text-fuchsia-700",
         divider: "bg-slate-400",
         link: "text-blue-700 underline",
-        btnPrimary: "bg-slate-900 text-white hover:bg-slate-800",
+        btnPrimary: "bg-slate-900 text-black hover:bg-slate-800",
         btnGhost: "bg-white/70 border-white/60 text-slate-900 hover:bg-white/90",
         // ✅ glass readability
         glass: "bg-white/70 border-white/55",
