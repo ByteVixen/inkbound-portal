@@ -1,5 +1,5 @@
 // src/pages/StuffYourKindle.tsx
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // ✅ Interest form (public page)
 const TALLY_PUBLIC_URL = "https://tally.so/forms/aQ9XY9";
