@@ -341,7 +341,7 @@ export default function LandingPage() {
         ))}
       </div>
 
-     {/* ✨ Stuff Your Kindle – New Year Event */}
+{/* ✨ Inkbound Events */}
 <section className="relative z-10 max-w-5xl mx-auto px-6 mb-14 animate-fade-in">
   {/* Soft magical glow */}
   <div className="pointer-events-none absolute -inset-6 opacity-70">
@@ -364,50 +364,50 @@ export default function LandingPage() {
 
     {/* Eyebrow */}
     <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
-      ✦ Stuff Your Kindle • New Year’s Resolution Edition
+      ✦ Inkbound Events
     </p>
 
     {/* Heading */}
     <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
-      Free Indie Ebooks · January 1st, 2026
+      Community-Driven Bookish Events
     </h2>
 
     {/* Description */}
     <p className="text-gray-300 max-w-2xl mx-auto mb-4 opacity-90">
-      Inkbound is partnering with the Indie Author Advocate Community & MommaD to host a
-      one-day Stuff Your Kindle event featuring{" "}
-      <span className="text-amber-200 font-semibold">free indie ebooks</span> across all
-      genres, worldwide. The full book list is already live — with download links unlocking on{" "}
-      <span className="text-amber-200 font-semibold">January 1st, 2026</span>.
+      Inkbound hosts a rotating lineup of indie-focused events — from{" "}
+      <span className="text-amber-200 font-semibold">Stuff Your Kindle days</span> and
+      reader challenges to author collaborations, live launches, and special community drops.
+      Every event is built to spotlight indie voices and make discovering books easy, fun,
+      and genuinely human.
     </p>
 
     {/* Badges */}
     <div className="flex flex-wrap justify-center gap-2 mb-5 text-[0.8rem]">
       <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
-        📚 All genres
+        📚 Indie-first
       </span>
       <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
-        🌍 Worldwide
+        🌍 Global community
       </span>
       <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
-        ⏳ Links unlock Jan 1
+        ✨ Limited-time events
       </span>
       <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
-        🖤 Content warnings included
+        🖤 Clear content guidance
       </span>
     </div>
 
     {/* CTA */}
     <Link
-      to="/stuff-your-kindle"
+      to="/events"
       className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
     >
-      ✨ Browse the book list →
+      ✨ View upcoming events →
     </Link>
 
     {/* Helper note */}
     <p className="mt-3 text-xs text-gray-400 opacity-90">
-      Tip: if a retailer hasn’t updated yet at midnight, give it a few minutes and try again.
+      New events are announced regularly — check back or join the mailing list to stay in the loop.
     </p>
   </div>
 </section>
