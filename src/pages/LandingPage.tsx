@@ -399,7 +399,7 @@ export default function LandingPage() {
 
     {/* CTA */}
     <Link
-      to="/events"
+      to="/stuff-your-kindle"
       className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
     >
       ✨ View upcoming events →
