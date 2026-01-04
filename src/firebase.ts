@@ -11,6 +11,7 @@ const firebaseConfig = {
   messagingSenderId: "850330029375",
   appId: "1:850330029375:web:27c1146d41c42a9fa4578a",
 };
+console.log("🔥 Firebase key (first 8):", String(import.meta.env.VITE_FIREBASE_API_KEY || "").slice(0, 8));
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);

@@ -300,6 +300,12 @@ export default function LandingPage() {
             desc: "See what’s dropping this month — and what’s coming next",
           },
           {
+            to: "/CreativesHub",
+            img: "creatives-logo.png",
+            title: "Creatives",
+            desc: "Cover artist? Editors? Merch creation? We have it all",
+          },
+          {
             to: "/adventure",
             img: "crowd-writing.png",
             title: "Crowd-Woven Tale",

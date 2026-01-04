@@ -65,8 +65,11 @@ const Navbar: React.FC = () => {
       ],
     },
     {
-      label: 'Creatives',
-      items: [{ path: '/creatives', label: 'Creatives Hub' }],
+      label: "Creatives",
+      items: [
+        { path: "/creatives", label: "Creatives" },
+        { path: "/CreativesHub", label: "Creatives Hub" },
+      ],
     },
     {
       label: 'Collab',

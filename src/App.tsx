@@ -35,6 +35,7 @@ import CreativesPage from "./pages/CreativesPage";
 import TikTokathon from "./pages/TikTokathon";
 import InkboundSanta from "./pages/InkboundSanta";
 import StuffYourKindle from "./pages/StuffYourKindle";
+import CreativesHub from "./pages/CreativesHub";
 
 import Newsletter from "./pages/newsletter";
 
@@ -82,7 +83,7 @@ const App: React.FC = () => {
              <Route path="/merch" element={<MerchPage />} />
              <Route path="/inkbound-santa" element={<InkboundSanta />} />
              <Route path="/stuff-your-kindle" element={<StuffYourKindle />} />
-             
+             <Route path="/CreativesHub" element={<CreativesHub />} />
              <Route path="/newsletter" element={<Newsletter />} />
 
 
