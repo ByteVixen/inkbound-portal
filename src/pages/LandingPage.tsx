@@ -12,7 +12,6 @@ export default function LandingPage() {
   const [showGuidebook, setShowGuidebook] = useState(false);
   const [showHuntModal, setShowHuntModal] = useState(false);
   const [showDecoyModal, setShowDecoyModal] = useState(false);
-  
 
   const guidebookRef = useRef<HTMLDivElement>(null);
   const fakeUserCount = Math.floor(Math.random() * 12) + 5;
@@ -57,19 +56,11 @@ export default function LandingPage() {
 
       {/* Logo */}
       <div className="relative z-10 text-center pt-10 animate-fade-in">
-        <div className="mx-auto inline-block relative logo-snow-wrap">
+        <div className="mx-auto inline-block relative">
           <img
             src="/logo.png"
             alt="Inkbound Society Logo"
             className="w-48 sm:w-56 md:w-64 h-auto drop-shadow-xl"
-          />
-
-          {/* Snowcap overlay */}
-          <img
-            src="/images/snowcap.png"
-            alt=""
-            aria-hidden="true"
-            className="logo-snowcap"
           />
 
           {/* 🕵️ REAL hidden hotspot (opens claim modal) */}
@@ -121,9 +112,6 @@ export default function LandingPage() {
           />
         </div>
       </div>
-
-      {/* ❄ Snow overlay */}
-      <div className="snow-overlay pointer-events-none fixed inset-0 z-20" />
 
       {/* Hero */}
       <div className="relative z-10 text-center px-6 pb-10 max-w-4xl mx-auto animate-fade-in">
@@ -306,6 +294,12 @@ export default function LandingPage() {
             desc: "Join challenges, unlock badges, and explore the world of Inkbound",
           },
           {
+            to: "/new-releases",
+            img: "new-releases.png",
+            title: "New Releases",
+            desc: "See what’s dropping this month — and what’s coming next",
+          },
+          {
             to: "/adventure",
             img: "crowd-writing.png",
             title: "Crowd-Woven Tale",
@@ -341,77 +335,76 @@ export default function LandingPage() {
         ))}
       </div>
 
-{/* ✨ Inkbound Events */}
-<section className="relative z-10 max-w-5xl mx-auto px-6 mb-14 animate-fade-in">
-  {/* Soft magical glow */}
-  <div className="pointer-events-none absolute -inset-6 opacity-70">
-    <div className="absolute -top-10 left-10 h-56 w-56 rounded-full bg-amber-400/20 blur-3xl" />
-    <div className="absolute top-0 right-10 h-64 w-64 rounded-full bg-red-700/20 blur-3xl" />
-    <div className="absolute -bottom-10 left-1/3 h-64 w-64 rounded-full bg-emerald-700/20 blur-3xl" />
-  </div>
+      {/* ✨ Inkbound Events */}
+      <section className="relative z-10 max-w-5xl mx-auto px-6 mb-14 animate-fade-in">
+        {/* Soft magical glow */}
+        <div className="pointer-events-none absolute -inset-6 opacity-70">
+          <div className="absolute -top-10 left-10 h-56 w-56 rounded-full bg-amber-400/20 blur-3xl" />
+          <div className="absolute top-0 right-10 h-64 w-64 rounded-full bg-red-700/20 blur-3xl" />
+          <div className="absolute -bottom-10 left-1/3 h-64 w-64 rounded-full bg-emerald-700/20 blur-3xl" />
+        </div>
 
-  <div className="relative glass-panel border border-amber-700 rounded-xl p-6 md:p-8 text-center overflow-hidden">
-    <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-amber-500/10 via-transparent to-emerald-500/10 opacity-70" />
+        <div className="relative glass-panel border border-amber-700 rounded-xl p-6 md:p-8 text-center overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-amber-500/10 via-transparent to-emerald-500/10 opacity-70" />
 
-    {/* Logos */}
-    <div className="relative flex flex-wrap justify-center items-center gap-4 mb-4">
-      <img
-        src="/images/inkxiaac.png"
-        alt="Inkbound x Indie Author Advocate Community"
-        className="h-16 w-auto rounded-lg border border-amber-700/50 bg-black/30 p-2"
-      />
-    </div>
+          {/* Logos */}
+          <div className="relative flex flex-wrap justify-center items-center gap-4 mb-4">
+            <img
+              src="/images/inkxiaac.png"
+              alt="Inkbound x Indie Author Advocate Community"
+              className="h-16 w-auto rounded-lg border border-amber-700/50 bg-black/30 p-2"
+            />
+          </div>
 
-    {/* Eyebrow */}
-    <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
-      ✦ Inkbound Events
-    </p>
+          {/* Eyebrow */}
+          <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
+            ✦ Inkbound Events
+          </p>
 
-    {/* Heading */}
-    <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
-      Community-Driven Bookish Events
-    </h2>
+          {/* Heading */}
+          <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
+            Community-Driven Bookish Events
+          </h2>
 
-    {/* Description */}
-    <p className="text-gray-300 max-w-2xl mx-auto mb-4 opacity-90">
-      Inkbound hosts a rotating lineup of indie-focused events — from{" "}
-      <span className="text-amber-200 font-semibold">Stuff Your Kindle days</span> and
-      reader challenges to author collaborations, live launches, and special community drops.
-      Every event is built to spotlight indie voices and make discovering books easy, fun,
-      and genuinely human.
-    </p>
+          {/* Description */}
+          <p className="text-gray-300 max-w-2xl mx-auto mb-4 opacity-90">
+            Inkbound hosts a rotating lineup of indie-focused events — from{" "}
+            <span className="text-amber-200 font-semibold">Stuff Your Kindle days</span>{" "}
+            and reader challenges to author collaborations, live launches, and special community drops.
+            Every event is built to spotlight indie voices and make discovering books easy, fun,
+            and genuinely human.
+          </p>
 
-    {/* Badges */}
-    <div className="flex flex-wrap justify-center gap-2 mb-5 text-[0.8rem]">
-      <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
-        📚 Indie-first
-      </span>
-      <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
-        🌍 Global community
-      </span>
-      <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
-        ✨ Limited-time events
-      </span>
-      <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
-        🖤 Clear content guidance
-      </span>
-    </div>
+          {/* Badges */}
+          <div className="flex flex-wrap justify-center gap-2 mb-5 text-[0.8rem]">
+            <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
+              📚 Indie-first
+            </span>
+            <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
+              🌍 Global community
+            </span>
+            <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
+              ✨ Limited-time events
+            </span>
+            <span className="rounded-full border border-amber-500/40 bg-black/30 px-3 py-1 text-amber-200/90">
+              🖤 Clear content guidance
+            </span>
+          </div>
 
-    {/* CTA */}
-    <Link
-      to="/stuff-your-kindle"
-      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
-    >
-      ✨ View upcoming events →
-    </Link>
+          {/* CTA */}
+          <Link
+            to="/stuff-your-kindle"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition"
+          >
+            ✨ View upcoming events →
+          </Link>
 
-    {/* Helper note */}
-    <p className="mt-3 text-xs text-gray-400 opacity-90">
-      New events are announced regularly — check back or join the mailing list to stay in the loop.
-    </p>
-  </div>
-</section>
-
+          {/* Helper note */}
+          <p className="mt-3 text-xs text-gray-400 opacity-90">
+            New events are announced regularly — check back or join the mailing list to stay in the loop.
+          </p>
+        </div>
+      </section>
 
       {/* Divider */}
       <div className="relative z-10 flex justify-center my-10 animate-fade-in">

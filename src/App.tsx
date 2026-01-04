@@ -50,6 +50,8 @@ import NarratorHubPage from "./pages/NarratorHubPage";
 import AuthorLanding from "./pages/AuthorLanding";
 import NarratorLanding from "./pages/NarratorLanding";
 import MerchPage from "./pages/MerchPage";
+import NewReleasesPage from "./pages/NewReleasesPage";
+
 
 const App: React.FC = () => {
   return (
@@ -87,6 +89,7 @@ const App: React.FC = () => {
 
             {/* Featured / Virtual / Audiobooks */}
             <Route path="/featured-books" element={<FeaturedBooksPage />} />
+            <Route path="/new-releases" element={<NewReleasesPage />} />
             <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
             <Route path="/audiobooks" element={<AudiobooksPage />} />
             <Route path="/LibroPage" element={<LibroPage />} />

@@ -39,7 +39,7 @@ interface Entry {
   published?: boolean;
   updatedAt?: Timestamp;
   style?: string;
-  _tab?: string; // debug-only: which tab wrote this doc
+  _tab?: string;
 }
 
 interface Quest {
@@ -49,16 +49,38 @@ interface Quest {
   archivedAt?: Timestamp;
 }
 
+interface ReleaseEntry {
+  id?: string;
+  title?: string;
+  author?: string;
+  releaseDate?: string; // yyyy-mm-dd
+  preorder?: boolean;
+  link?: string;
+  cover?: string; // image URL
+  blurb?: string;
+  series?: string;
+  tags?: string; // comma-separated
+  format?: string;
+  published?: boolean;
+  updatedAt?: Timestamp;
+  _tab?: string;
+}
+
+// ✅ Use the interfaces so TS build doesn't fail (and keeps you safer than `any`)
+type AdminRow = Entry | ReleaseEntry | Record<string, any>;
+type AdminForm = Partial<Entry & ReleaseEntry & Quest> & Record<string, any>;
+
 /* ---------- Collections ---------- */
 const COLLECTIONS = [
   { key: "virtual_shelf_books", label: "📚 Virtual Shelf", template: "virtual_shelf_template.csv" },
   { key: "featured_authors", label: "✨ Featured Authors", template: "featured_books_template.csv" },
   { key: "narrators", label: "🎙 Narrators", template: "narrators_template.csv" },
   { key: "audiobooks", label: "🔊 Audiobooks", template: "audiobooks_template.csv" },
+  { key: "new_releases", label: "🗓 New Releases", template: "new_releases_template.csv" },
   { key: "current_quest", label: "🧽 Current Quest", template: "" },
 ] as const;
 
-type CollectionKey = typeof COLLECTIONS[number]["key"];
+type CollectionKey = (typeof COLLECTIONS)[number]["key"];
 
 const ADMIN_UID = "reTG4KXRVeU4jzWdXstO5K78wCF3";
 
@@ -72,6 +94,17 @@ const FIELD_LABELS: Record<string, string> = {
   style: "Style",
   link: "Link (Preferred website or sample)",
   image: "Image URL (or Upload)",
+
+  // ✅ New Releases
+  title: "Book Title",
+  author: "Author Name",
+  releaseDate: "Release Date",
+  preorder: "Preorder Available",
+  cover: "Cover Image URL (or Upload)",
+  blurb: "Blurb / Description",
+  series: "Series (Optional)",
+  tags: "Tags (comma-separated)",
+  format: "Format (eBook / PB / HB / Audio etc.)",
 };
 
 const FIELD_TOOLTIPS: Record<string, string> = {
@@ -83,15 +116,27 @@ const FIELD_TOOLTIPS: Record<string, string> = {
   style: "Narration style e.g., Deep, Sultry, Dramatic.",
   link: "Link to store, sample, or website.",
   image: "Upload a file or paste a direct URL.",
+
+  // ✅ New Releases
+  title: "The book title.",
+  author: "The author name.",
+  releaseDate: "Release date (YYYY-MM-DD).",
+  preorder: "Tick if the book is available for preorder.",
+  cover: "Upload a file or paste a direct cover image URL.",
+  blurb: "Short description shown on the calendar panel.",
+  series: "Optional: series name / book number.",
+  tags: "Comma-separated tags (e.g. Dark Romance, Myth, Irish).",
+  format: "Optional: eBook, Paperback, Hardcover, Audio, etc.",
 };
 
 /* ---------- Per-tab required fields (link & image optional) ---------- */
 const REQUIRED: Record<CollectionKey, string[]> = {
   virtual_shelf_books: ["name", "bookTitle", "genre"],
-  featured_authors:    ["name", "bookTitle", "genre"],
-  narrators:           ["name", "genre", "style"],
-  audiobooks:          ["bookTitle", "name", "narrator"],
-  current_quest:       [], // handled separately
+  featured_authors: ["name", "bookTitle", "genre"],
+  narrators: ["name", "genre", "style"],
+  audiobooks: ["bookTitle", "name", "narrator"],
+  new_releases: ["title", "author", "releaseDate"],
+  current_quest: [], // handled separately
 };
 
 /* ---------- Storage Upload Settings ---------- */
@@ -102,6 +147,7 @@ const folderForTab: Record<string, string> = {
   featured_authors: "covers/featured_authors",
   narrators: "covers/narrators",
   audiobooks: "covers/audiobooks",
+  new_releases: "covers/new_releases",
   current_quest: "covers/quests",
 };
 
@@ -133,17 +179,24 @@ const toBool = (v: any) => {
   return false;
 };
 
+function safeStr(v: any) {
+  return (v ?? "").toString();
+}
+
 /* =======================================================
    Admin Dashboard
 ======================================================= */
 export default function AdminDashboard() {
   const [user, setUser] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState<CollectionKey>(COLLECTIONS[0].key);
-  const [entries, setEntries] = useState<Entry[]>([]);
-  const [formData, setFormData] = useState<any>({});
+  const [entries, setEntries] = useState<AdminRow[]>([]);
+  const [formData, setFormData] = useState<AdminForm>({});
   const [editingId, setEditingId] = useState<string | null>(null);
   const [previousQuests, setPreviousQuests] = useState<Quest[]>([]);
-  const [bulkResults, setBulkResults] = useState<{ success: number; failed: number }>({ success: 0, failed: 0 });
+  const [bulkResults, setBulkResults] = useState<{ success: number; failed: number }>({
+    success: 0,
+    failed: 0,
+  });
   const [imageUploading, setImageUploading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
 
@@ -155,11 +208,29 @@ export default function AdminDashboard() {
   /* ---------- Visible Fields Per Tab ---------- */
   const visibleFields = useMemo(() => {
     switch (activeTab) {
-      case "virtual_shelf_books": return ["name", "bookTitle", "genre", "link", "image"];
-      case "featured_authors":    return ["name", "bookTitle", "genre", "quote", "image"];
-      case "narrators":           return ["name", "genre", "style", "link", "image"];
-      case "audiobooks":          return ["bookTitle", "name", "narrator", "link"];
-      default:                    return [];
+      case "virtual_shelf_books":
+        return ["name", "bookTitle", "genre", "link", "image"];
+      case "featured_authors":
+        return ["name", "bookTitle", "genre", "quote", "image"];
+      case "narrators":
+        return ["name", "genre", "style", "link", "image"];
+      case "audiobooks":
+        return ["bookTitle", "name", "narrator", "link"];
+      case "new_releases":
+        return [
+          "title",
+          "author",
+          "releaseDate",
+          "preorder",
+          "link",
+          "format",
+          "series",
+          "tags",
+          "blurb",
+          "cover",
+        ];
+      default:
+        return [];
     }
   }, [activeTab]);
 
@@ -171,8 +242,10 @@ export default function AdminDashboard() {
 
     if (isQuestTab) {
       const questDoc = await getDoc(doc(db, "site_content", "current_quest"));
-      setFormData(questDoc.exists() ? questDoc.data() : {});
-      const prevSnap = await getDocs(query(collection(db, "previous_quests"), orderBy("archivedAt", "desc")));
+      setFormData(questDoc.exists() ? (questDoc.data() as AdminForm) : {});
+      const prevSnap = await getDocs(
+        query(collection(db, "previous_quests"), orderBy("archivedAt", "desc"))
+      );
       setPreviousQuests(prevSnap.docs.map((d) => d.data() as Quest));
       setEntries([]);
       return;
@@ -180,10 +253,10 @@ export default function AdminDashboard() {
 
     try {
       const snap = await getDocs(query(collection(db, activeTab), orderBy("updatedAt", "desc")));
-      setEntries(snap.docs.map((d) => ({ id: d.id, ...d.data() })) as Entry[]);
+      setEntries(snap.docs.map((d) => ({ id: d.id, ...d.data() })) as AdminRow[]);
     } catch {
       const snap = await getDocs(collection(db, activeTab));
-      setEntries(snap.docs.map((d) => ({ id: d.id, ...d.data() })) as Entry[]);
+      setEntries(snap.docs.map((d) => ({ id: d.id, ...d.data() })) as AdminRow[]);
     }
   };
 
@@ -193,22 +266,34 @@ export default function AdminDashboard() {
   }, [activeTab, user]);
 
   /* ---------- Auth Buttons ---------- */
-  const handleLogin = () => signInWithPopup(auth, new GoogleAuthProvider()).catch(console.error);
+  const handleLogin = () =>
+    signInWithPopup(auth, new GoogleAuthProvider()).catch(console.error);
   const handleLogout = () => signOut(auth);
 
   /* ---------- Validation ---------- */
-  const validateEntry = (row: Partial<Entry>) => {
-    const allRequiredPresent = requiredFields.every((f) => !!row[f as keyof Entry]);
+  const validateEntry = (row: any) => {
+    const allRequiredPresent = requiredFields.every((f) => !!row[f]);
     const linkOk = !visibleFields.includes("link") || !row.link || isValidUrl(row.link);
     return allRequiredPresent && linkOk;
   };
 
   /* ---------- Submit / Update ---------- */
   const handleSubmit = async () => {
-    // normalized copy
     const working: any = { ...formData };
+
+    // normalize link
     if (visibleFields.includes("link") && working.link) {
       working.link = normalizeUrl(working.link);
+    }
+
+    if (activeTab === "new_releases") {
+      working.preorder = toBool(working.preorder);
+      working.tags = safeStr(working.tags).trim();
+      working.format = safeStr(working.format).trim();
+      working.series = safeStr(working.series).trim();
+      working.title = safeStr(working.title).trim();
+      working.author = safeStr(working.author).trim();
+      working.blurb = safeStr(working.blurb);
     }
 
     if (isQuestTab) {
@@ -237,7 +322,7 @@ export default function AdminDashboard() {
     const payload: any = {
       ...working,
       _tab: activeTab,
-      published: toBool(working.published), // ✅ robust boolean
+      published: toBool(working.published),
       updatedAt: serverTimestamp(),
     };
 
@@ -247,6 +332,7 @@ export default function AdminDashboard() {
     } else {
       await addDoc(collection(db, activeTab), payload);
     }
+
     setFormData({});
     await fetchActiveTab();
   };
@@ -276,7 +362,7 @@ export default function AdminDashboard() {
       header: true,
       skipEmptyLines: true,
       complete: async (results) => {
-        const rows = results.data as Partial<Entry>[];
+        const rows = results.data as any[];
         let success = 0;
         let failed = 0;
 
@@ -284,13 +370,26 @@ export default function AdminDashboard() {
           try {
             const normalized: any = { ...row };
 
-            // Optional header conveniences
-            if (normalized.title && !normalized.bookTitle) normalized.bookTitle = normalized.title;
-            if (normalized.author && !normalized.name) normalized.name = normalized.author;
-            if (normalized.cover && !normalized.image) normalized.image = normalized.cover;
+            // Optional header conveniences (old tabs)
+            if (normalized.title && !normalized.bookTitle && activeTab !== "new_releases")
+              normalized.bookTitle = normalized.title;
+            if (normalized.author && !normalized.name && activeTab !== "new_releases")
+              normalized.name = normalized.author;
+            if (normalized.cover && !normalized.image && activeTab !== "new_releases")
+              normalized.image = normalized.cover;
 
-            if (normalized.link) normalized.link = normalizeUrl(normalized.link);
-            normalized.published = toBool(normalized.published); // ✅ robust boolean
+            // New Releases convenience
+            if (activeTab === "new_releases") {
+              if (normalized.date && !normalized.releaseDate) normalized.releaseDate = normalized.date;
+              normalized.preorder = toBool(normalized.preorder);
+              if (normalized.link) normalized.link = normalizeUrl(normalized.link);
+              if (normalized.image && !normalized.cover) normalized.cover = normalized.image;
+            } else {
+              if (normalized.link) normalized.link = normalizeUrl(normalized.link);
+              normalized.published = toBool(normalized.published);
+            }
+
+            normalized.published = toBool(normalized.published);
 
             if (validateEntry(normalized)) {
               await addDoc(collection(db, activeTab), {
@@ -306,6 +405,7 @@ export default function AdminDashboard() {
             failed++;
           }
         }
+
         setBulkResults({ success, failed });
         alert(`Upload Complete:\n✅ ${success} added\n❌ ${failed} failed`);
         await fetchActiveTab();
@@ -336,7 +436,8 @@ export default function AdminDashboard() {
       await uploadBytes(storageRef, file, { contentType: file.type });
       const url = await getDownloadURL(storageRef);
 
-      setFormData((prev: any) => ({ ...prev, image: url }));
+      const fieldName = activeTab === "new_releases" ? "cover" : "image";
+      setFormData((prev) => ({ ...prev, [fieldName]: url }));
     } catch (err) {
       console.error(err);
       alert("Upload failed. Check Storage rules and try again.");
@@ -346,9 +447,9 @@ export default function AdminDashboard() {
   };
 
   /* ---------- Edit / Delete ---------- */
-  const handleEdit = (entry: Entry) => {
-    setFormData(entry);
-    setEditingId(entry.id || null);
+  const handleEdit = (entry: AdminRow) => {
+    setFormData(entry as AdminForm);
+    setEditingId((entry as any).id || null);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -364,7 +465,7 @@ export default function AdminDashboard() {
     if (!search.trim()) return entries;
     const q = search.toLowerCase();
     return entries.filter((e) =>
-      [e.name, e.bookTitle, e.genre, e.narrator, e.link, e.style, e.quote]
+      Object.values(e)
         .filter(Boolean)
         .some((v) => String(v).toLowerCase().includes(q))
     );
@@ -382,6 +483,8 @@ export default function AdminDashboard() {
     );
 
   if (user.uid !== ADMIN_UID) return <div className="p-6">⛔ Not authorized.</div>;
+
+  const previewUrl = (formData as any).image || (formData as any).cover;
 
   /* ---------- UI ---------- */
   return (
@@ -441,8 +544,8 @@ export default function AdminDashboard() {
               id="quest-title"
               className="border p-2 text-black w-full"
               placeholder="Quest Title"
-              value={formData.title || ""}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              value={(formData as any).title || ""}
+              onChange={(e) => setFormData({ ...(formData as any), title: e.target.value })}
             />
           </div>
 
@@ -455,8 +558,8 @@ export default function AdminDashboard() {
               id="quest-start"
               type="date"
               className="border p-2 text-black w-full"
-              value={formData.startDate || ""}
-              onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+              value={(formData as any).startDate || ""}
+              onChange={(e) => setFormData({ ...(formData as any), startDate: e.target.value })}
             />
           </div>
 
@@ -469,8 +572,10 @@ export default function AdminDashboard() {
               id="quest-desc"
               className="border p-2 min-h-[140px] text-black w-full"
               placeholder="Use **Markdown** here…"
-              value={formData.description || ""}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              value={(formData as any).description || ""}
+              onChange={(e) =>
+                setFormData({ ...(formData as any), description: e.target.value })
+              }
             />
           </div>
 
@@ -485,7 +590,7 @@ export default function AdminDashboard() {
 
           <div className="prose prose-invert max-w-none border-t pt-4">
             <p className="font-semibold">Live Preview:</p>
-            <ReactMarkdown>{formData.description || "_No description yet._"}</ReactMarkdown>
+            <ReactMarkdown>{(formData as any).description || "_No description yet._"}</ReactMarkdown>
           </div>
 
           <div>
@@ -509,7 +614,7 @@ export default function AdminDashboard() {
             <input
               id="search"
               className="border p-2 w-full text-black"
-              placeholder="Filter by name, book, genre, etc."
+              placeholder="Filter by anything…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -520,20 +625,51 @@ export default function AdminDashboard() {
             {visibleFields.map((field) => (
               <div key={field} className="relative">
                 <label htmlFor={`field-${field}`} className="block text-sm mb-1">
-                  {FIELD_LABELS[field]} {requiredFields.includes(field) && <span className="text-gold">*</span>}
+                  {FIELD_LABELS[field] || field}{" "}
+                  {requiredFields.includes(field) && <span className="text-gold">*</span>}
                 </label>
 
-                {field === "link" ? (
+                {field === "preorder" ? (
+                  <label className="flex items-center gap-2 bg-black/20 border border-gray-700 rounded p-2">
+                    <input
+                      type="checkbox"
+                      checked={!!(formData as any).preorder}
+                      onChange={(e) =>
+                        setFormData({ ...(formData as any), preorder: e.target.checked })
+                      }
+                      className="mr-1"
+                    />
+                    <span className="text-sm">Preorder available</span>
+                  </label>
+                ) : field === "blurb" ? (
+                  <textarea
+                    id={`field-${field}`}
+                    className="border p-2 w-full text-black min-h-[110px]"
+                    placeholder={FIELD_LABELS[field] || field}
+                    value={((formData as any)[field] as string) || ""}
+                    onChange={(e) => setFormData({ ...(formData as any), [field]: e.target.value })}
+                  />
+                ) : field === "releaseDate" ? (
+                  <input
+                    id={`field-${field}`}
+                    type="date"
+                    className="border p-2 w-full text-black"
+                    value={((formData as any).releaseDate as string) || ""}
+                    onChange={(e) =>
+                      setFormData({ ...(formData as any), releaseDate: e.target.value })
+                    }
+                  />
+                ) : field === "link" ? (
                   <input
                     id={`field-${field}`}
                     className="border p-2 w-full text-black"
-                    placeholder={FIELD_LABELS[field]}
-                    value={(formData[field] as string) || ""}
-                    onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+                    placeholder={FIELD_LABELS[field] || field}
+                    value={(((formData as any)[field] as string) || "") as string}
+                    onChange={(e) => setFormData({ ...(formData as any), [field]: e.target.value })}
                     onBlur={(e) => {
                       const fixed = normalizeUrl(e.target.value);
                       if (fixed !== e.target.value) {
-                        setFormData((prev: any) => ({ ...prev, [field]: fixed }));
+                        setFormData((prev) => ({ ...(prev as any), [field]: fixed }));
                       }
                     }}
                   />
@@ -541,26 +677,26 @@ export default function AdminDashboard() {
                   <input
                     id={`field-${field}`}
                     className="border p-2 w-full text-black"
-                    placeholder={FIELD_LABELS[field]}
-                    value={(formData[field] as string) || ""}
-                    onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
+                    placeholder={FIELD_LABELS[field] || field}
+                    value={((formData as any)[field] as string) || ""}
+                    onChange={(e) => setFormData({ ...(formData as any), [field]: e.target.value })}
                   />
                 )}
 
                 <span
                   className="absolute top-0 right-0 mt-1 mr-1 text-xs text-gray-400 cursor-help"
-                  title={FIELD_TOOLTIPS[field]}
+                  title={FIELD_TOOLTIPS[field] || ""}
                 >
                   🛈
                 </span>
               </div>
             ))}
 
-            {/* File upload for image */}
-            {visibleFields.includes("image") && (
+            {/* File upload for image/cover */}
+            {(visibleFields.includes("image") || visibleFields.includes("cover")) && (
               <div className="md:col-span-2">
                 <label htmlFor="image-file" className="block text-sm mb-1">
-                  Upload Image
+                  Upload Image / Cover
                 </label>
                 <input
                   id="image-file"
@@ -570,16 +706,16 @@ export default function AdminDashboard() {
                   onChange={handleImageUpload}
                 />
                 {imageUploading && <p className="text-xs mt-1 text-gray-400">Uploading image…</p>}
-                {formData.image && (
+                {previewUrl && (
                   <div className="mt-2 flex items-center gap-3">
                     <img
-                      src={formData.image}
+                      src={previewUrl}
                       alt="preview"
                       className="w-20 h-28 object-cover rounded border border-gray-700"
                     />
                     <a
                       className="underline text-gold text-sm break-all"
-                      href={formData.image}
+                      href={previewUrl}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -594,8 +730,8 @@ export default function AdminDashboard() {
               <input
                 id="published"
                 type="checkbox"
-                checked={!!formData.published}
-                onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
+                checked={!!(formData as any).published}
+                onChange={(e) => setFormData({ ...(formData as any), published: e.target.checked })}
                 className="mr-1"
               />
               <span>Published</span>
@@ -642,64 +778,82 @@ export default function AdminDashboard() {
 
           {/* Entries List */}
           {filteredEntries.map((entry) => {
-            const isEditingThis = editingId === entry.id;
+            const isEditingThis = editingId === (entry as any).id;
+            const row: any = entry;
+
             return (
               <div
-                key={entry.id}
+                key={row.id}
                 className={`border p-4 mb-2 rounded flex justify-between items-start ${
                   isEditingThis ? "border-blue-600 bg-blue-900/20" : "border-gray-700"
                 }`}
               >
                 <div className="pr-4">
                   {visibleFields.map((field) => {
-                    const val = (entry as any)[field] as string | undefined;
-                    if (field === "image" && entry.image) {
+                    const val = row[field];
+
+                    // cover/image preview
+                    if ((field === "image" || field === "cover") && val) {
                       return (
                         <img
                           key={field}
-                          src={entry.image}
+                          src={val}
                           alt="cover"
                           className="w-24 mt-2 rounded border border-gray-700"
                         />
                       );
                     }
+
+                    if (field === "preorder") {
+                      return (
+                        <p key={field}>
+                          <span className="text-gray-400 capitalize">{field}:</span>{" "}
+                          {toBool(val) ? "Yes" : "No"}
+                        </p>
+                      );
+                    }
+
                     return (
                       <p key={field} className={field === "quote" ? "italic" : ""}>
                         {field === "quote" ? (
                           val
                         ) : (
                           <>
-                            <span className="text-gray-400 capitalize">{field}:</span> {val || "—"}
+                            <span className="text-gray-400 capitalize">{field}:</span>{" "}
+                            {val || "—"}
                           </>
                         )}
                       </p>
                     );
                   })}
+
                   <div className="mt-2 flex items-center gap-3 text-sm text-gray-400">
                     <span>
                       Updated:{" "}
-                      {entry.updatedAt instanceof Timestamp
-                        ? entry.updatedAt.toDate().toLocaleString()
-                        : "—"}
+                      {row.updatedAt instanceof Timestamp ? row.updatedAt.toDate().toLocaleString() : "—"}
                     </span>
                     <span
                       className={`px-2 py-0.5 rounded text-xs ${
-                        entry.published
+                        row.published
                           ? "bg-green-900/50 border border-green-700"
                           : "bg-gray-800 border border-gray-700"
                       }`}
                     >
-                      {entry.published ? "Published" : "Draft"}
+                      {row.published ? "Published" : "Draft"}
                     </span>
                   </div>
                 </div>
+
                 <div className="flex gap-2 shrink-0">
-                  <button className="bg-blue-700 text-white px-3 py-1 rounded" onClick={() => handleEdit(entry)}>
+                  <button
+                    className="bg-blue-700 text-white px-3 py-1 rounded"
+                    onClick={() => handleEdit(entry)}
+                  >
                     Edit
                   </button>
                   <button
                     className="bg-red-600 text-white px-3 py-1 rounded"
-                    onClick={() => entry.id && handleDelete(entry.id!)}
+                    onClick={() => row.id && handleDelete(row.id)}
                   >
                     Delete
                   </button>
