@@ -172,7 +172,7 @@ const Navbar: React.FC = () => {
 
           {/* Mobile Merch link */}
           <a
-            href="https://www.reading-realm.com/"
+            href="www.theinkboundbookshop.com"
             target="_blank"
             rel="noopener noreferrer"
             className="block text-lg hover:text-amber-400"
