@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,49 +19,49 @@ const Navbar: React.FC = () => {
           setActiveDropdown(null);
         }
       };
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
     }, 0);
     return () => clearTimeout(timeout);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : 'auto';
+    document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
 
   const navSections = [
     {
-      label: 'Readers',
+      label: "Readers",
       items: [
-        { path: '/readers', label: 'Reader Hub Overview' },
-        { path: '/inkbound-tbr', label: 'The Inkbound TBR' },
-        { path: '/readers/fortune', label: 'Bookish Fortune' },
+        { path: "/readers", label: "Reader Hub Overview" },
+        { path: "/inkbound-tbr", label: "The Inkbound TBR" },
+        { path: "/readers/fortune", label: "Bookish Fortune" },
       ],
     },
     {
-      label: 'Virtual Shelf',
+      label: "Virtual Shelf",
       items: [
-        { path: '/virtual-shelf', label: 'Books' },
-        { path: '/audiobooks', label: 'Audiobooks' },
-        { path: '/LibroPage', label: 'Libro.fm' },
+        { path: "/virtual-shelf", label: "Books" },
+        { path: "/audiobooks", label: "Audiobooks" },
+        { path: "/LibroPage", label: "Libro.fm" },
       ],
     },
     {
-      label: 'Author Hub',
+      label: "Author Hub",
       items: [
-        { path: '/authors', label: 'Author Hub Overview' },
-        { path: '/authors/consignment', label: 'Become Stocked' },
-        { path: '/authors/ship-books', label: 'Shipping Info' },
-        { path: '/virtual-shelfspace', label: 'Virtual Shelfspace' },
-        { path: '/author-map', label: 'Global Author Map' },
+        { path: "/authors", label: "Author Hub Overview" },
+        { path: "/authors/consignment", label: "Become Stocked" },
+        { path: "/authors/ship-books", label: "Shipping Info" },
+        { path: "/virtual-shelfspace", label: "Virtual Shelfspace" },
+        { path: "/author-map", label: "Global Author Map" },
       ],
     },
     {
-      label: 'Narrators',
+      label: "Narrators",
       items: [
-        { path: '/narrators', label: 'Narrator Hub Overview' },
-        { path: '/narrator-shelf', label: 'Narrator Shelf' },
-        { path: '/narrator-hub', label: 'Narrator Hub' },
+        { path: "/narrators", label: "Narrator Hub Overview" },
+        { path: "/narrator-shelf", label: "Narrator Shelf" },
+        { path: "/narrator-hub", label: "Narrator Hub" },
       ],
     },
     {
@@ -72,15 +72,15 @@ const Navbar: React.FC = () => {
       ],
     },
     {
-      label: 'Collab',
-      items: [{ path: '/collaborate', label: 'Business Collaborations' }],
+      label: "Collab",
+      items: [{ path: "/collaborate", label: "Business Collaborations" }],
     },
     {
-      label: 'Info & Contact',
+      label: "Info & Contact",
       items: [
-        { path: '/about', label: 'About' },
-        { path: '/info', label: 'Info' },
-        { path: '/contact', label: 'Contact' },
+        { path: "/about", label: "About" },
+        { path: "/info", label: "Info" },
+        { path: "/contact", label: "Contact" },
       ],
     },
   ];
@@ -111,10 +111,10 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className="hover:text-amber-400">Home</Link>
           <Link to="/featured-books" className="hover:text-amber-400">Stocked In-Store</Link>
-          
-          {/* Direct Merch Link */}
+
+          {/* ✅ Direct Merch Link */}
           <a
-            href="www.theinkboundbookshop.com"
+            href="https://www.theinkboundbookshop.com"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-amber-400"
@@ -125,16 +125,15 @@ const Navbar: React.FC = () => {
           {navSections.map((section) => (
             <div key={section.label} className="relative group">
               <button
-                onClick={() =>
-                  setActiveDropdown(activeDropdown === section.label ? null : section.label)
-                }
+                onClick={() => setActiveDropdown(activeDropdown === section.label ? null : section.label)}
                 className="hover:text-amber-400 focus:outline-none"
               >
                 {section.label} ▾
               </button>
+
               <div
                 className={`absolute left-0 mt-2 bg-black border border-white rounded shadow-lg z-50 min-w-[200px] transition-opacity duration-150 ${
-                  activeDropdown === section.label ? 'opacity-100 visible' : 'opacity-0 invisible'
+                  activeDropdown === section.label ? "opacity-100 visible" : "opacity-0 invisible"
                 }`}
               >
                 {section.items.map((item) => (
@@ -170,9 +169,9 @@ const Navbar: React.FC = () => {
             Stocked In-Store
           </Link>
 
-          {/* Mobile Merch link */}
+          {/* ✅ Mobile Merch link */}
           <a
-            href="www.theinkboundbookshop.com"
+            href="https://www.theinkboundbookshop.com"
             target="_blank"
             rel="noopener noreferrer"
             className="block text-lg hover:text-amber-400"
