@@ -114,7 +114,7 @@ const Navbar: React.FC = () => {
           
           {/* Direct Merch Link */}
           <a
-            href="https://www.reading-realm.com/"
+            href="www.theinkboundbookshop.com"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-amber-400"
