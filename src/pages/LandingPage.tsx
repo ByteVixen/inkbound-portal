@@ -44,6 +44,17 @@ export default function LandingPage() {
     }
   };
 
+  const IMPRINT_CREDIT_LINE =
+    "Inkbound Publishing (community imprint) - all rights retained by the author.";
+
+  const copyImprintLine = async () => {
+    try {
+      await navigator.clipboard.writeText(IMPRINT_CREDIT_LINE);
+    } catch {
+      // no-op
+    }
+  };
+
   return (
     <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
       {/* Vanta Background */}
@@ -115,7 +126,9 @@ export default function LandingPage() {
 
       {/* Hero */}
       <div className="relative z-10 text-center px-6 pb-10 max-w-4xl mx-auto animate-fade-in">
-        <h1 className="text-5xl font-light mb-4 text-glow">Some stories find you.</h1>
+        <h1 className="text-5xl font-light mb-4 text-glow">
+          Some stories find you.
+        </h1>
         <p className="text-lg text-gray-300 mb-4 opacity-80">
           Whisper your name. Join the Society.
         </p>
@@ -153,8 +166,9 @@ export default function LandingPage() {
               📖 Welcome to The Inkbound Society: Your Guidebook
             </h2>
             <p className="text-gray-300 mb-6">
-              Your gateway to getting involved in our magical literary world—whether
-              you're an author, narrator, or reader. Here’s how you can step inside…
+              Your gateway to getting involved in our magical literary world—
+              whether you're an author, narrator, or reader. Here’s how you can
+              step inside…
             </p>
 
             <details className="mb-4">
@@ -163,22 +177,22 @@ export default function LandingPage() {
               </summary>
               <div className="pl-4 mt-2 text-gray-300 space-y-2">
                 <p>
-                  <strong>📚 Stock Your Book with Us:</strong> Apply to consign your
-                  book at the Inkbound Bookshop in Galway, Ireland.
+                  <strong>📚 Stock Your Book with Us:</strong> Apply to consign
+                  your book at the Inkbound Bookshop in Galway, Ireland.
                 </p>
                 <Link to="/authors/consignment" className="text-amber-400 underline">
                   Consignment Sign-Up →
                 </Link>
                 <p>
-                  <strong>🌐 Join the Virtual Shelf:</strong> Prefer to stay digital?
-                  Add your book to our Virtual Shelf with buy links.
+                  <strong>🌐 Join the Virtual Shelf:</strong> Prefer to stay
+                  digital? Add your book to our Virtual Shelf with buy links.
                 </p>
                 <Link to="/virtual-shelfspace" className="text-amber-400 underline">
                   Virtual Shelf Application →
                 </Link>
                 <p>
-                  <strong>✨ Monthly Book Quests (Coming Soon):</strong> Submit your
-                  book or series to be featured in our community quests.
+                  <strong>✨ Monthly Book Quests (Coming Soon):</strong> Submit
+                  your book or series to be featured in our community quests.
                 </p>
               </div>
             </details>
@@ -189,8 +203,8 @@ export default function LandingPage() {
               </summary>
               <div className="pl-4 mt-2 text-gray-300 space-y-2">
                 <p>
-                  <strong>🎧 Claim a Virtual Shelfspace:</strong> Voice artists can
-                  showcase samples, genres, and links to hire or collaborate.
+                  <strong>🎧 Claim a Virtual Shelfspace:</strong> Voice artists
+                  can showcase samples, genres, and links to hire or collaborate.
                 </p>
                 <Link to="/narrator-hub" className="text-amber-400 underline">
                   Narrator Application →
@@ -229,6 +243,47 @@ export default function LandingPage() {
           </div>
         </section>
       )}
+{/* 💖 Make It Fluffy Event */}
+<section className="relative z-10 max-w-5xl mx-auto px-6 mb-12 animate-fade-in">
+  <a
+    href="https://tally.so/r/zxYGyk"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group block"
+  >
+    <div className="glass-panel border border-amber-700 rounded-xl p-5 md:p-6 overflow-hidden text-center hover:shadow-xl transition hover:scale-[1.01]">
+      <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
+        ✦ Valentine’s Event
+      </p>
+
+      <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
+        Make It Fluffy 💖
+      </h2>
+
+      <p className="text-gray-300 max-w-2xl mx-auto mb-5 opacity-90">
+        Submit a short fluffy & funny love story for a chance to win the 2026 trophy.
+      </p>
+
+      <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] rounded-xl overflow-hidden border border-amber-700 bg-black/40">
+  <img
+    src="/images/makeitfluffy.png"
+    alt="Make It Fluffy — Valentine’s Writing Event"
+    className="w-full h-auto object-contain opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+  />
+  <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/25 via-transparent to-black/10" />
+  <div className="absolute right-3 bottom-3 text-xs text-gray-200 bg-black/60 rounded-full px-3 py-1 border border-white/10">
+    Submit your story →
+  </div>
+</div>
+
+      <div className="mt-5">
+        <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition">
+          ✨ Enter now →
+        </span>
+      </div>
+    </div>
+  </a>
+</section>
 
       {/* Creators Map (static preview image) */}
       <section className="relative z-10 max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
@@ -237,8 +292,8 @@ export default function LandingPage() {
             <div className="lg:col-span-2">
               <h2 className="text-3xl text-amber-400 mb-2">🌍 Creators Map</h2>
               <p className="text-gray-300 mb-4">
-                A living peek at where our community lives. Every thread leads back
-                to our little shop in Gort, Ireland.
+                A living peek at where our community lives. Every thread leads
+                back to our little shop in Gort, Ireland.
               </p>
               <Link
                 to="/author-map"
@@ -374,7 +429,7 @@ export default function LandingPage() {
 
           {/* Description */}
           <p className="text-gray-300 max-w-2xl mx-auto mb-4 opacity-90">
-            Inkbound hosts a rotating lineup of indie-focused events — from{" "}
+            Inkbound hosts a rotating lineup of indie-focused events - from{" "}
             <span className="text-amber-200 font-semibold">Stuff Your Kindle days</span>{" "}
             and reader challenges to author collaborations, live launches, and special community drops.
             Every event is built to spotlight indie voices and make discovering books easy, fun,
@@ -407,8 +462,100 @@ export default function LandingPage() {
 
           {/* Helper note */}
           <p className="mt-3 text-xs text-gray-400 opacity-90">
-            New events are announced regularly — check back or join the mailing list to stay in the loop.
+            New events are announced regularly - check back or join the mailing list to stay in the loop.
           </p>
+        </div>
+      </section>
+
+      {/* ✦ Inkbound Publishing */}
+      <section className="relative z-10 max-w-6xl mx-auto px-6 mb-14 animate-fade-in">
+        {/* soft glow */}
+        <div className="pointer-events-none absolute -inset-6 opacity-70">
+          <div className="absolute -top-10 left-10 h-56 w-56 rounded-full bg-amber-400/20 blur-3xl" />
+          <div className="absolute top-0 right-10 h-64 w-64 rounded-full bg-emerald-700/20 blur-3xl" />
+          <div className="absolute -bottom-10 left-1/3 h-64 w-64 rounded-full bg-fuchsia-700/15 blur-3xl" />
+        </div>
+
+        <div className="relative glass-panel border border-amber-700 rounded-xl p-6 md:p-8 overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-amber-500/10 via-transparent to-emerald-500/10 opacity-70" />
+
+          <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-6 items-center">
+            {/* Image */}
+            <div className="lg:col-span-2">
+              <div className="relative rounded-xl overflow-hidden border border-amber-700 bg-black/40">
+                <img
+                  src="/images/inkboundpublishing.png"
+                  alt="Inkbound Publishing"
+                  className="w-full h-full object-cover opacity-95"
+                />
+                <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/25 via-transparent to-black/10" />
+              </div>
+            </div>
+
+            {/* Copy */}
+            <div className="lg:col-span-3">
+              <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
+                ✦ Inkbound Publishing
+              </p>
+
+              <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
+                A Community Imprint - Not a Traditional Publisher
+              </h2>
+
+              <p className="text-gray-300 mb-4 opacity-90">
+                Inkbound Publishing is a{" "}
+                <span className="text-amber-200 font-semibold">
+                  community - led imprint credit
+                </span>{" "}
+                used by authors affiliated with the Inkbound Society. It exists to
+                signal connection, support, and visibility - not ownership.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5 text-sm">
+                <div className="rounded-xl border border-amber-500/30 bg-black/30 p-4">
+                  <p className="text-amber-200 font-semibold mb-1">✅ What it is</p>
+                  <ul className="text-gray-300 space-y-1 list-disc pl-5">
+                    <li>Affiliation / community imprint credit</li>
+                    <li>Optional visibility + support via Inkbound channels</li>
+                    <li>A signal you’re part of the Inkbound world</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-xl border border-red-500/30 bg-black/30 p-4">
+                  <p className="text-red-200 font-semibold mb-1">🚫 What it is NOT</p>
+                  <ul className="text-gray-300 space-y-1 list-disc pl-5">
+                    <li>No rights or ownership claimed</li>
+                    <li>No royalties, fees, or payments owed</li>
+                    <li>No editorial control or publishing obligations</li>
+                    <li>No responsibility for printing/distribution</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-amber-500/30 bg-black/40 p-4">
+                <p className="text-sm text-gray-200 mb-2">
+                  If you’d like to credit it, use this exact line:
+                </p>
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <code className="text-amber-200 bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm overflow-x-auto">
+                    {IMPRINT_CREDIT_LINE}
+                  </code>
+                  <button
+                    type="button"
+                    onClick={copyImprintLine}
+                    className="rounded-full bg-amber-700 hover:bg-amber-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white border border-amber-400/70 transition"
+                  >
+                    Copy
+                  </button>
+                </div>
+
+                <p className="text-xs text-gray-400 mt-2">
+                  This keeps the meaning clear and protects both the author and Inkbound.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -436,11 +583,11 @@ export default function LandingPage() {
           </div>
           <div className="text-center md:text-left">
             <h2 className="text-2xl text-amber-400 mb-2 font-marcellus">
-              📜 November Quest: The Marked Ones
+              📜 January Quest: The Marked Ones
             </h2>
             <p className="text-gray-300 mb-3">
-              Prove you are among the Marked. Share a quote from a book that changed
-              your path—and earn your reward.
+              Prove you are among the Marked. Share a quote from a book that
+              changed your path—and earn your reward.
             </p>
             <Link
               to="/quests"
@@ -487,7 +634,7 @@ export default function LandingPage() {
               InkSprouts
             </p>
             <p className="text-sm text-emerald-200 italic mb-3">
-              The kids’ corner of the Inkbound Society — stories for little sprouts.
+              The kids’ corner of the Inkbound Society - stories for little sprouts.
             </p>
             <span className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-emerald-700/30 border border-emerald-700 text-emerald-200">
               Coming Soon
