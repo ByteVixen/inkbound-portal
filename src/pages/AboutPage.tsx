@@ -40,7 +40,7 @@ const originalMembers: TeamMember[] = [
     socialUrl: "https://www.tiktok.com/@ginaparrillo?lang=en-GB",
   },
   {
-    name: "David Corbin",
+    name: "David",
     role: "Original Member",
     lore: "My big brother in chaos and craft, part menace. Sounding board for every wild idea, architect of beautifully unhinged smut, and the kind of writer who turns audacity into art.",
     socialHandle: "@davidcorbinauthor",
@@ -75,7 +75,7 @@ const originalMembers: TeamMember[] = [
     socialUrl: "https://www.tiktok.com/@sherediaauthor?lang=en-GB",
   },
   {
-    name: "Leanne Hart",
+    name: "LeAnne",
     role: "Original Member",
     lore: "Author. Editor. Absolute powerhouse. Equal parts precision and passion, sharp-eyed with a red pen, soft-hearted with her people, and stronger than most will ever know.",
     socialHandle: "@leannehart.author",

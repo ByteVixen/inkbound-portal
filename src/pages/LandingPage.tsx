@@ -267,11 +267,11 @@ export default function LandingPage() {
   <br />
   <span className="text-sm opacity-80">Max words: 2000</span>
   <br />
-  🗓 Submissions open now → Feb 10th
+  🗓 Submissions open now → Feb 15th
   <br />
-  🗳 Stories go up on the Inkbound website for voting → Feb 11th
+  🗳 Stories go up on the Inkbound website for voting → Feb 16th
   <br />
-  🏆 Winner announced Valentine’s Day
+  🏆 Winner announced Feb 28th
 </p>
 
       <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] rounded-xl overflow-hidden border border-amber-700 bg-black/40">
