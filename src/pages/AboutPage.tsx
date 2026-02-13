@@ -40,11 +40,11 @@ const originalMembers: TeamMember[] = [
     socialUrl: "https://www.tiktok.com/@ginaparrillo?lang=en-GB",
   },
   {
-    name: "Ethan",
-    role: "VP of Narration and Communications Lead",
-    lore: "Author, indie author advocate, and exceptional voice actor, keeper of everyone’s sanity and bringer of perfectly timed humour.",
-    socialHandle: "@ethanmorrisvoice",
-    socialUrl: "https://www.tiktok.com/@ethanmorrisvoice?lang=en-GB",
+    name: "David Corbin",
+    role: "Original Member",
+    lore: "My big brother in chaos and craft, part menace. Sounding board for every wild idea, architect of beautifully unhinged smut, and the kind of writer who turns audacity into art.",
+    socialHandle: "@davidcorbinauthor",
+    socialUrl: "https://www.tiktok.com/@davidcorbinauthor",
   },
   {
     name: "Ash B",
@@ -73,6 +73,13 @@ const originalMembers: TeamMember[] = [
     lore: "Resident vampire and writer of stunning books, alter ego Captain Surf, steadfast supporter of everyone, and just a genuinely good soul.",
     socialHandle: "@sherediaauthor",
     socialUrl: "https://www.tiktok.com/@sherediaauthor?lang=en-GB",
+  },
+  {
+    name: "Leanne Hart",
+    role: "Original Member",
+    lore: "Author. Editor. Absolute powerhouse. Equal parts precision and passion, sharp-eyed with a red pen, soft-hearted with her people, and stronger than most will ever know.",
+    socialHandle: "@leannehart.author",
+    socialUrl: "https://www.tiktok.com/@leannehart.author?lang=en-GB",
   },
   {
     name: "Dad",

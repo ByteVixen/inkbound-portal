@@ -253,16 +253,26 @@ export default function LandingPage() {
   >
     <div className="glass-panel border border-amber-700 rounded-xl p-5 md:p-6 overflow-hidden text-center hover:shadow-xl transition hover:scale-[1.01]">
       <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
-        ✦ Valentine’s Event
+        ✦ Valentine’s Event ✦
       </p>
 
       <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
-        Make It Fluffy 💖
+      💖 Make It Fluffy 💖
       </h2>
 
       <p className="text-gray-300 max-w-2xl mx-auto mb-5 opacity-90">
-        Submit a short fluffy & funny love story for a chance to win the 2026 trophy.
-      </p>
+  Submit a short fluffy &amp; funny love story for a chance to win the 2026 trophy.
+  <br />
+  Write a short love story that feels like a hug with a punchline.
+  <br />
+  <span className="text-sm opacity-80">Max words: 2000</span>
+  <br />
+  🗓 Submissions open now → Feb 10th
+  <br />
+  🗳 Stories go up on the Inkbound website for voting → Feb 11th
+  <br />
+  🏆 Winner announced Valentine’s Day
+</p>
 
       <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] rounded-xl overflow-hidden border border-amber-700 bg-black/40">
   <img
