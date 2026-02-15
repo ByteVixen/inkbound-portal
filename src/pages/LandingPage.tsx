@@ -243,6 +243,121 @@ export default function LandingPage() {
           </div>
         </section>
       )}
+{/* ✦ BLACK DIADEM FEATURE SECTION ✦ */}
+<section className="relative py-24 border-t border-white/10 overflow-hidden">
+
+  {/* Ambient golden aura — transparent */}
+  <div className="pointer-events-none absolute inset-0">
+    <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500/12 blur-3xl" />
+    <div className="absolute left-1/3 top-1/3 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-300/10 blur-3xl" />
+  </div>
+
+  <div className="relative max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+
+    {/* Image Side */}
+    <div className="relative flex justify-center">
+      <div className="absolute inset-0 flex justify-center">
+        <div className="h-[340px] w-[340px] rounded-full bg-amber-500/15 blur-3xl" />
+      </div>
+
+      <div className="glass-panel border border-amber-700/40 rounded-2xl p-6 md:p-7 bg-white/5 backdrop-blur-xl">
+        <img
+          src="/images/blackdiadem.png"
+          alt="The Tiara Court – The Black Diadem Series"
+          className="w-full max-w-md mx-auto drop-shadow-[0_0_30px_rgba(225,167,48,0.25)]"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    {/* Text Side */}
+    <div className="glass-panel border border-amber-700/30 rounded-2xl p-8 md:p-10 bg-white/5 backdrop-blur-xl">
+      <p className="text-xs uppercase tracking-[0.22em] text-amber-300/90 mb-3">
+        ✦ Collaborative Series ✦
+      </p>
+
+      <h2 className="text-4xl md:text-5xl font-serif mb-5 text-amber-400">
+        The Tiara Court
+      </h2>
+
+      <p className="text-lg text-gray-200/90 leading-relaxed mb-6">
+        A connected 14 book series of dark fairytale retelling novellas.
+        Each story stands alone, yet every princess bears the same mark.
+        And with every tale told, the Black Diadem loses another piece.
+      </p>
+
+      <p className="text-gray-300 mb-8">
+        Release: <span className="text-amber-200">Halloween 2026</span>
+      </p>
+
+      <a
+        href="/black-diadem"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.55)] border border-amber-400/70 transition"
+      >
+        See the Court →
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+{/* 💖 MAKE IT FLUFFY EVENT SECTION 💖 */}
+<section className="relative z-10 max-w-5xl mx-auto px-6 mb-20 animate-fade-in">
+  <a
+    href="https://tally.so/r/zxYGyk"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group block"
+  >
+    <div className="glass-panel border border-amber-700/40 rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-xl text-center hover:shadow-xl transition hover:scale-[1.01]">
+
+      <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
+        ✦ Valentine’s Event ✦
+      </p>
+
+      <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
+        💖 Make It Fluffy 💖
+      </h2>
+
+      <p className="text-gray-300 max-w-2xl mx-auto mb-6 opacity-90 leading-relaxed">
+        Submit a short fluffy &amp; funny love story for a chance to win the 2026 trophy.
+        <br />
+        Write a short love story that feels like a hug with a punchline.
+        <br />
+        <span className="text-sm opacity-80">Max words: 2000</span>
+        <br />
+        🗓 Submissions open now → Feb 15th
+        <br />
+        🗳 Stories go up on the Inkbound website for voting → Feb 16th
+        <br />
+        🏆 Winner announced Feb 28th
+      </p>
+
+      <div className="relative mx-auto w-full max-w-[420px] rounded-xl overflow-hidden border border-amber-700/40 bg-white/5 backdrop-blur-xl">
+        <img
+          src="/images/makeitfluffy.png"
+          alt="Make It Fluffy — Valentine’s Writing Event"
+          className="w-full h-auto object-contain opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/25 via-transparent to-black/10" />
+        <div className="absolute right-3 bottom-3 text-xs text-gray-200 bg-black/60 rounded-full px-3 py-1 border border-white/10">
+          Submit your story →
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition">
+          ✨ Enter now →
+        </span>
+      </div>
+
+    </div>
+  </a>
+</section>
+
+
 {/* 💖 Make It Fluffy Event */}
 <section className="relative z-10 max-w-5xl mx-auto px-6 mb-12 animate-fade-in">
   <a

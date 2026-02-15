@@ -75,12 +75,34 @@ const originalMembers: TeamMember[] = [
     socialUrl: "https://www.tiktok.com/@sherediaauthor?lang=en-GB",
   },
   {
+    name: "Jen",
+    role: "Original Member",
+    lore: "Boss energy in human form. Indie champion, community builder, and fearless writer of questionably possessed anatomy. Equal parts legend and menace, will defend authors and pineapple on pizza with the same intensity.",
+    socialHandle: "@yourgenxaunt2",
+    socialUrl: "https://www.tiktok.com/@yourgenxaunt2?lang=en-GB",
+  },  
+  {
+    name: "MommaD",
+    role: "Original Member",
+    lore: "Community cornerstone and relentless indie supporter. The steady heartbeat of BookTok, champion of authors, and curator of a library that borders on mythical. If stories had a guardian, it would look a lot like her.",
+    socialHandle: "@mommad1452",
+    socialUrl: "https://www.tiktok.com/@mommad1452?lang=en-GB",
+  },  
+  {
     name: "LeAnne",
     role: "Original Member",
     lore: "Author. Editor. Absolute powerhouse. Equal parts precision and passion, sharp-eyed with a red pen, soft-hearted with her people, and stronger than most will ever know.",
     socialHandle: "@leannehart.author",
     socialUrl: "https://www.tiktok.com/@leannehart.author?lang=en-GB",
   },
+  {
+    name: "Uncle James",
+    role: "Original Member",
+    lore: "Author. Advocate. Head of the family meetings. The steady voice when things wobble, the pep talk when morale dips, and the man who will absolutely call the meeting to order. Equal parts wisdom and warmth, protective without being loud about it, motivational without being preachy. Community dad energy in its purest form.",
+    socialHandle: "@unclejamesbackup",
+    socialUrl: "https://www.tiktok.com/@unclejamesbackup",
+  },
+  
   {
     name: "Dad",
     role: "Original Member",

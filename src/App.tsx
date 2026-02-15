@@ -39,6 +39,8 @@ import CreativesHub from "./pages/CreativesHub";
 
 import Newsletter from "./pages/newsletter";
 
+// Black Diadem
+import BlackDiademSeries from "./pages/BlackDiademSeries";
 
 // Author / Shelf Pages
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
@@ -52,6 +54,7 @@ import AuthorLanding from "./pages/AuthorLanding";
 import NarratorLanding from "./pages/NarratorLanding";
 import MerchPage from "./pages/MerchPage";
 import NewReleasesPage from "./pages/NewReleasesPage";
+
 
 
 const App: React.FC = () => {
@@ -85,6 +88,9 @@ const App: React.FC = () => {
              <Route path="/stuff-your-kindle" element={<StuffYourKindle />} />
              <Route path="/CreativesHub" element={<CreativesHub />} />
              <Route path="/newsletter" element={<Newsletter />} />
+             
+             {/* Black Diadem */}
+             <Route path="/black-diadem" element={<BlackDiademSeries />} />
             
 
 

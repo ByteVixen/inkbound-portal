@@ -345,3 +345,37 @@ button:disabled {
   opacity: 0.35;
   animation-duration: 26s;
 }
+
+/* =========================
+   Black Diadem — Summon FX
+   ========================= */
+
+   @keyframes diademRise {
+    0%   { transform: translateY(10px); opacity: 0.0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+  
+  @keyframes diademPulseRing {
+    0%   { box-shadow: 0 0 0 rgba(239, 173, 0, 0); }
+    30%  { box-shadow: 0 0 0 6px rgba(239, 173, 0, 0.12); }
+    100% { box-shadow: 0 0 0 rgba(239, 173, 0, 0); }
+  }
+  
+  .diadem-rise {
+    animation: diademRise 520ms ease-out both;
+  }
+  
+  .diadem-summoned {
+    animation: diademPulseRing 900ms ease-out;
+  }
+  
+  /* Optional: tiny “alive” shimmer on the summon panel (keeps it subtle) */
+  @keyframes diademPanelBreath {
+    0%, 100% { filter: brightness(1); }
+    50%      { filter: brightness(1.05); }
+  }
+  
+  .diadem-panel-breath {
+    animation: diademPanelBreath 2.6s ease-in-out infinite;
+  }
+  
