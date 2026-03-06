@@ -15,7 +15,11 @@ import CountdownBanner from "./components/CountdownBanner";
 import PostLaunchBanner from "./components/PostLaunchBanner";
 import FamiliarSelector from "./components/FamiliarSelector";
 import { FamiliarProvider } from "./components/FamiliarContext";
+import MakeItFluffyPage from "./pages/MakeItFluffyPage";
 
+// Newsletter
+import NewsletterArchive from "./pages/ NewsletterArchive";
+import NewsletterIssue from "./pages/NewsletterIssue";
 // Pages
 import HomePage from "./pages/LandingPage";
 import AboutPage from "./pages/AboutPage";
@@ -37,7 +41,7 @@ import InkboundSanta from "./pages/InkboundSanta";
 import StuffYourKindle from "./pages/StuffYourKindle";
 import CreativesHub from "./pages/CreativesHub";
 
-import Newsletter from "./pages/newsletter";
+
 
 // Black Diadem
 import BlackDiademSeries from "./pages/BlackDiademSeries";
@@ -87,7 +91,7 @@ const App: React.FC = () => {
              <Route path="/inkbound-santa" element={<InkboundSanta />} />
              <Route path="/stuff-your-kindle" element={<StuffYourKindle />} />
              <Route path="/CreativesHub" element={<CreativesHub />} />
-             <Route path="/newsletter" element={<Newsletter />} />
+
              
              {/* Black Diadem */}
              <Route path="/black-diadem" element={<BlackDiademSeries />} />
@@ -102,13 +106,14 @@ const App: React.FC = () => {
             <Route path="/LibroPage" element={<LibroPage />} />
             <Route path="/author-map" element={<AuthorMapPage />} />
 <Route path="/AuthorMapPage" element={<Navigate to="/author-map" replace />} />
-           
+<Route path="/make-it-fluffy" element={<MakeItFluffyPage />} />
             {/* Author Hub */}
             <Route path="/authors" element={<AuthorLanding />} />
             <Route path="/authors/consignment" element={<ConsignmentPage />} />
             <Route path="/virtual-shelfspace" element={<VirtualShelfspacePage />} />
             <Route path="/authors/ship-books" element={<ConsignmentShippingPage />} />
-
+            <Route path="/newsletter" element={<NewsletterArchive />} />
+            <Route path="/newsletter/:slug" element={<NewsletterIssue />} />
             {/* Narrators */}
             <Route path="/narrators" element={<NarratorLanding />} />
             <Route path="/narrator-shelf" element={<NarratorShelfPage />} />

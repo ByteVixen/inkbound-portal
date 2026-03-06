@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import VantaBackground from "../components/VantaBackground";
 import CountdownBanner from "../components/CountdownBanner";
 import GuestBook from "../components/GuestBook";
+import { newsletterIssues } from "../data/newsletterIssues";
 
 const TALLY_CLAIM_URL = "https://tally.so/r/PdD1ZV";
 const HUNT_CODE = "MUG-GLINT-01"; // change whenever you want
@@ -15,7 +16,7 @@ export default function LandingPage() {
 
   const guidebookRef = useRef<HTMLDivElement>(null);
   const fakeUserCount = Math.floor(Math.random() * 12) + 5;
-
+  const latestIssue = newsletterIssues[0];
   const handleGuidebookToggle = () => {
     setShowGuidebook(!showGuidebook);
     setTimeout(() => {
@@ -300,16 +301,67 @@ export default function LandingPage() {
   </div>
 </section>
 
+{/* 📰 Inkbound Times */}
+<section className="relative z-10 max-w-6xl mx-auto px-6 mb-16 animate-fade-in">
+  <div className="glass-panel border border-amber-700/40 rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-xl overflow-hidden">
+    <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+      <div className="lg:col-span-2">
+        <div className="relative rounded-xl overflow-hidden border border-amber-700/40 bg-black/40">
+          <img
+            src={latestIssue.coverImage}
+            alt={`${latestIssue.title} ${latestIssue.issueNumber}`}
+            className="w-full h-auto object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/30 via-transparent to-black/10" />
+        </div>
+      </div>
 
+      <div className="lg:col-span-3">
+        <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
+          ✦ Fresh from the press ✦
+        </p>
+
+        <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
+          The Inkbound Times
+        </h2>
+
+        <p className="text-sm uppercase tracking-[0.18em] text-gray-400 mb-3">
+          {latestIssue.issueNumber} • {latestIssue.dateLabel}
+        </p>
+
+        <p className="text-gray-300 mb-5 opacity-90 leading-relaxed">
+          {latestIssue.description}
+        </p>
+
+        <p className="text-gray-400 mb-6">
+          Open the latest issue as a digital edition with flippable pages, or
+          step into the full archive to explore every release.
+        </p>
+
+        <div className="flex flex-wrap gap-3">
+          <Link
+            to={`/newsletter/${latestIssue.slug}`}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.55)] border border-amber-400/70 transition"
+          >
+            Read latest issue →
+          </Link>
+
+          <Link
+            to="/newsletter"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 hover:border-white/40 hover:bg-white/10 text-white font-semibold uppercase tracking-[0.18em] transition"
+          >
+            View archive
+          </Link>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 {/* 💖 MAKE IT FLUFFY EVENT SECTION 💖 */}
 <section className="relative z-10 max-w-5xl mx-auto px-6 mb-20 animate-fade-in">
-  <a
-    href="https://tally.so/r/zxYGyk"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group block"
-  >
+  <Link to="/make-it-fluffy" className="group block">
     <div className="glass-panel border border-amber-700/40 rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-xl text-center hover:shadow-xl transition hover:scale-[1.01]">
 
       <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
@@ -321,17 +373,15 @@ export default function LandingPage() {
       </h2>
 
       <p className="text-gray-300 max-w-2xl mx-auto mb-6 opacity-90 leading-relaxed">
-        Submit a short fluffy &amp; funny love story for a chance to win the 2026 trophy.
+        Read the shortlisted fluffy & funny love stories and vote for your favourite.
         <br />
-        Write a short love story that feels like a hug with a punchline.
+        Each story is meant to feel like a hug with a punchline.
         <br />
-        <span className="text-sm opacity-80">Max words: 2000</span>
+        <span className="text-sm opacity-80">One vote per reader</span>
         <br />
-        🗓 Submissions open now → Feb 15th
+        🗳 Voting closes → Friday the 13th
         <br />
-        🗳 Stories go up on the Inkbound website for voting → Feb 16th
-        <br />
-        🏆 Winner announced Feb 28th
+        🎥 Winner announced live that night
       </p>
 
       <div className="relative mx-auto w-full max-w-[420px] rounded-xl overflow-hidden border border-amber-700/40 bg-white/5 backdrop-blur-xl">
@@ -343,71 +393,18 @@ export default function LandingPage() {
         />
         <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/25 via-transparent to-black/10" />
         <div className="absolute right-3 bottom-3 text-xs text-gray-200 bg-black/60 rounded-full px-3 py-1 border border-white/10">
-          Submit your story →
+          Read & vote →
         </div>
       </div>
 
       <div className="mt-6">
         <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition">
-          ✨ Enter now →
+          💖 Read the stories →
         </span>
       </div>
 
     </div>
-  </a>
-</section>
-
-
-{/* 💖 Make It Fluffy Event */}
-<section className="relative z-10 max-w-5xl mx-auto px-6 mb-12 animate-fade-in">
-  <a
-    href="https://tally.so/r/zxYGyk"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="group block"
-  >
-    <div className="glass-panel border border-amber-700 rounded-xl p-5 md:p-6 overflow-hidden text-center hover:shadow-xl transition hover:scale-[1.01]">
-      <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
-        ✦ Valentine’s Event ✦
-      </p>
-
-      <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
-      💖 Make It Fluffy 💖
-      </h2>
-
-      <p className="text-gray-300 max-w-2xl mx-auto mb-5 opacity-90">
-  Submit a short fluffy &amp; funny love story for a chance to win the 2026 trophy.
-  <br />
-  Write a short love story that feels like a hug with a punchline.
-  <br />
-  <span className="text-sm opacity-80">Max words: 2000</span>
-  <br />
-  🗓 Submissions open now → Feb 15th
-  <br />
-  🗳 Stories go up on the Inkbound website for voting → Feb 16th
-  <br />
-  🏆 Winner announced Feb 28th
-</p>
-
-      <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] rounded-xl overflow-hidden border border-amber-700 bg-black/40">
-  <img
-    src="/images/makeitfluffy.png"
-    alt="Make It Fluffy — Valentine’s Writing Event"
-    className="w-full h-auto object-contain opacity-95 group-hover:opacity-100 transition-opacity duration-300"
-  />
-  <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/25 via-transparent to-black/10" />
-  <div className="absolute right-3 bottom-3 text-xs text-gray-200 bg-black/60 rounded-full px-3 py-1 border border-white/10">
-    Submit your story →
-  </div>
-</div>
-
-      <div className="mt-5">
-        <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition">
-          ✨ Enter now →
-        </span>
-      </div>
-    </div>
-  </a>
+  </Link>
 </section>
 
       {/* Creators Map (static preview image) */}

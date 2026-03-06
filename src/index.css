@@ -378,4 +378,242 @@ button:disabled {
   .diadem-panel-breath {
     animation: diademPanelBreath 2.6s ease-in-out infinite;
   }
+  .inkbound-flipbook {
+    margin: 0 auto;
+  }
   
+  .newsletter-page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background:
+      linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.01)),
+      #f5ecd9;
+    color: #1a1a1a;
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.05),
+      inset 0 0 40px rgba(0, 0, 0, 0.04);
+  }
+  
+  .newsletter-page__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.55);
+  }
+  
+  .newsletter-page__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding: 2rem;
+  }
+  
+  .cover-page,
+  .back-page {
+    background: #0f0f10;
+    color: #f4efe6;
+  }
+  
+  .cover-page .newsletter-page__inner,
+  .back-page .newsletter-page__inner {
+    justify-content: flex-end;
+  }
+  
+  .newsletter-page__title {
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+  
+  .newsletter-page__subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+  }
+  
+  .newsletter-page__content {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+  
+  .newsletter-page__content p {
+    margin: 0 0 0.9rem;
+  }
+  
+  .newsletter-page__number {
+    margin-top: auto;
+    font-size: 0.875rem;
+    opacity: 0.6;
+    align-self: center;
+  }
+  .inkbound-flipbook {
+    margin: 0 auto;
+  }
+  
+  .pdf-flipbook-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+  }
+  
+  .pdf-flipbook-status {
+    display: grid;
+    place-items: center;
+    min-height: 50vh;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  
+  .pdf-flip-page {
+    background:
+      linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+      #efe6d6;
+    color: #111;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+      0 12px 28px rgba(0, 0, 0, 0.18);
+  }
+  
+  .pdf-flip-page--cover {
+    background: #111214;
+  }
+  
+  .pdf-flip-page__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+  
+  .pdf-flip-page__inner .react-pdf__Page {
+    margin: 0 auto;
+    width: 100% !important;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+  }
+  
+  .pdf-flip-page__inner .react-pdf__Page__canvas {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+  }
+  
+  .pdf-flip-page__loading {
+    display: grid;
+    place-items: center;
+    min-height: 70vh;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  
+  .pdf-flip-page__number {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.55);
+    z-index: 5;
+  }
+  
+  .pdf-flip-page__label {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    z-index: 5;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  
+  .react-pdf__Document {
+    width: 100%;
+  }
+  
+  .react-pdf__Page__textContent,
+  .react-pdf__Page__annotations {
+    display: none;
+  }
+  .pdf-flipbook-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+  }
+  
+  .pdf-flipbook-status {
+    display: grid;
+    place-items: center;
+    min-height: 50vh;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  
+  .inkbound-flipbook {
+    margin: 0 auto;
+  }
+  
+  .pdf-flip-page {
+    background:
+      linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+      #efe6d6;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+      0 12px 28px rgba(0, 0, 0, 0.18);
+  }
+  
+  .pdf-flip-page--cover {
+    background: #111214;
+  }
+  
+  .pdf-flip-page__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .pdf-flip-page__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .pdf-flip-page__number {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.55);
+    z-index: 5;
+  }
+  
+  .pdf-flip-page__label {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    z-index: 5;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
