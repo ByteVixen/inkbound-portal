@@ -116,7 +116,7 @@ const ConsignmentPage = () => {
           <h2 className="text-2xl font-semibold text-amber-400 mb-3">The Fine Print</h2>
           <ul className="list-disc list-inside text-sm text-gray-400 space-y-1 leading-relaxed">
             <li>💸 We operate on a 70/30 split — you earn 70% of every sale</li>
-            <li>📆 Payments are made quarterly via your preferred method</li>
+            <li>📆 Payments are made every 6 months via your preferred method</li>
             <li>🧾 All books must be pre-priced and in good condition</li>
             <li>📬 If your book doesn’t sell within 6 months, we’ll offer to return or donate remaining copies</li>
           </ul>

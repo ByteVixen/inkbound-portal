@@ -138,112 +138,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Guidebook Cover (click to open) */}
-      <div className="relative z-10 flex justify-center mb-10 animate-fade-in">
-        <div
-          onClick={handleGuidebookToggle}
-          className="cursor-pointer transform transition hover:scale-105 text-center relative group"
-        >
-          <img
-            src="/images/inkbound-guidebook.png"
-            alt="Inkbound Guidebook"
-            className="w-48 h-auto mx-auto mb-2 drop-shadow-lg rounded-lg border border-amber-700 group-hover:shadow-[0_0_20px_rgba(255,215,0,0.5)] transition-shadow duration-500"
-          />
-          <div className="absolute inset-0 rounded-lg pointer-events-none group-hover:animate-pulse-sparkle" />
-          <p className="text-amber-300 text-sm italic mt-2">
-            Click to open the Inkbound Guidebook
-          </p>
-        </div>
-      </div>
-
-      {/* Collapsible Guidebook Panel */}
-      {showGuidebook && (
-        <section
-          ref={guidebookRef}
-          className="relative z-10 max-w-4xl mx-auto px-6 mb-16 animate-fade-in"
-        >
-          <div className="glass-panel border border-amber-700 rounded-xl p-6">
-            <h2 className="text-3xl text-amber-400 mb-4">
-              📖 Welcome to The Inkbound Society: Your Guidebook
-            </h2>
-            <p className="text-gray-300 mb-6">
-              Your gateway to getting involved in our magical literary world—
-              whether you're an author, narrator, or reader. Here’s how you can
-              step inside…
-            </p>
-
-            <details className="mb-4">
-              <summary className="cursor-pointer text-lg text-amber-300">
-                🖋️ For Authors
-              </summary>
-              <div className="pl-4 mt-2 text-gray-300 space-y-2">
-                <p>
-                  <strong>📚 Stock Your Book with Us:</strong> Apply to consign
-                  your book at the Inkbound Bookshop in Galway, Ireland.
-                </p>
-                <Link to="/authors/consignment" className="text-amber-400 underline">
-                  Consignment Sign-Up →
-                </Link>
-                <p>
-                  <strong>🌐 Join the Virtual Shelf:</strong> Prefer to stay
-                  digital? Add your book to our Virtual Shelf with buy links.
-                </p>
-                <Link to="/virtual-shelfspace" className="text-amber-400 underline">
-                  Virtual Shelf Application →
-                </Link>
-                <p>
-                  <strong>✨ Monthly Book Quests (Coming Soon):</strong> Submit
-                  your book or series to be featured in our community quests.
-                </p>
-              </div>
-            </details>
-
-            <details className="mb-4">
-              <summary className="cursor-pointer text-lg text-amber-300">
-                🎙️ For Narrators
-              </summary>
-              <div className="pl-4 mt-2 text-gray-300 space-y-2">
-                <p>
-                  <strong>🎧 Claim a Virtual Shelfspace:</strong> Voice artists
-                  can showcase samples, genres, and links to hire or collaborate.
-                </p>
-                <Link to="/narrator-hub" className="text-amber-400 underline">
-                  Narrator Application →
-                </Link>
-              </div>
-            </details>
-
-            <details className="mb-4">
-              <summary className="cursor-pointer text-lg text-amber-300">
-                🌙 For Readers
-              </summary>
-              <div className="pl-4 mt-2 text-gray-300 space-y-2">
-                <p>
-                  <strong>📖 Join Monthly Quests:</strong> Themed reading prompts,
-                  discussion threads, and magical rewards.
-                </p>
-                <Link to="/quests" className="text-amber-400 underline">
-                  See Current Quest →
-                </Link>
-                <p>
-                  <strong>📚 Your Virtual Inkbound TBR:</strong> Track your reads,
-                  share your shelf, and connect with others.
-                </p>
-                <Link to="/inkbound-tbr" className="text-amber-400 underline">
-                  Start Your TBR →
-                </Link>
-              </div>
-            </details>
-
-            <p className="text-sm text-gray-400 mt-6">
-              Questions or ideas? Reach out at{" "}
-              <a href="mailto:summon@inkboundsociety.com" className="underline">
-                summon@inkboundsociety.com
-              </a>
-            </p>
-          </div>
-        </section>
-      )}
+      
 {/* ✦ BLACK DIADEM FEATURE SECTION ✦ */}
 <section className="relative py-24 border-t border-white/10 overflow-hidden">
 
@@ -359,53 +254,7 @@ export default function LandingPage() {
   </div>
 </section>
 
-{/* 💖 MAKE IT FLUFFY EVENT SECTION 💖 */}
-<section className="relative z-10 max-w-5xl mx-auto px-6 mb-20 animate-fade-in">
-  <Link to="/make-it-fluffy" className="group block">
-    <div className="glass-panel border border-amber-700/40 rounded-2xl p-6 md:p-8 bg-white/5 backdrop-blur-xl text-center hover:shadow-xl transition hover:scale-[1.01]">
 
-      <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
-        ✦ Valentine’s Event ✦
-      </p>
-
-      <h2 className="text-3xl md:text-4xl text-amber-400 mb-3">
-        💖 Make It Fluffy 💖
-      </h2>
-
-      <p className="text-gray-300 max-w-2xl mx-auto mb-6 opacity-90 leading-relaxed">
-        Read the shortlisted fluffy & funny love stories and vote for your favourite.
-        <br />
-        Each story is meant to feel like a hug with a punchline.
-        <br />
-        <span className="text-sm opacity-80">One vote per reader</span>
-        <br />
-        🗳 Voting closes → Friday the 13th
-        <br />
-        🎥 Winner announced live that night
-      </p>
-
-      <div className="relative mx-auto w-full max-w-[420px] rounded-xl overflow-hidden border border-amber-700/40 bg-white/5 backdrop-blur-xl">
-        <img
-          src="/images/makeitfluffy.png"
-          alt="Make It Fluffy — Valentine’s Writing Event"
-          className="w-full h-auto object-contain opacity-95 group-hover:opacity-100 transition-opacity duration-300"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/25 via-transparent to-black/10" />
-        <div className="absolute right-3 bottom-3 text-xs text-gray-200 bg-black/60 rounded-full px-3 py-1 border border-white/10">
-          Read & vote →
-        </div>
-      </div>
-
-      <div className="mt-6">
-        <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-700 hover:bg-amber-600 text-white font-semibold uppercase tracking-[0.18em] shadow-[0_0_18px_rgba(225,167,48,0.6)] border border-amber-400/70 transition">
-          💖 Read the stories →
-        </span>
-      </div>
-
-    </div>
-  </Link>
-</section>
 
       {/* Creators Map (static preview image) */}
       <section className="relative z-10 max-w-6xl mx-auto px-6 mb-12 animate-fade-in">
@@ -483,10 +332,10 @@ export default function LandingPage() {
             desc: "Cover artist? Editors? Merch creation? We have it all",
           },
           {
-            to: "/adventure",
+            to: "/book-club",
             img: "crowd-writing.png",
-            title: "Crowd-Woven Tale",
-            desc: "Vote at each fork and watch the story change live",
+            title: "Inkbound Indie Book Club",
+            desc: "Become part of the Inkbound Indie Book Club",
           },
           {
             to: "/inkbound-tbr",
@@ -686,41 +535,7 @@ export default function LandingPage() {
         <div className="w-2/3 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent blur-sm animate-pulse" />
       </div>
 
-      {/* December Quest Teaser */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 animate-fade-in mb-16">
-        <div className="glass-panel border border-amber-700 rounded-xl p-6 md:flex items-center gap-6 shadow-lg">
-          <div className="w-40 h-40 mx-auto md:mx-0 group perspective mb-6 md:mb-0 relative">
-            <div className="w-full h-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180 rounded-full">
-              <img
-                src="/images/the-marked-one-july.png"
-                alt="The Marked One Coin Front"
-                className="absolute w-full h-full object-cover rounded-full backface-hidden"
-              />
-              <img
-                src="/images/the-marked-one-july.png"
-                alt="The Marked One Coin Back"
-                className="absolute w-full h-full object-cover transform rotate-y-180 rounded-full backface-hidden"
-              />
-            </div>
-          </div>
-          <div className="text-center md:text-left">
-            <h2 className="text-2xl text-amber-400 mb-2 font-marcellus">
-              📜 January Quest: The Marked Ones
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Prove you are among the Marked. Share a quote from a book that
-              changed your path—and earn your reward.
-            </p>
-            <Link
-              to="/quests"
-              className="inline-block mt-2 px-4 py-2 rounded bg-amber-700 hover:bg-amber-600 text-white font-medium transition shadow-md"
-            >
-              Take the Quest →
-            </Link>
-          </div>
-        </div>
-      </section>
-
+  
       {/* Guest Book */}
       <GuestBook />
 
@@ -762,6 +577,40 @@ export default function LandingPage() {
               Coming Soon
             </span>
           </div>
+          {/* Inkbound Studios */}
+<div className="bg-black/30 backdrop-blur-md rounded-xl border border-yellow-700 shadow-xl p-6 text-center hover:shadow-yellow-600 transition">
+  <img
+    src="/images/inkbound-studios.png"
+    alt="Inkbound Studios — Film and Media"
+    className="w-80 mx-auto mb-4 drop-shadow-lg"
+  />
+  <p className="text-yellow-400 font-semibold text-xl mb-1 tracking-wide">
+    Inkbound Studios
+  </p>
+  <p className="text-sm text-yellow-200 italic mb-3">
+    Film, media, and storytelling beyond the page.
+  </p>
+  <span className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-yellow-700/30 border border-yellow-700 text-yellow-200">
+    Coming Soon
+  </span>
+</div>
+{/* Inkbound After Dark */}
+<div className="bg-black/30 backdrop-blur-md rounded-xl border border-rose-700 shadow-xl p-6 text-center hover:shadow-rose-600 transition">
+  <img
+    src="/images/inkbound-after-dark.png"
+    alt="Inkbound After Dark Podcast"
+    className="w-80 mx-auto mb-4 drop-shadow-lg"
+  />
+  <p className="text-rose-400 font-semibold text-xl mb-1 tracking-wide">
+    Inkbound After Dark
+  </p>
+  <p className="text-sm text-rose-200 italic mb-3">
+    The Inkbound podcast exploring books, stories, and the darker corners of storytelling.
+  </p>
+  <span className="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider bg-rose-700/30 border border-rose-700 text-rose-200">
+    Coming Soon
+  </span>
+</div>
         </div>
       </section>
 

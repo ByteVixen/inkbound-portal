@@ -21,7 +21,7 @@ import { FamiliarProvider } from "./components/FamiliarContext";
 import MakeItFluffyPage from "./pages/MakeItFluffyPage";
 import NewsletterArchive from "./pages/ NewsletterArchive";
 import NewsletterIssue from "./pages/NewsletterIssue";
-
+import BookClubPage from "./pages/BookClubPage";
 import HomePage from "./pages/LandingPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
@@ -100,7 +100,7 @@ const App: React.FC = () => {
             <Route path="/inkbound-santa" element={<InkboundSanta />} />
             <Route path="/stuff-your-kindle" element={<StuffYourKindle />} />
             <Route path="/creativeshub" element={<CreativesHub />} />
-
+            <Route path="/book-club" element={<BookClubPage />} />
             {/* Merch */}
             <Route path="/merch" element={<MerchPage />} />
 
