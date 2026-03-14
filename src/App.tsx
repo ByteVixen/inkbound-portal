@@ -3,7 +3,8 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import "./index.css";
-import AdminDashboard from './pages/AdminDashboard';
+
+import AdminDashboard from "./pages/AdminDashboard";
 import AuthorMapPage from "./pages/AuthorMapPage";
 
 // Components
@@ -15,12 +16,12 @@ import CountdownBanner from "./components/CountdownBanner";
 import PostLaunchBanner from "./components/PostLaunchBanner";
 import FamiliarSelector from "./components/FamiliarSelector";
 import { FamiliarProvider } from "./components/FamiliarContext";
-import MakeItFluffyPage from "./pages/MakeItFluffyPage";
 
-// Newsletter
+// Pages
+import MakeItFluffyPage from "./pages/MakeItFluffyPage";
 import NewsletterArchive from "./pages/ NewsletterArchive";
 import NewsletterIssue from "./pages/NewsletterIssue";
-// Pages
+
 import HomePage from "./pages/LandingPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
@@ -41,12 +42,13 @@ import InkboundSanta from "./pages/InkboundSanta";
 import StuffYourKindle from "./pages/StuffYourKindle";
 import CreativesHub from "./pages/CreativesHub";
 
-
+import MerchPage from "./pages/MerchPage";
+import NewReleasesPage from "./pages/NewReleasesPage";
 
 // Black Diadem
 import BlackDiademSeries from "./pages/BlackDiademSeries";
 
-// Author / Shelf Pages
+// Author / Shelf
 import ConsignmentPage from "./pages/authors/ConsignmentPage";
 import VirtualShelfspacePage from "./pages/VirtualShelfspacePage";
 import ConsignmentShippingPage from "./pages/ConsignmentShippingPage";
@@ -56,10 +58,6 @@ import NarratorShelfPage from "./pages/NarratorShelfPage";
 import NarratorHubPage from "./pages/NarratorHubPage";
 import AuthorLanding from "./pages/AuthorLanding";
 import NarratorLanding from "./pages/NarratorLanding";
-import MerchPage from "./pages/MerchPage";
-import NewReleasesPage from "./pages/NewReleasesPage";
-
-
 
 const App: React.FC = () => {
   return (
@@ -73,47 +71,70 @@ const App: React.FC = () => {
 
         <main className="flex-grow pt-20">
           <Routes>
+
+            {/* Home */}
             <Route path="/" element={<HomePage />} />
+
+            {/* Community */}
             <Route path="/whisper" element={<WhisperForm />} />
             <Route path="/whispers" element={<WhispersPage />} />
             <Route path="/readers" element={<ReadersPage />} />
             <Route path="/quests" element={<ReaderQuests />} />
+
+            {/* Info */}
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/info" element={<InfoPage />} />
             <Route path="/collaborate" element={<BusinessCollaborationsPage />} />
-            <Route path="/Inkbound-tbr" element={<InkboundTBR />} />
+
+            {/* Reader Tools */}
+            <Route path="/inkbound-tbr" element={<InkboundTBR />} />
             <Route path="/readers/fortune" element={<BookishFortune />} />
+
+            {/* Admin */}
             <Route path="/admin" element={<AdminDashboard />} />
+
+            {/* Events / Community */}
             <Route path="/creatives" element={<CreativesPage />} />
             <Route path="/tiktokathon" element={<TikTokathon />} />
-             <Route path="/merch" element={<MerchPage />} />
-             <Route path="/inkbound-santa" element={<InkboundSanta />} />
-             <Route path="/stuff-your-kindle" element={<StuffYourKindle />} />
-             <Route path="/CreativesHub" element={<CreativesHub />} />
+            <Route path="/inkbound-santa" element={<InkboundSanta />} />
+            <Route path="/stuff-your-kindle" element={<StuffYourKindle />} />
+            <Route path="/creativeshub" element={<CreativesHub />} />
 
-             
-             {/* Black Diadem */}
-             <Route path="/black-diadem" element={<BlackDiademSeries />} />
-            
+            {/* Merch */}
+            <Route path="/merch" element={<MerchPage />} />
 
+            {/* Black Diadem */}
+            <Route path="/black-diadem" element={<BlackDiademSeries />} />
 
-            {/* Featured / Virtual / Audiobooks */}
+            {/* Books */}
             <Route path="/featured-books" element={<FeaturedBooksPage />} />
             <Route path="/new-releases" element={<NewReleasesPage />} />
+
+            {/* Shelf */}
             <Route path="/virtual-shelf" element={<VirtualShelfPage />} />
+            <Route path="/virtual-shelfspace" element={<VirtualShelfspacePage />} />
+
+            {/* Audiobooks */}
             <Route path="/audiobooks" element={<AudiobooksPage />} />
             <Route path="/LibroPage" element={<LibroPage />} />
+
+            {/* Author Map */}
             <Route path="/author-map" element={<AuthorMapPage />} />
-<Route path="/AuthorMapPage" element={<Navigate to="/author-map" replace />} />
-<Route path="/make-it-fluffy" element={<MakeItFluffyPage />} />
+            <Route path="/AuthorMapPage" element={<Navigate to="/author-map" replace />} />
+
+            {/* Fun */}
+            <Route path="/make-it-fluffy" element={<MakeItFluffyPage />} />
+
             {/* Author Hub */}
             <Route path="/authors" element={<AuthorLanding />} />
             <Route path="/authors/consignment" element={<ConsignmentPage />} />
-            <Route path="/virtual-shelfspace" element={<VirtualShelfspacePage />} />
             <Route path="/authors/ship-books" element={<ConsignmentShippingPage />} />
+
+            {/* Newsletter */}
             <Route path="/newsletter" element={<NewsletterArchive />} />
             <Route path="/newsletter/:slug" element={<NewsletterIssue />} />
+
             {/* Narrators */}
             <Route path="/narrators" element={<NarratorLanding />} />
             <Route path="/narrator-shelf" element={<NarratorShelfPage />} />
@@ -122,13 +143,14 @@ const App: React.FC = () => {
             {/* Legal */}
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+
           </Routes>
         </main>
 
         <Footer />
         <FamiliarSelector />
 
-        {/* Floating Join Button */}
+        {/* Join Society Button */}
         <button
           data-tally-open="nPNMrd"
           data-tally-align-left="1"
@@ -140,6 +162,7 @@ const App: React.FC = () => {
         >
           ✨ Join the Society
         </button>
+
       </div>
     </FamiliarProvider>
   );
