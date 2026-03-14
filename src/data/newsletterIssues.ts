@@ -8,7 +8,16 @@ export type NewsletterIssueData = {
     description?: string;
   };
   
-  export const newsletterIssues: NewsletterIssueData[] = [
+  export const newsletterIssues = [
+    {
+      slug: "issue-02",
+      title: "The Inkbound Times",
+      issueNumber: "Issue 02",
+      dateLabel: "March 13, 2026",
+      coverImage: "/newsletter/covers/issue-02.jpg",
+      pdfUrl: "/newsletter/issues/inkbound-times-issue-02.pdf",
+      description: "Issue two of the Inkbound Times featuring community news, new releases, and event highlights."
+    },
     {
       slug: "issue-01",
       title: "The Inkbound Times",
@@ -16,7 +25,6 @@ export type NewsletterIssueData = {
       dateLabel: "March 6, 2026",
       coverImage: "/newsletter/covers/issue-01.jpg",
       pdfUrl: "/newsletter/issues/inkbound-times-issue-01.pdf",
-      description:
-        "Inkbound announces the Indie Summit, Inkbound Studios launches, and spotlights authors, narrators, and ARC readers across the indie community."
+      description: "Inkbound announces the Indie Summit, Inkbound Studios launches, and spotlights authors and narrators."
     }
   ];

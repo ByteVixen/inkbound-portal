@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { newsletterIssues } from "../data/newsletterIssues";
 import NewspaperPressIntro from "../components/newsletter/NewspaperPressIntro";
@@ -8,9 +8,11 @@ export default function NewsletterIssue() {
   const { slug } = useParams();
   const introKey = `inkbound-newsletter-intro-${slug}`;
 
-  const [showIntro, setShowIntro] = useState(() => {
-    return sessionStorage.getItem(introKey) !== "done";
-  });
+  const [showIntro, setShowIntro] = useState(true);
+
+useEffect(() => {
+  setShowIntro(sessionStorage.getItem(introKey) !== "done");
+}, [introKey]);
 
   const issue = useMemo(
     () => newsletterIssues.find((item) => item.slug === slug),
@@ -85,7 +87,11 @@ export default function NewsletterIssue() {
           </div>
         </div>
 
-        <PdfFlipBook pdfUrl={issue.pdfUrl} title={issue.title} />
+        <PdfFlipBook
+  key={issue.slug}
+  pdfUrl={issue.pdfUrl}
+  title={issue.title}
+/>
       </main>
     </>
   );

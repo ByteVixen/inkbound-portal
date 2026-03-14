@@ -148,39 +148,40 @@ export default function PdfFlipBook({ pdfUrl, title }: Props) {
   return (
     <div className="pdf-flipbook-wrap">
       <HTMLFlipBook
-        width={520}
-        height={720}
-        minWidth={280}
-        maxWidth={1000}
-        minHeight={360}
-        maxHeight={1400}
-        size="stretch"
-        startPage={0}
-        drawShadow={true}
-        flippingTime={900}
-        usePortrait={true}
-        startZIndex={0}
-        autoSize={true}
-        maxShadowOpacity={0.25}
-        showCover={true}
-        mobileScrollSupport={true}
-        swipeDistance={30}
-        clickEventForward={true}
-        useMouseEvents={true}
-        showPageCorners={true}
-        disableFlipByClick={false}
-        className="inkbound-flipbook"
-        style={{ margin: "0 auto" }}
-      >
-        {pages.map((page) => (
-          <FlipPage
-            key={page.pageNumber}
-            pageNumber={page.pageNumber}
-            imageUrl={page.imageUrl}
-            isCover={page.pageNumber === 1}
-            title={title}
-          />
-        ))}
+  key={`${pdfUrl}-${pages.length}`}
+  width={520}
+  height={720}
+  minWidth={280}
+  maxWidth={1000}
+  minHeight={360}
+  maxHeight={1400}
+  size="stretch"
+  startPage={0}
+  drawShadow={true}
+  flippingTime={900}
+  usePortrait={true}
+  startZIndex={0}
+  autoSize={true}
+  maxShadowOpacity={0.25}
+  showCover={true}
+  mobileScrollSupport={true}
+  swipeDistance={30}
+  clickEventForward={true}
+  useMouseEvents={true}
+  showPageCorners={true}
+  disableFlipByClick={false}
+  className="inkbound-flipbook"
+  style={{ margin: "0 auto" }}
+>
+{pages.map((page) => (
+  <FlipPage
+    key={`${pdfUrl}-${page.pageNumber}`}
+    pageNumber={page.pageNumber}
+    imageUrl={page.imageUrl}
+    isCover={page.pageNumber === 1}
+    title={title}
+  />
+))}
       </HTMLFlipBook>
     </div>
   );
