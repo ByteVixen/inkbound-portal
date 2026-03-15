@@ -23,7 +23,7 @@ export default function BookClubPage() {
             </p>
           </div>
   
-          {/* Cards */}
+          {/* Discord Cards */}
           <div className="grid gap-8 md:grid-cols-2">
             {/* Book Club Discord */}
             <div className="rounded-3xl border border-[#C8A04E]/25 bg-white/5 p-8 shadow-[0_0_40px_rgba(0,0,0,0.35)] backdrop-blur-md">
@@ -78,6 +78,74 @@ export default function BookClubPage() {
               >
                 Join the Main Inkbound Discord
               </a>
+            </div>
+          </div>
+  
+          {/* Forms Section */}
+          <div className="mt-14">
+            <div className="mx-auto mb-10 max-w-3xl text-center">
+              <p className="mb-3 text-sm uppercase tracking-[0.3em] text-[#C8A04E]">
+                Get Involved
+              </p>
+              <h2 className="font-serif text-3xl md:text-5xl">
+                Reader Sign-Up & Author Submission
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-white/75">
+                Whether you want to read along with the club or submit your book for
+                consideration, start here.
+              </p>
+            </div>
+  
+            <div className="grid gap-8 md:grid-cols-2">
+              {/* Reader Form */}
+              <div className="rounded-3xl border border-[#C8A04E]/25 bg-white/5 p-8 shadow-[0_0_40px_rgba(0,0,0,0.35)] backdrop-blur-md">
+                <div className="mb-4 inline-flex rounded-full border border-[#C8A04E]/30 bg-[#C8A04E]/10 px-4 py-1 text-xs uppercase tracking-[0.25em] text-[#C8A04E]">
+                  For Readers
+                </div>
+  
+                <h3 className="mb-4 font-serif text-3xl text-white">
+                  Inkbound Indie Book Club – Reader Sign-Up
+                </h3>
+  
+                <p className="mb-6 text-base leading-7 text-white/75">
+                  Join the club, take part in monthly reads, and help indie books
+                  reach more readers through reviews, posts, and community support.
+                </p>
+  
+                <a
+                  href="https://tally.so/r/pbAYpy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-[#C8A04E] px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.02] hover:bg-[#d8b15a]"
+                >
+                  Reader Sign-Up Form
+                </a>
+              </div>
+  
+              {/* Author Form */}
+              <div className="rounded-3xl border border-[#C8A04E]/25 bg-white/5 p-8 shadow-[0_0_40px_rgba(0,0,0,0.35)] backdrop-blur-md">
+                <div className="mb-4 inline-flex rounded-full border border-[#C8A04E]/30 bg-[#C8A04E]/10 px-4 py-1 text-xs uppercase tracking-[0.25em] text-[#C8A04E]">
+                  For Authors
+                </div>
+  
+                <h3 className="mb-4 font-serif text-3xl text-white">
+                  Submit Your Book for the Inkbound Indie Book Club
+                </h3>
+  
+                <p className="mb-6 text-base leading-7 text-white/75">
+                  Want your book considered for a future monthly read? Submit it here
+                  for the chance to be featured by the Inkbound Indie Book Club.
+                </p>
+  
+                <a
+                  href="https://tally.so/r/yPy8B8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-[#C8A04E] px-6 py-3 text-sm font-semibold text-[#C8A04E] transition hover:scale-[1.02] hover:bg-[#C8A04E] hover:text-black"
+                >
+                  Submit Your Book
+                </a>
+              </div>
             </div>
           </div>
   
