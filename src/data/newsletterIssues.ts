@@ -10,6 +10,15 @@ export type NewsletterIssueData = {
   
   export const newsletterIssues = [
     {
+      slug: "issue-03",
+      title: "The Inkbound Times",
+      issueNumber: "Issue 03",
+      dateLabel: "March 20, 2026",
+      coverImage: "/newsletter/covers/issue-03.jpg",
+      pdfUrl: "/newsletter/issues/inkbound-times-issue-03.pdf",
+      description: "Inkbound moving closer to new Marketplace launch, new book releases, and upcoming events in the indie book world."
+    },
+    {
       slug: "issue-02",
       title: "The Inkbound Times",
       issueNumber: "Issue 02",
@@ -27,4 +36,5 @@ export type NewsletterIssueData = {
       pdfUrl: "/newsletter/issues/inkbound-times-issue-01.pdf",
       description: "Inkbound announces the Indie Summit, Inkbound Studios launches, and spotlights authors and narrators."
     }
+    
   ];
