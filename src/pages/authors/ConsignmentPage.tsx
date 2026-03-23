@@ -112,15 +112,21 @@ const ConsignmentPage = () => {
           <p className="text-gray-300 mt-2">Contact:  Print Bureau — Tel 01-4733567 / <a className="underline text-amber-400" href="https://www.printbureau.ie" target="_blank">www.printbureau.ie</a></p>
         </section>
 
-        <section id="fineprint">
-          <h2 className="text-2xl font-semibold text-amber-400 mb-3">The Fine Print</h2>
-          <ul className="list-disc list-inside text-sm text-gray-400 space-y-1 leading-relaxed">
-            <li>💸 We operate on a 70/30 split — you earn 70% of every sale</li>
-            <li>📆 Payments are made every 6 months via your preferred method</li>
-            <li>🧾 All books must be pre-priced and in good condition</li>
-            <li>📬 If your book doesn’t sell within 6 months, we’ll offer to return or donate remaining copies</li>
-          </ul>
-        </section>
+      <section id="fineprint">
+  <h2 className="text-2xl font-semibold text-amber-400 mb-3">The Fine Print</h2>
+  <ul className="list-disc list-inside text-sm text-gray-400 space-y-1 leading-relaxed">
+    <li>💸 We operate on a 70/30 consignment split — you earn 70% of every sale</li>
+    <li>📆 Payments are issued biannually (Jan–Jun, Jul–Dec) and processed within 14 days of period end</li>
+    <li>🧾 A full sales report is provided with each payout (copies sold, stock remaining, earnings)</li>
+    <li>⏳ Additional report requests are welcome, but response times may vary during busy shop periods</li>
+    <li>⚠️ In rare cases of operational delays, authors will be notified and payments completed as soon as reasonably possible</li>
+    <li>📦 All books remain the property of the author until sold</li>
+    <li>📬 Unsold books after 6 months will be offered for return or donation</li>
+    <li>🌍 For international returns, including the UK, any customs duties or import taxes are the responsibility of the author/recipient</li>
+    <li>🧾 All books must be priced EUR or stated otherwise and in saleable condition</li>
+    <li>✋ Either party may terminate the agreement; a final report will be issued and outstanding balances settled accordingly</li>
+  </ul>
+</section>
 
         <section className="text-center mt-12">
           <h2 className="text-2xl font-semibold text-amber-400 mb-2">✨ Featured Authors Coming Soon</h2>
