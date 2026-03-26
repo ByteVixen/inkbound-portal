@@ -9,7 +9,6 @@ import {
   orderBy,
 } from "firebase/firestore";
 
-// Define type for a guestbook entry
 interface GuestBookEntry {
   id: string;
   name: string;
@@ -31,6 +30,7 @@ export default function GuestBook() {
       }));
       setEntries(mapped);
     });
+
     return () => unsub();
   }, []);
 
@@ -49,16 +49,27 @@ export default function GuestBook() {
   };
 
   return (
-    <div className="relative z-10 max-w-2xl mx-auto mt-16 px-4 animate-fade-in">
-      <div className="bg-black/30 backdrop-blur-md border border-amber-500 rounded-xl p-6 shadow-[0_0_20px_rgba(245,158,11,0.4)]">
-        <h2 className="text-2xl text-amber-400 font-bold text-center mb-6 tracking-wide">
-          📖 Guest Book of the Inkbound
-        </h2>
+    <div className="relative z-10 mx-auto max-w-2xl animate-fade-in">
+      <div className="rounded-[1.75rem] border border-white/10 bg-black/25 p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur-xl md:p-8">
+        <div className="mb-6 text-center">
+          <div className="text-xs uppercase tracking-[0.28em] text-[#c8a04e]">
+            Leave a whisper
+          </div>
+          <h2 className="mt-3 text-2xl text-white md:text-3xl">
+            The Inkbound Guest Book
+          </h2>
+          <p className="mt-3 text-sm leading-7 text-white/60">
+            Leave a note, a blessing, or a small mark at the gate.
+          </p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="guestbook-name" className="block text-sm text-amber-200 mb-1">
-              Name (optional)
+            <label
+              htmlFor="guestbook-name"
+              className="mb-2 block text-xs uppercase tracking-[0.18em] text-[#c8a04e]"
+            >
+              Name
             </label>
             <input
               id="guestbook-name"
@@ -68,12 +79,15 @@ export default function GuestBook() {
               placeholder="Your name or nickname"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 rounded bg-white/10 text-white placeholder-white/40 border border-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#c8a04e]/40 focus:bg-white/10"
             />
           </div>
 
           <div>
-            <label htmlFor="guestbook-message" className="block text-sm text-amber-200 mb-1">
+            <label
+              htmlFor="guestbook-message"
+              className="mb-2 block text-xs uppercase tracking-[0.18em] text-[#c8a04e]"
+            >
               Message
             </label>
             <textarea
@@ -82,8 +96,8 @@ export default function GuestBook() {
               placeholder="Your message or wish for the launch..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full p-2 rounded bg-white/10 text-white placeholder-white/40 border border-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
-              rows={3}
+              className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#c8a04e]/40 focus:bg-white/10"
+              rows={4}
               autoComplete="off"
               required
             />
@@ -91,26 +105,38 @@ export default function GuestBook() {
 
           <button
             type="submit"
-            className="relative inline-block w-full text-white font-bold py-2 px-4 rounded-full bg-amber-600 hover:bg-amber-500 shadow-[0_0_20px_rgba(251,191,36,0.6)] transition-all duration-300 group"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[#c8a04e]/40 bg-[#c8a04e] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(200,160,78,0.2)]"
           >
-            <span className="relative z-10">🔮 Sign the Guest Book</span>
-            <span className="absolute inset-0 rounded-full animate-pulse-glow bg-amber-600 opacity-20 blur-sm group-hover:opacity-30" />
+            Sign the Guest Book
           </button>
         </form>
 
-        <div className="max-h-64 overflow-y-auto space-y-3 border-t border-amber-700 pt-4 mt-6">
-          {entries.length === 0 && (
-            <p className="text-amber-200 text-sm italic text-center">No entries yet... Be the first to sign ✨</p>
-          )}
-          {entries.map((entry) => (
-            <div
-              key={entry.id}
-              className="bg-white/5 p-3 rounded border border-amber-700 transition-all duration-300 hover:shadow-md"
-            >
-              <p className="text-white text-sm italic leading-snug">"{entry.message}"</p>
-              <p className="text-right text-xs text-amber-300 mt-1">– {entry.name}</p>
-            </div>
-          ))}
+        <div className="mt-8 border-t border-white/10 pt-6">
+          <div className="mb-4 text-xs uppercase tracking-[0.22em] text-[#c8a04e]">
+            Recent entries
+          </div>
+
+          <div className="max-h-72 space-y-3 overflow-y-auto pr-1">
+            {entries.length === 0 ? (
+              <p className="text-center text-sm italic text-white/45">
+                No entries yet... be the first to leave your mark.
+              </p>
+            ) : (
+              entries.map((entry) => (
+                <div
+                  key={entry.id}
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition duration-300 hover:border-[#c8a04e]/20 hover:bg-white/[0.06]"
+                >
+                  <p className="text-sm leading-7 text-white/82">
+                    “{entry.message}”
+                  </p>
+                  <p className="mt-2 text-right text-xs uppercase tracking-[0.14em] text-[#c8a04e]">
+                    — {entry.name}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

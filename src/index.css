@@ -617,3 +617,38 @@ button:disabled {
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
+  @keyframes heroZoom {
+  0% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes floatGold {
+  0% {
+    transform: translateY(30px) translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-120px) translateX(18px);
+    opacity: 0;
+  }
+}
+
+@keyframes logoPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 18px rgba(200, 160, 78, 0.18));
+  }
+  50% {
+    filter: drop-shadow(0 0 32px rgba(200, 160, 78, 0.35));
+  }
+}

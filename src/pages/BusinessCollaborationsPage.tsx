@@ -1,113 +1,157 @@
 import React, { useState } from "react";
 import VantaBackground from "../components/VantaBackground";
 
+
 const sections = [
   { id: "welcome", title: "Welcome" },
   { id: "collab-types", title: "What We’re Open To" },
   { id: "pitch", title: "Pitch Us Something" },
 ];
 
-const CollapsibleSection = ({ id, title, children }: { id: string; title: string; children: React.ReactNode }) => {
-  const [open, setOpen] = useState(id === "welcome"); // open the welcome section by default
+const CollapsibleSection = ({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}) => {
+  const [open, setOpen] = useState(id === "welcome");
+
   return (
-    <div id={id} className="mb-8 border-b border-amber-700 pb-4">
+    <div className="rounded-[1.8rem] border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full text-left text-xl font-semibold text-amber-400 hover:underline focus:outline-none"
+        className="flex w-full items-center justify-between text-left"
       >
-        {title} {open ? "▲" : "▼"}
+        <span className="font-serif text-2xl text-white md:text-3xl">
+          {title}
+        </span>
+        <span className="text-[#c8a04e] text-sm">{open ? "▲" : "▼"}</span>
       </button>
-      {open && <div className="mt-4 text-base text-gray-300 space-y-4">{children}</div>}
+
+      {open && (
+        <div className="mt-5 space-y-4 text-base leading-8 text-white/65">
+          {children}
+        </div>
+      )}
     </div>
   );
 };
 
 const BusinessCollaborationsPage: React.FC = () => {
   return (
-    <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-[#050506] font-marcellus text-[#f5efe3]">
+      {/* Background */}
       <div className="absolute inset-0 z-0">
         <VantaBackground />
       </div>
 
-      <div className="relative z-10 py-20 px-6 max-w-7xl mx-auto">
-        <div className="bg-black/60 backdrop-blur-md rounded-xl shadow-xl p-8 flex flex-col md:flex-row">
-          {/* Sidebar Navigation */}
-          <aside className="md:w-1/4 mb-8 md:mb-0 sticky top-24 self-start pr-6 border-r border-amber-700">
-            <nav className="space-y-4 text-lg">
-              {sections.map((section) => (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className="block hover:underline text-amber-400"
-                >
-                  {section.title}
-                </a>
-              ))}
-            </nav>
-          </aside>
+      {/* Glow layers */}
+      <div className="pointer-events-none fixed inset-0 z-[1]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(200,160,78,0.10),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(82,58,133,0.08),transparent_20%)]" />
+        <div className="absolute left-1/2 top-0 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-[#c8a04e]/8 blur-3xl" />
+      </div>
 
-          {/* Main Content */}
-          <main className="md:w-3/4 md:pl-8">
-            <h1 className="text-4xl font-light text-amber-500 mb-10 text-glow">
-              🔮 Let’s Create Magic Together
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:px-10">
+        {/* Hero */}
+        <section className="overflow-hidden rounded-[2.2rem] border border-white/10 bg-black/25 px-6 py-10 backdrop-blur-xl md:px-10 md:py-14">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="text-xs uppercase tracking-[0.34em] text-[#c8a04e]">
+              Collaboration Channel
+            </div>
+
+            <h1 className="mt-5 font-serif text-4xl leading-tight text-white md:text-6xl">
+              Let’s Create Something Dangerous
             </h1>
 
+            <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-white/68 md:text-lg">
+              Inkbound isn’t built on transactions. It’s built on aligned chaos,
+              shared vision, and creators who understand the power of story.
+            </p>
+          </div>
+        </section>
+
+        <div className="mt-8 flex flex-col gap-8 lg:flex-row">
+          {/* Sidebar */}
+          <aside className="lg:w-[260px] lg:shrink-0">
+            <div className="rounded-[1.8rem] border border-white/10 bg-white/5 p-5 backdrop-blur-xl lg:sticky lg:top-24">
+              <div className="mb-4 text-[0.72rem] uppercase tracking-[0.28em] text-[#c8a04e]">
+                Navigation
+              </div>
+
+              <nav className="space-y-2">
+                {sections.map((section) => (
+                  <a
+                    key={section.id}
+                    href={`#${section.id}`}
+                    className="block rounded-xl px-3 py-2 text-sm text-white/60 transition hover:bg-white/8 hover:text-white"
+                  >
+                    {section.title}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
+
+          {/* Main */}
+          <main className="flex-1 space-y-6">
             <CollapsibleSection id="welcome" title="Welcome">
               <p>
-                Do you run a bookish brand, make magical things, or craft something that feels like it belongs in the dark corners of a fairytale?
+                Do you make something that feels like it belongs in the dark
+                corners of a fairytale?
               </p>
               <p>
-                We’re always open to meaningful collaborations that align with the spirit of <strong>The Inkbound Society</strong> and our physical home, <strong>Inkbound Bookshop</strong> in Gort, Ireland.
+                Then you already understand what this is.
               </p>
               <p>
-                We believe in community over competition, slow magic, and supporting creators who care deeply about storytelling, craft, and a little bit of chaos.
+                Inkbound isn’t looking for noise. We’re looking for alignment.
+                Story-first creators. People who build with intention.
               </p>
             </CollapsibleSection>
 
             <CollapsibleSection id="collab-types" title="What We’re Open To">
-              <ul className="list-disc list-inside space-y-3">
-                <li>
-                  <strong>Bookish Brand Collabs:</strong> Book boxes, journals, bookmarks, apparel—anything that belongs beside a stack of well-loved pages.
-                </li>
-                <li>
-                  <strong>Candle & Craft Artisans:</strong> Wax, wood, thread, spell jars, curiosities—if it smells, glows, protects, or enchants, we want to see it.
-                </li>
-                <li>
-                  <strong>Indie Author & Narrator Features:</strong> All fiction genres welcome. Bold, immersive stories and unique voices thrive here.
-                </li>
-                <li>
-                  <strong>Event or Live Partnerships:</strong> TikTok Lives, IG takeovers, IRL events, or seasonal bookshop magic—we’re listening.
-                </li>
-                <li>
-                  <strong>Cross-Promotions & Giveaways:</strong> Launching something new or just want to stir the cauldron? We’re into it.
-                </li>
-                <li>
-                  <strong>Affiliate or Consignment Inquiries:</strong> Limited shop space available for handmade or secondhand treasures.
-                </li>
-                <li>
-                  <strong>Custom Quest or Perk Add-Ons:</strong> Want your product featured in a digital quest or subscriber perk? Yes. A thousand times yes.
-                </li>
+              <ul className="list-disc pl-5 space-y-3">
+                <li>Bookish brands, boxes, journals, apparel</li>
+                <li>Candle makers, artisans, and handcrafted goods</li>
+                <li>Indie authors and narrators with strong identity</li>
+                <li>Events, live takeovers, and shared audience moments</li>
+                <li>Giveaways, launches, and cross-promotions</li>
+                <li>Consignment and physical shop placements</li>
+                <li>Quest integrations and digital perks</li>
               </ul>
             </CollapsibleSection>
 
             <CollapsibleSection id="pitch" title="Pitch Us Something">
               <p>
-                Got something brewing? Email us at{" "}
+                If you’re reaching out, don’t be safe. Safe gets ignored.
+              </p>
+
+              <p>
+                Email{" "}
                 <a
                   href="mailto:summon@inkboundsociety.com"
-                  className="underline text-amber-400"
+                  className="text-[#f6dca0] underline decoration-[#c8a04e]/40"
                 >
                   summon@inkboundsociety.com
                 </a>{" "}
-                with the subject line:
+                with:
               </p>
+
+              <p className="text-[#f6dca0] font-semibold">
+                “Collaboration Summons — [Your Name]”
+              </p>
+
               <p>
-                <strong>“Collaboration Summons – [Your Brand Name]”</strong>
+                Tell us what you’re building. Tell us why it matters. Tell us why
+                it fits here.
               </p>
-              <p>
-                Tell us who you are, what you make, and how you’d like to work together. Be bold. Be weird. Be detailed.
+
+              <p className="italic text-white/50">
+                We don’t want everything. We want the right things.
               </p>
-              <p className="italic mt-2">We can’t wait to see what you’re conjuring.</p>
             </CollapsibleSection>
           </main>
         </div>

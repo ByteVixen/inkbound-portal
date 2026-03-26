@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import VantaBackground from "../components/VantaBackground";
 
 const fortunes = [
   "You will fall in love with a villain—and like it.",
@@ -56,54 +57,70 @@ const BookishFortunePage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-6 py-20 bg-black text-white font-marcellus">
-      <h1 className="text-3xl md:text-5xl mb-10 text-amber-300 text-center drop-shadow-glow">
-        🔮 Bookish Fortune Generator
-      </h1>
-
-      <div className="relative">
-        <div className="absolute inset-0 rounded-full blur-2xl bg-purple-600 opacity-40 animate-pulse" />
-
-        <img
-          src="/images/crystal-ball.gif"
-          alt="Crystal Ball"
-          className="w-64 md:w-80 z-10 relative select-none"
-          onClick={drawFortune}
-        />
-
-        {fortune && (
-          <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center px-6 text-sm md:text-lg text-black font-script animate-fade-in z-20">
-            “{fortune}”
-          </p>
-        )}
-
-        {sigilUnlocked && (
-          <button
-            type="button"
-            aria-label="Hidden sigil"
-            title="Something is wrong with this image…"
-            onClick={() => window.open(DECOY_TALLY_URL, "_blank", "noopener,noreferrer")}
-            className="
-              absolute bottom-[18%] right-[22%]
-              h-3 w-3 rounded-full
-              cursor-pointer
-              opacity-[0.06]
-              hover:opacity-25
-              focus:opacity-100
-              focus:outline-none
-              sigil-glitch sigil-hint sigil-hitbox
-              z-30
-            "
-          />
-        )}
+    <div className="relative min-h-screen overflow-hidden bg-[#050506] font-marcellus text-[#f5efe3]">
+      <div className="absolute inset-0 z-0">
+        <VantaBackground />
       </div>
 
-      <button
-        onClick={drawFortune}
-        className="mt-10 bg-purple-700 hover:bg-purple-600 text-white px-5 py-3 rounded-full text-sm uppercase tracking-wide shadow-lg transition-all"
-      >
-        Draw Another Fortune
-      </button>
+      <div className="pointer-events-none fixed inset-0 z-[1]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(200,160,78,0.10),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(82,58,133,0.10),transparent_20%),radial-gradient(circle_at_20%_80%,rgba(13,30,66,0.12),transparent_24%)]" />
+        <div className="absolute left-1/2 top-0 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-[#c8a04e]/8 blur-3xl" />
+      </div>
+
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 py-20">
+        <div className="w-full max-w-4xl overflow-hidden rounded-[2.2rem] border border-white/10 bg-black/25 px-6 py-10 text-center shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur-xl md:px-10 md:py-14">
+          <div className="text-xs uppercase tracking-[0.34em] text-[#c8a04e]">
+            Reader Pathway
+          </div>
+
+          <h1 className="mt-5 font-serif text-4xl leading-tight text-white md:text-6xl">
+            Bookish Fortune
+          </h1>
+
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/65 md:text-lg">
+            Touch the glass, draw a whisper, and see what strange little omen
+            the Inkbound world has waiting for you.
+          </p>
+
+          <div className="relative mt-12 flex justify-center">
+            <div className="absolute inset-0 m-auto h-52 w-52 rounded-full bg-[#6d4db3]/20 blur-3xl md:h-64 md:w-64" />
+
+            <div className="relative">
+              <img
+                src="/images/crystal-ball.gif"
+                alt="Crystal Ball"
+                className="relative z-10 w-64 cursor-pointer select-none md:w-80"
+                onClick={drawFortune}
+              />
+
+              {fortune && (
+                <p className="absolute left-1/2 top-1/2 z-20 w-[78%] -translate-x-1/2 -translate-y-1/2 px-2 text-center font-serif text-sm leading-6 text-[#1a1208] animate-fade-in md:text-lg md:leading-8">
+                  “{fortune}”
+                </p>
+              )}
+
+              {sigilUnlocked && (
+                <button
+                  type="button"
+                  aria-label="Hidden sigil"
+                  title="Something is wrong with this image…"
+                  onClick={() =>
+                    window.open(DECOY_TALLY_URL, "_blank", "noopener,noreferrer")
+                  }
+                  className="absolute bottom-[18%] right-[22%] z-30 h-3 w-3 rounded-full cursor-pointer opacity-[0.06] hover:opacity-25 focus:opacity-100 focus:outline-none sigil-glitch sigil-hint sigil-hitbox"
+                />
+              )}
+            </div>
+          </div>
+
+          <button
+            onClick={drawFortune}
+            className="mt-10 inline-flex items-center justify-center rounded-2xl border border-[#c8a04e]/40 bg-[#c8a04e] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(200,160,78,0.2)]"
+          >
+            Draw Another Fortune
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

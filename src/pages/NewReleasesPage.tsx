@@ -13,7 +13,7 @@ type Release = {
   id: string;
   title: string;
   author: string;
-  releaseDate: string | Timestamp; // allow either
+  releaseDate: string | Timestamp;
   link?: string;
   cover?: string;
   preorder?: boolean;
@@ -28,9 +28,6 @@ function pad2(n: number) {
   return String(n).padStart(2, "0");
 }
 
-/**
- * ✅ Always returns YYYY-MM-DD for Europe/Dublin (avoids timezone drift).
- */
 function toDublinKey(d: Date) {
   const parts = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Europe/Dublin",
@@ -43,9 +40,6 @@ function toDublinKey(d: Date) {
   return `${get("year")}-${get("month")}-${get("day")}`;
 }
 
-/**
- * ✅ Convert Firestore stored releaseDate into the same YYYY-MM-DD key.
- */
 function releaseToKey(v: any) {
   if (!v) return "";
 
@@ -76,8 +70,8 @@ function daysInMonth(year: number, monthIndex0: number) {
 }
 
 function weekdayIndexMondayFirst(d: Date) {
-  const js = d.getDay(); // Sun=0..Sat=6
-  return (js + 6) % 7; // Mon=0..Sun=6
+  const js = d.getDay();
+  return (js + 6) % 7;
 }
 
 function asArray(v: any): string[] {
@@ -130,7 +124,6 @@ export default function NewReleasesPage() {
     return cells;
   }, [viewYear, viewMonth0]);
 
-  // Fetch releases
   useEffect(() => {
     let alive = true;
 
@@ -198,7 +191,6 @@ export default function NewReleasesPage() {
     };
   }, []);
 
-  // ✅ Map releases by canonical YYYY-MM-DD key
   const releasesByDate = useMemo(() => {
     const map = new Map<string, Release[]>();
     for (const r of releases) {
@@ -222,11 +214,7 @@ export default function NewReleasesPage() {
     }, 50);
   };
 
-  // ✅ SAFE animations:
-  // - normal fade-in on mount (never hides everything behind scroll)
-  // - onScroll used only for subtle motion
   useEffect(() => {
-    // 1) Immediate fade-in for core sections
     animate(".nr-enter", {
       opacity: [0, 1],
       translateY: [14, 0],
@@ -235,10 +223,9 @@ export default function NewReleasesPage() {
       delay: (_el, i) => i * 90,
     });
 
-    // 2) onScroll: gentle float / parallax (doesn't set opacity to 0)
     animate(".nr-scrollFloat", {
       translateY: [0, -10],
-      duration: 1, // scroll-synced
+      duration: 1,
       easing: "linear",
       autoplay: onScroll({
         target: pageRef.current || undefined,
@@ -251,47 +238,57 @@ export default function NewReleasesPage() {
   return (
     <div
       ref={pageRef}
-      className="relative min-h-screen font-marcellus text-white overflow-hidden"
+      className="relative min-h-screen overflow-hidden bg-[#050506] font-marcellus text-[#f5efe3]"
     >
-      {/* Background */}
       <div className="absolute inset-0 z-0">
         <VantaBackground />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-16">
-        {/* Header */}
-        <div className="nr-enter text-center mb-10">
-          <p className="text-xs uppercase tracking-[0.18em] text-amber-300/90 mb-2">
-            ✦ Inkbound Shelf Watch
-          </p>
-          <h1 className="text-4xl md:text-5xl text-amber-400 mb-3">
-            New Releases
-          </h1>
-          <p className="text-gray-300 max-w-2xl mx-auto opacity-90">
-            Tap a date to reveal what’s dropping. Preorders, launch days, and fresh
-            ink — all in one place.
-          </p>
+      <div className="pointer-events-none fixed inset-0 z-[1]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(200,160,78,0.10),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(82,58,133,0.08),transparent_20%),radial-gradient(circle_at_20%_80%,rgba(13,30,66,0.10),transparent_24%)]" />
+        <div className="absolute left-1/2 top-0 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-[#c8a04e]/8 blur-3xl" />
+      </div>
 
-          <div className="mt-4">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-sm text-amber-300/90 hover:text-amber-200 underline"
-            >
-              ← Back to home
-            </Link>
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-28 pb-16">
+        {/* Hero */}
+        <section className="nr-enter overflow-hidden rounded-[2.2rem] border border-white/10 bg-black/25 px-6 py-10 text-center shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur-xl md:px-10 md:py-14">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-xs uppercase tracking-[0.34em] text-[#c8a04e]">
+              Inkbound Shelf Watch
+            </div>
+
+            <h1 className="mt-5 font-serif text-4xl leading-tight text-white md:text-6xl">
+              New Releases
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-white/68 md:text-lg">
+              Track new drops, preorder dates, and fresh releases across the
+              Inkbound world. Tap a date to reveal what’s landing.
+            </p>
+
+            <div className="mt-5">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 text-sm text-[#f6dca0] underline decoration-[#c8a04e]/40 underline-offset-4 transition hover:text-white"
+              >
+                ← Back to home
+              </Link>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* Calendar */}
-        <div className="nr-enter nr-scrollFloat glass-panel border border-amber-700 rounded-xl p-5 md:p-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-4">
+        <section className="nr-enter nr-scrollFloat mt-8 rounded-[1.8rem] border border-white/10 bg-white/5 p-5 backdrop-blur-xl md:p-6">
+          <div className="mb-5 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <div>
-              <h2 className="text-2xl text-amber-300">
+              <div className="text-xs uppercase tracking-[0.28em] text-[#c8a04e]">
+                Calendar view
+              </div>
+              <h2 className="mt-2 text-2xl text-white md:text-3xl">
                 {monthLabel(viewYear, viewMonth0)}
               </h2>
-              <p className="text-xs text-gray-400 mt-1">
-                Dots mark release days. Click a date to reveal details.
+              <p className="mt-2 text-sm text-white/50">
+                Dots mark release days. Select a date to reveal the details.
               </p>
             </div>
 
@@ -299,29 +296,28 @@ export default function NewReleasesPage() {
               <button
                 type="button"
                 onClick={() => setMonthOffset((v) => v - 1)}
-                className="rounded-full border border-white/10 bg-black/40 px-4 py-2 text-sm hover:bg-black/55"
+                className="rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-white/75 transition hover:bg-black/45 hover:text-white"
               >
                 ← Prev
               </button>
               <button
                 type="button"
                 onClick={() => setMonthOffset(0)}
-                className="rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-sm text-amber-200 hover:bg-amber-500/15"
+                className="rounded-full border border-[#c8a04e]/30 bg-[#c8a04e]/10 px-4 py-2 text-sm text-[#f6dca0] transition hover:border-[#c8a04e]/50 hover:bg-[#c8a04e]/15 hover:text-white"
               >
                 Today
               </button>
               <button
                 type="button"
                 onClick={() => setMonthOffset((v) => v + 1)}
-                className="rounded-full border border-white/10 bg-black/40 px-4 py-2 text-sm hover:bg-black/55"
+                className="rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-white/75 transition hover:bg-black/45 hover:text-white"
               >
                 Next →
               </button>
             </div>
           </div>
 
-          {/* Weekdays */}
-          <div className="grid grid-cols-7 gap-2 text-xs text-gray-400 mb-2">
+          <div className="mb-2 grid grid-cols-7 gap-2 text-xs text-white/40">
             {weekdays.map((w) => (
               <div key={w} className="text-center">
                 {w}
@@ -329,14 +325,14 @@ export default function NewReleasesPage() {
             ))}
           </div>
 
-          {/* Days grid */}
           <div className="grid grid-cols-7 gap-2">
             {calendarDays.map((cell, idx) => {
-              if (!cell.date || !cell.key) return <div key={idx} className="h-12 rounded-lg" />;
+              if (!cell.date || !cell.key) {
+                return <div key={idx} className="h-14 rounded-xl" />;
+              }
 
               const key = cell.key;
               const dayNumber = cell.date.getDate();
-
               const hasRelease = releasesByDate.has(key);
               const isSelected = selectedKey === key;
               const isToday = key === dublinTodayKey;
@@ -347,24 +343,24 @@ export default function NewReleasesPage() {
                   type="button"
                   onClick={() => handlePickDate(key)}
                   className={[
-                    "relative h-12 rounded-lg border text-sm transition",
-                    "bg-black/30 hover:bg-black/45",
+                    "relative h-14 rounded-xl border text-sm transition",
+                    "bg-black/25 hover:bg-black/40",
                     isSelected
-                      ? "border-amber-400/80 ring-2 ring-amber-400/20"
+                      ? "border-[#c8a04e]/70 ring-2 ring-[#c8a04e]/15"
                       : "border-white/10",
-                    isToday && !isSelected ? "border-emerald-400/50" : "",
+                    isToday && !isSelected ? "border-emerald-400/40" : "",
                   ].join(" ")}
                 >
-                  <span className="absolute left-2 top-2 text-white/85">
+                  <span className="absolute left-2.5 top-2 text-white/85">
                     {dayNumber}
                   </span>
 
                   {hasRelease && (
-                    <span className="absolute right-2 bottom-2 h-2 w-2 rounded-full bg-amber-300 shadow-[0_0_10px_rgba(225,167,48,0.75)]" />
+                    <span className="absolute bottom-2.5 right-2.5 h-2.5 w-2.5 rounded-full bg-[#f6dca0] shadow-[0_0_12px_rgba(200,160,78,0.75)]" />
                   )}
 
                   {isToday && (
-                    <span className="absolute left-2 bottom-2 text-[10px] text-emerald-200/80">
+                    <span className="absolute bottom-2 left-2.5 text-[10px] text-emerald-200/80">
                       today
                     </span>
                   )}
@@ -373,30 +369,31 @@ export default function NewReleasesPage() {
             })}
           </div>
 
-          <div className="mt-4 text-xs text-gray-400">
+          <div className="mt-4 text-xs text-white/40">
             {loading ? (
               <span>Loading releases…</span>
             ) : (
               <span>
-                Loaded <span className="text-amber-200">{releases.length}</span>{" "}
-                release(s).
+                Loaded <span className="text-[#f6dca0]">{releases.length}</span> release(s).
               </span>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Details */}
-        <div ref={detailsRef} className="nr-enter mt-8">
-          <div className="glass-panel border border-amber-700 rounded-xl p-5 md:p-6">
-            <div className="flex items-start justify-between gap-3 mb-4">
+        <section ref={detailsRef} className="nr-enter mt-8">
+          <div className="rounded-[1.8rem] border border-white/10 bg-white/5 p-5 backdrop-blur-xl md:p-6">
+            <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
               <div>
-                <h3 className="text-2xl text-amber-300">
-                  Releases on{" "}
-                  <span className="text-amber-200">{selectedKey}</span>
+                <div className="text-xs uppercase tracking-[0.28em] text-[#c8a04e]">
+                  Selected date
+                </div>
+                <h3 className="mt-2 text-2xl text-white md:text-3xl">
+                  Releases on <span className="text-[#f6dca0]">{selectedKey}</span>
                 </h3>
-                <p className="text-sm text-gray-300/90 mt-1">
+                <p className="mt-2 text-sm text-white/50">
                   {selectedReleases.length
-                    ? "Click a link to preorder / buy."
+                    ? "Use the link on a card to preorder or buy."
                     : "No releases found for this date."}
                 </p>
               </div>
@@ -404,14 +401,14 @@ export default function NewReleasesPage() {
               <button
                 type="button"
                 onClick={() => setSelectedKey(dublinTodayKey)}
-                className="shrink-0 rounded-full border border-white/10 bg-black/40 px-4 py-2 text-sm hover:bg-black/55"
+                className="shrink-0 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-white/75 transition hover:bg-black/45 hover:text-white"
               >
                 Jump to today
               </button>
             </div>
 
             {selectedReleases.length === 0 ? (
-              <div className="rounded-xl border border-white/10 bg-black/30 p-4 text-gray-300">
+              <div className="rounded-[1.4rem] border border-white/10 bg-black/25 p-5 text-white/55">
                 Nothing scheduled here. Try a date with a dot.
               </div>
             ) : (
@@ -423,17 +420,17 @@ export default function NewReleasesPage() {
                   return (
                     <div
                       key={r.id}
-                      className="rounded-2xl border border-white/10 bg-black/30 p-4 md:p-5"
+                      className="rounded-[1.6rem] border border-white/10 bg-black/25 p-4 transition duration-300 hover:border-[#c8a04e]/20 hover:bg-black/35 md:p-5"
                     >
                       <div className="flex gap-4">
                         {r.cover ? (
                           <img
                             src={r.cover}
                             alt={`${r.title} cover`}
-                            className="w-24 h-36 object-cover rounded-xl border border-white/10"
+                            className="h-40 w-28 rounded-[1rem] border border-white/10 object-cover"
                           />
                         ) : (
-                          <div className="w-24 h-36 rounded-xl border border-white/10 bg-black/40 flex items-center justify-center text-xs text-gray-400">
+                          <div className="flex h-40 w-28 items-center justify-center rounded-[1rem] border border-white/10 bg-black/40 text-center text-xs text-white/35">
                             No cover
                           </div>
                         )}
@@ -441,24 +438,21 @@ export default function NewReleasesPage() {
                         <div className="flex-1">
                           <div className="flex items-start justify-between gap-2">
                             <div>
-                              <div className="text-amber-200 font-semibold text-lg leading-tight">
+                              <div className="text-xl leading-tight text-white">
                                 {r.title}
                               </div>
-                              <div className="text-white/70 text-sm">
+                              <div className="mt-1 text-sm text-white/65">
                                 {r.author}
                               </div>
                               {r.series && (
-                                <div className="text-xs text-gray-400 mt-1">
-                                  Series:{" "}
-                                  <span className="text-gray-300">
-                                    {r.series}
-                                  </span>
+                                <div className="mt-1 text-xs text-white/40">
+                                  Series: <span className="text-white/60">{r.series}</span>
                                 </div>
                               )}
                             </div>
 
                             {r.preorder && (
-                              <span className="shrink-0 text-xs px-2 py-1 rounded-full border border-amber-500/40 bg-amber-500/10 text-amber-200">
+                              <span className="shrink-0 rounded-full border border-[#c8a04e]/30 bg-[#c8a04e]/10 px-2.5 py-1 text-xs text-[#f6dca0]">
                                 Preorder
                               </span>
                             )}
@@ -469,7 +463,7 @@ export default function NewReleasesPage() {
                               {formats.slice(0, 4).map((f) => (
                                 <span
                                   key={`f-${f}`}
-                                  className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] text-white/70"
+                                  className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] text-white/65"
                                 >
                                   {f}
                                 </span>
@@ -477,7 +471,7 @@ export default function NewReleasesPage() {
                               {genres.slice(0, 4).map((g) => (
                                 <span
                                   key={`g-${g}`}
-                                  className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] text-white/70"
+                                  className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[11px] text-white/65"
                                 >
                                   {g}
                                 </span>
@@ -486,25 +480,23 @@ export default function NewReleasesPage() {
                           )}
 
                           {r.blurb && (
-                            <p className="mt-3 text-sm text-gray-300/90 leading-relaxed">
+                            <p className="mt-3 text-sm leading-relaxed text-white/70">
                               {r.blurb}
                             </p>
                           )}
 
-                          <div className="mt-4 flex items-center gap-3">
+                          <div className="mt-4">
                             {r.link ? (
                               <a
                                 href={r.link}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-2 rounded-full bg-amber-700 hover:bg-amber-600 px-4 py-2 text-sm font-semibold text-white transition border border-amber-400/60 shadow-[0_0_18px_rgba(225,167,48,0.35)]"
+                                className="inline-flex items-center gap-2 rounded-full border border-[#c8a04e]/30 bg-[#c8a04e]/10 px-4 py-2 text-sm text-[#f6dca0] transition hover:border-[#c8a04e]/50 hover:bg-[#c8a04e]/15 hover:text-white"
                               >
                                 View link →
                               </a>
                             ) : (
-                              <span className="text-xs text-gray-400">
-                                No link added.
-                              </span>
+                              <span className="text-xs text-white/35">No link added.</span>
                             )}
                           </div>
                         </div>
@@ -515,11 +507,10 @@ export default function NewReleasesPage() {
               </div>
             )}
           </div>
-        </div>
+        </section>
 
-        <div className="nr-enter mt-10 text-center text-xs text-gray-400">
-          Want your release added? Send it through your usual Inkbound channels
-          and it’ll land here.
+        <div className="nr-enter mt-10 text-center text-xs text-white/40">
+          Want your release added? Send it through your usual Inkbound channels and it’ll land here.
         </div>
       </div>
     </div>

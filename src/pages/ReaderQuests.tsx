@@ -1,5 +1,5 @@
 // src/pages/ReaderQuests.tsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import {
   collection,
@@ -8,11 +8,11 @@ import {
   onSnapshot,
   doc,
   updateDoc,
-  getDoc,
   query,
   orderBy,
 } from "firebase/firestore";
 import VantaBackground from "../components/VantaBackground";
+import { ScrollText, Heart, Sparkles } from "lucide-react";
 
 type CompletedEntry = {
   id: string;
@@ -21,14 +21,16 @@ type CompletedEntry = {
   quote: string;
   emoji: string;
   likes: number;
-  timestamp?: any; // Firestore Timestamp
+  timestamp?: any;
 };
 
-type QuestDoc = {
-  title?: string;
-  description?: string; // you can put markdown/plain text here
-  startDate?: string;   // yyyy-mm-dd
-  // add other fields in future if you like
+const currentQuest = {
+  title: "The Whisper Hunt",
+  description:
+    "Choose a book that has been sitting on your TBR for too long and finally begin it.\n\n" +
+    "Read at least three chapters, find one line that lingers, and bring that quote back here.\n\n" +
+    "To complete the quest, leave your nickname, the book title, your chosen quote, and the mark you want to leave beside it.\n\n" +
+    "This is not about finishing fast. It is about following the pull of a story and returning with proof that it found you.",
 };
 
 export default function ReaderQuests() {
@@ -37,34 +39,12 @@ export default function ReaderQuests() {
   const [quote, setQuote] = useState("");
   const [emoji, setEmoji] = useState("✨");
   const [completed, setCompleted] = useState<CompletedEntry[]>([]);
-  const [quest, setQuest] = useState<QuestDoc | null>(null);
-  const [loadingQuest, setLoadingQuest] = useState(true);
   const [sortBy, setSortBy] = useState<"newest" | "top">("newest");
   const [loadingEntries, setLoadingEntries] = useState(true);
 
-  // 🔮 Fetch current quest once on mount
-  useEffect(() => {
-    const loadQuest = async () => {
-      try {
-        const snap = await getDoc(doc(db, "site_content", "current_quest"));
-        if (snap.exists()) {
-          setQuest(snap.data() as QuestDoc);
-        } else {
-          setQuest(null);
-        }
-      } catch (e) {
-        console.error("Failed to load current quest:", e);
-        setQuest(null);
-      } finally {
-        setLoadingQuest(false);
-      }
-    };
-    loadQuest();
-  }, []);
-
-  // 🔁 Stream completed quests with sorting
   useEffect(() => {
     setLoadingEntries(true);
+
     const q =
       sortBy === "top"
         ? query(collection(db, "completed_quests"), orderBy("likes", "desc"))
@@ -85,6 +65,7 @@ export default function ReaderQuests() {
             timestamp: data.timestamp,
           } as CompletedEntry;
         });
+
         setCompleted(entries);
         setLoadingEntries(false);
       },
@@ -94,12 +75,14 @@ export default function ReaderQuests() {
         setLoadingEntries(false);
       }
     );
+
     return () => unsub();
   }, [sortBy]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!nickname.trim() || !book.trim() || !quote.trim()) return;
+
     try {
       await addDoc(collection(db, "completed_quests"), {
         nickname: nickname.trim(),
@@ -109,12 +92,12 @@ export default function ReaderQuests() {
         likes: 0,
         timestamp: serverTimestamp(),
       });
-      // reset form
+
       setNickname("");
       setBook("");
       setQuote("");
       setEmoji("✨");
-      // optional badge download
+
       downloadImage();
     } catch (e) {
       console.error("Error adding completion:", e);
@@ -132,7 +115,7 @@ export default function ReaderQuests() {
 
   const downloadImage = () => {
     const link = document.createElement("a");
-    link.href = "/images/july-quest-complete.png"; // change this per month if you like
+    link.href = "/images/july-quest-complete.png";
     link.download = "Inkbound-Quest.png";
     document.body.appendChild(link);
     link.click();
@@ -140,46 +123,83 @@ export default function ReaderQuests() {
   };
 
   return (
-    <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
-      {/* Background */}
+    <div className="relative min-h-screen overflow-hidden bg-[#050506] font-marcellus text-[#f5efe3]">
       <div className="absolute inset-0 z-0">
         <VantaBackground />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-12">
-        <h1 className="text-4xl md:text-5xl text-glow text-center mb-8">📜 Reader Quests</h1>
+      <div className="pointer-events-none fixed inset-0 z-[1]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(200,160,78,0.10),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(82,58,133,0.08),transparent_20%),radial-gradient(circle_at_20%_80%,rgba(13,30,66,0.10),transparent_24%)]" />
+        <div className="absolute left-1/2 top-0 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-[#c8a04e]/8 blur-3xl" />
+      </div>
 
-        {/* Quest Section */}
-        <section className="mb-12">
-          <div className="glass-panel border border-amber-700 p-6 rounded-xl shadow-xl">
-            <h2 className="text-2xl text-amber-400 mb-2">
-              {loadingQuest ? "Loading quest…" : quest?.title || "Current Quest"}
-            </h2>
-            <p className="text-gray-300 mb-4 whitespace-pre-line">
-              {loadingQuest
-                ? "Please wait…"
-                : quest?.description || "The next quest will be revealed soon…"}
-            </p>
-
-            {/* Coin Flip (static image for now) */}
-            <div className="flip-container mx-auto w-32 h-32 mb-6 group">
-              <div className="flip-inner w-full h-full">
-                <img
-                  src="/images/the-marked-one-july.png"
-                  alt="Coin Front"
-                  className="flip-front object-contain w-full h-full rounded-lg"
-                />
-                <img
-                  src="/images/the-marked-one-july.png"
-                  alt="Coin Back"
-                  className="flip-back object-contain w-full h-full rounded-lg"
-                />
-              </div>
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:px-10">
+        {/* Hero */}
+        <section className="overflow-hidden rounded-[2.2rem] border border-white/10 bg-black/25 px-6 py-10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur-xl md:px-10 md:py-14">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="text-xs uppercase tracking-[0.34em] text-[#c8a04e]">
+              Reader Quest Board
             </div>
 
-            {/* Submit Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <h1 className="mt-5 font-serif text-4xl leading-tight text-white md:text-6xl">
+              Reader Quests
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-white/68 md:text-lg">
+              Step into the challenge, leave your mark, and join the readers
+              already moving through the Inkbound world.
+            </p>
+          </div>
+        </section>
+
+        {/* Quest + Form */}
+        <section className="mt-8 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="rounded-[1.8rem] border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8">
+            <div className="inline-flex rounded-2xl border border-[#c8a04e]/30 bg-[#c8a04e]/10 p-3 text-[#f6dca0]">
+              <ScrollText className="h-6 w-6" />
+            </div>
+
+            <div className="mt-5 text-[0.72rem] uppercase tracking-[0.28em] text-[#c8a04e]">
+              Current quest
+            </div>
+
+            <h2 className="mt-3 font-serif text-3xl text-white md:text-4xl">
+              {currentQuest.title}
+            </h2>
+
+            <p className="mt-4 whitespace-pre-line text-base leading-8 text-white/62">
+              {currentQuest.description}
+            </p>
+
+            <div className="mt-8 flex justify-center">
+              <div className="group relative h-36 w-36">
+                <div className="absolute inset-0 rounded-full bg-[#c8a04e]/10 blur-2xl transition duration-500 group-hover:bg-[#c8a04e]/15" />
+                <div className="relative h-full w-full overflow-hidden rounded-full border border-[#c8a04e]/20 bg-black/30 p-3">
+                  <img
+                    src="/images/the-marked-one-july.png"
+                    alt="Quest sigil"
+                    className="h-full w-full object-contain transition duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[1.8rem] border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8">
+            <div className="text-[0.72rem] uppercase tracking-[0.28em] text-[#c8a04e]">
+              Submit your mark
+            </div>
+
+            <h2 className="mt-3 font-serif text-3xl text-white md:text-4xl">
+              Complete the quest
+            </h2>
+
+            <p className="mt-4 text-sm leading-7 text-white/60">
+              Share the book, the line that stayed with you, and the mark you
+              want to leave behind.
+            </p>
+
+            <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <input
                 id="nickname"
                 name="nickname"
@@ -187,7 +207,7 @@ export default function ReaderQuests() {
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
                 placeholder="Nickname"
-                className="w-full px-4 py-2 rounded bg-black/60 border border-white/30 text-white placeholder-gray-400"
+                className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#c8a04e]/40 focus:bg-black/40"
               />
 
               <input
@@ -196,8 +216,8 @@ export default function ReaderQuests() {
                 type="text"
                 value={book}
                 onChange={(e) => setBook(e.target.value)}
-                placeholder="Book Title"
-                className="w-full px-4 py-2 rounded bg-black/60 border border-white/30 text-white placeholder-gray-400"
+                placeholder="Book title"
+                className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#c8a04e]/40 focus:bg-black/40"
               />
 
               <textarea
@@ -206,7 +226,8 @@ export default function ReaderQuests() {
                 value={quote}
                 onChange={(e) => setQuote(e.target.value)}
                 placeholder="Favourite quote from the book"
-                className="w-full px-4 py-2 rounded bg-black/60 border border-white/30 text-white placeholder-gray-400"
+                rows={4}
+                className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white placeholder:text-white/35 outline-none transition focus:border-[#c8a04e]/40 focus:bg-black/40"
               />
 
               <select
@@ -214,7 +235,7 @@ export default function ReaderQuests() {
                 name="emoji"
                 value={emoji}
                 onChange={(e) => setEmoji(e.target.value)}
-                className="w-full px-4 py-2 rounded bg-black/60 border border-white/30 text-white"
+                className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none transition focus:border-[#c8a04e]/40 focus:bg-black/40"
               >
                 <option value="✨">✨ Sparkle</option>
                 <option value="🔥">🔥 Fire</option>
@@ -223,34 +244,40 @@ export default function ReaderQuests() {
                 <option value="🦊">🦊 Fox</option>
               </select>
 
-              <p className="text-gray-300 mb-4">
-                Tap submit to unlock your completed quest badge—perfect for sharing your mark on social media.
+              <p className="text-sm leading-7 text-white/50">
+                Submit to unlock your completed quest badge and carry your mark
+                back out into the wider world.
               </p>
 
               <button
                 type="submit"
-                className="w-full py-2 bg-amber-700 hover:bg-amber-600 rounded text-white"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl border border-[#c8a04e]/40 bg-[#c8a04e] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(200,160,78,0.2)]"
               >
+                <Sparkles className="h-4 w-4" />
                 Submit Entry
               </button>
             </form>
           </div>
         </section>
 
-        {/* Completed Entries */}
-        <div className="glass-panel p-6 border border-amber-700 rounded-xl shadow-md">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <h3 className="text-2xl text-amber-400">
-              ✅ Completed by {completed.length} Marked Ones
-            </h3>
+        {/* Completed entries */}
+        <section className="mt-8 rounded-[1.8rem] border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8">
+          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <div className="text-[0.72rem] uppercase tracking-[0.28em] text-[#c8a04e]">
+                Completed entries
+              </div>
+              <h3 className="mt-2 font-serif text-3xl text-white md:text-4xl">
+                Marked by {completed.length} reader{completed.length !== 1 && "s"}
+              </h3>
+            </div>
 
-            {/* Sort control */}
-            <label className="text-sm text-gray-300 flex items-center gap-2">
-              Sort:
+            <label className="flex items-center gap-3 text-sm text-white/60">
+              Sort
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as "newest" | "top")}
-                className="bg-black/60 border border-white/30 text-white px-2 py-1 rounded"
+                className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-white outline-none transition focus:border-[#c8a04e]/40"
               >
                 <option value="newest">Newest</option>
                 <option value="top">Top (likes)</option>
@@ -259,34 +286,40 @@ export default function ReaderQuests() {
           </div>
 
           {loadingEntries ? (
-            <p className="text-gray-400 italic">Loading entries…</p>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-4">
-              {completed.length > 0 ? (
-                completed.map((entry) => (
-                  <div
-                    key={entry.id}
-                    className="bg-white/5 border border-white/10 rounded p-4 relative card-glow"
-                  >
-                    <div className="text-xl mb-1">
+            <p className="text-sm italic text-white/45">Loading entries…</p>
+          ) : completed.length > 0 ? (
+            <div className="grid gap-4 md:grid-cols-2">
+              {completed.map((entry) => (
+                <div
+                  key={entry.id}
+                  className="relative rounded-[1.4rem] border border-white/10 bg-white/[0.04] p-5 transition duration-300 hover:border-[#c8a04e]/20 hover:bg-white/[0.06]"
+                >
+                  <div className="pr-16">
+                    <div className="text-lg text-white">
                       {entry.emoji} {entry.nickname}
                     </div>
-                    <div className="text-sm italic text-amber-300 mb-1">{entry.book}</div>
-                    <blockquote className="text-sm text-gray-300 mb-2">“{entry.quote}”</blockquote>
-                    <button
-                      onClick={() => handleLike(entry.id, entry.likes || 0)}
-                      className="absolute top-2 right-2 text-amber-400 hover:text-amber-300 text-sm"
-                    >
-                      ❤️ {entry.likes || 0}
-                    </button>
+                    <div className="mt-1 text-sm italic text-[#f6dca0]">
+                      {entry.book}
+                    </div>
+                    <blockquote className="mt-3 text-sm leading-7 text-white/62 italic">
+                      “{entry.quote}”
+                    </blockquote>
                   </div>
-                ))
-              ) : (
-                <p className="text-gray-500">No entries yet.</p>
-              )}
+
+                  <button
+                    onClick={() => handleLike(entry.id, entry.likes || 0)}
+                    className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full border border-white/10 bg-black/25 px-3 py-1.5 text-sm text-[#f6dca0] transition hover:border-[#c8a04e]/30 hover:bg-black/35"
+                  >
+                    <Heart className="h-4 w-4" />
+                    {entry.likes || 0}
+                  </button>
+                </div>
+              ))}
             </div>
+          ) : (
+            <p className="text-sm text-white/40">No entries yet.</p>
           )}
-        </div>
+        </section>
       </div>
     </div>
   );

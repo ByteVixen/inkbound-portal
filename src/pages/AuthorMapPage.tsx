@@ -449,75 +449,89 @@ export default function AuthorMapPage() {
     obj.position.copy(pos);
   };
 
-  return (
-    <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
-      <div className="absolute inset-0 z-0"><VantaBackground /></div>
+return (
+  <div className="relative min-h-screen overflow-hidden bg-[#050506] font-marcellus text-[#f5efe3]">
+    <div className="absolute inset-0 z-0">
+      <VantaBackground />
+    </div>
 
-      <div className="relative z-10 py-16 px-6 max-w-7xl mx-auto">
-        <div className="bg-black/60 backdrop-blur-md rounded-xl shadow-xl p-6 md:p-8 border border-amber-700">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
-            {/* Left copy */}
-            <div className="lg:col-span-2">
-              <h1 className="text-4xl font-light text-amber-500 text-glow mb-3">🌍 Inkbound Map of Creators</h1>
-              <p className="text-gray-300 mb-4">
-                Pins mark places in our community — every thread connects back to our little shop in Gort.
-              </p>
-              <div className="text-sm text-gray-400">
-                Zoom in to see more — pins shrink so you can hover &amp; read labels cleanly.
-              </div>
+    <div className="pointer-events-none fixed inset-0 z-[1]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(200,160,78,0.10),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(82,58,133,0.08),transparent_20%),radial-gradient(circle_at_20%_80%,rgba(13,30,66,0.10),transparent_24%)]" />
+      <div className="absolute left-1/2 top-0 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-[#c8a04e]/8 blur-3xl" />
+    </div>
+
+    <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:px-10">
+      <div className="overflow-hidden rounded-[2.2rem] border border-white/10 bg-black/25 p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur-xl md:p-8">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-5">
+          {/* Left copy */}
+          <div className="lg:col-span-2">
+            <div className="text-xs uppercase tracking-[0.34em] text-[#c8a04e]">
+              Global Community
             </div>
 
-            {/* Globe */}
-            <div className="lg:col-span-3">
-              <div
-                ref={globeWrapRef}
-                className="relative w-full h-[420px] sm:h-[520px] lg:h-[620px] rounded-xl overflow-hidden border border-amber-700 bg-black/50"
-              >
-                <Globe
-                  ref={globeRef}
-                  width={dims.w || undefined}   // <-- keep globe sized to wrapper
-                  height={dims.h || undefined}  // <-- prevents window-size canvas drift
-                  backgroundColor="rgba(0,0,0,0)"
-                  globeImageUrl={globeTexture}
-                  atmosphereColor="#ffffff"           // avoid alpha warning
-                  atmosphereAltitude={0.12}
-                  showGraticules={false}
+            <h1 className="mt-5 font-serif text-4xl leading-tight text-white md:text-5xl">
+              Inkbound Map of Creators
+            </h1>
 
-                  // Points
-                  pointsData={points}
-                  pointLat={(p: Point) => p.lat}
-                  pointLng={(p: Point) => p.lng}
-                  pointAltitude={() => 0.006}
-                  pointRadius={() => pointScale}      // dynamic with zoom
-                  pointColor={() => "rgba(245, 158, 11, 0.65)"} // subtle amber
+            <p className="mt-5 text-base leading-8 text-white/65">
+              Each point marks a place in the Inkbound network. Every thread
+              reaches outward from authors, narrators, and creators around the
+              world — and still traces back to the bookshop in Gort.
+            </p>
 
-                  // Labels
-                  pointLabel={(p: Point) =>
-                    `<div style="padding:6px 8px;font-size:12px"><b>${p.label}</b></div>`
-                  }
+            <p className="mt-4 text-sm leading-7 text-[#f6dca0]/90">
+              Zoom in to explore. Pins shrink as you move closer, so labels stay
+              clean and readable.
+            </p>
+          </div>
 
-                  // Arcs back to Inkbound
-                  arcsData={arcs}
-                  arcColor={() => ["rgba(245,158,11,0.35)", "rgba(245,158,11,0.12)"]}
-                  arcStroke={0.45}
-                  arcAltitudeAutoScale={0.6}
-                  arcDashLength={0.9}
-                  arcDashGap={0.2}
-                  arcDashAnimateTime={3500}
+          {/* Globe */}
+          <div className="lg:col-span-3">
+            <div
+              ref={globeWrapRef}
+              className="relative h-[420px] w-full overflow-hidden rounded-[1.8rem] border border-white/10 bg-black/40 sm:h-[520px] lg:h-[620px]"
+            >
+              <Globe
+                ref={globeRef}
+                width={dims.w || undefined}
+                height={dims.h || undefined}
+                backgroundColor="rgba(0,0,0,0)"
+                globeImageUrl={globeTexture}
+                atmosphereColor="#ffffff"
+                atmosphereAltitude={0.12}
+                showGraticules={false}
+                pointsData={points}
+                pointLat={(p: Point) => p.lat}
+                pointLng={(p: Point) => p.lng}
+                pointAltitude={() => 0.006}
+                pointRadius={() => pointScale}
+                pointColor={() => "rgba(200,160,78,0.65)"}
+                pointLabel={(p: Point) =>
+                  `<div style="padding:6px 8px;font-size:12px"><b>${p.label}</b></div>`
+                }
+                arcsData={arcs}
+                arcColor={() => [
+                  "rgba(200,160,78,0.35)",
+                  "rgba(200,160,78,0.12)",
+                ]}
+                arcStroke={0.45}
+                arcAltitudeAutoScale={0.6}
+                arcDashLength={0.9}
+                arcDashGap={0.2}
+                arcDashAnimateTime={3500}
+                customLayerData={customLayerData}
+                customThreeObject={customThreeObject}
+                customThreeObjectUpdate={customThreeObjectUpdate}
+              />
 
-                  // Inkbound marker (logo + glow), no label/dot
-                  customLayerData={customLayerData}
-                  customThreeObject={customThreeObject}
-                  customThreeObjectUpdate={customThreeObjectUpdate}
-                />
-                <div className="absolute left-3 bottom-3 text-xs text-gray-300 bg-black/50 rounded px-2 py-1 border border-white/10">
-                  Drag to rotate • Scroll to zoom
-                </div>
+              <div className="absolute bottom-3 left-3 rounded-lg border border-white/10 bg-black/50 px-3 py-1.5 text-xs text-white/72">
+                Drag to rotate • Scroll to zoom
               </div>
             </div>
           </div>
         </div>
-      </div>  
+      </div>
     </div>
-  );
+  </div>
+);
 }

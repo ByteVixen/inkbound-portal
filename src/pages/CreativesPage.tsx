@@ -1,6 +1,6 @@
-// src/pages/CreativesPage.tsx
 import React, { useState } from "react";
 import VantaBackground from "../components/VantaBackground";
+import { ArrowRight, ScrollText } from "lucide-react";
 
 const sections = [
   { id: "welcome", title: "Welcome" },
@@ -19,140 +19,178 @@ const CollapsibleSection = ({
   title: string;
   children: React.ReactNode;
 }) => {
-  const [open, setOpen] = useState(id === "welcome"); // open Welcome by default
+  const [open, setOpen] = useState(id === "welcome");
+
   return (
-    <div id={id} className="mb-8 border-b border-amber-700 pb-4">
+    <div
+      id={id}
+      className="rounded-[1.6rem] border border-white/10 bg-white/5 p-5 backdrop-blur-xl md:p-6"
+    >
       <button
         onClick={() => setOpen(!open)}
-        className="w-full text-left text-xl font-semibold text-amber-400 hover:underline focus:outline-none"
+        className="flex w-full items-center justify-between text-left focus:outline-none"
       >
-        {title} {open ? "▲" : "▼"}
+        <span className="font-serif text-2xl text-white md:text-3xl">
+          {title}
+        </span>
+        <span className="text-[#c8a04e] text-sm">{open ? "▲" : "▼"}</span>
       </button>
-      {open && <div className="mt-4 text-base text-gray-300 space-y-4">{children}</div>}
+
+      {open && (
+        <div className="mt-4 space-y-4 text-base leading-8 text-white/65">
+          {children}
+        </div>
+      )}
     </div>
   );
 };
 
 const CreativesPage: React.FC = () => {
   return (
-    <div className="relative min-h-screen font-marcellus text-white overflow-hidden">
-      {/* Background */}
+    <div className="relative min-h-screen overflow-hidden bg-[#050506] font-marcellus text-[#f5efe3]">
       <div className="absolute inset-0 z-0">
         <VantaBackground />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 py-20 px-6 max-w-7xl mx-auto">
-        <div className="bg-black/60 backdrop-blur-md rounded-xl shadow-xl p-8 flex flex-col md:flex-row border border-amber-700">
-          {/* Sidebar Navigation */}
-          <aside className="md:w-1/4 mb-8 md:mb-0 sticky top-24 self-start pr-6 border-r border-amber-700">
-            <nav className="space-y-4 text-lg">
-              {sections.map((section) => (
-                <a
-                  key={section.id}
-                  href={`#${section.id}`}
-                  className="block hover:underline text-amber-400"
-                >
-                  {section.title}
-                </a>
-              ))}
-            </nav>
-          </aside>
+      <div className="pointer-events-none fixed inset-0 z-[1]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(200,160,78,0.10),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(82,58,133,0.08),transparent_20%),radial-gradient(circle_at_20%_80%,rgba(13,30,66,0.10),transparent_24%)]" />
+        <div className="absolute left-1/2 top-0 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-[#c8a04e]/8 blur-3xl" />
+      </div>
 
-          {/* Main Content */}
-          <main className="md:w-3/4 md:pl-8">
-            <h1 className="text-4xl font-light text-amber-500 mb-10 text-glow text-center md:text-left">
-              🎨 Creatives at Inkbound Society
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-16 lg:px-10">
+        {/* Hero */}
+        <section className="overflow-hidden rounded-[2.2rem] border border-white/10 bg-black/25 px-6 py-10 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur-xl md:px-10 md:py-14">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="text-xs uppercase tracking-[0.34em] text-[#c8a04e]">
+              Creative Pathway
+            </div>
+
+            <h1 className="mt-5 font-serif text-4xl leading-tight text-white md:text-6xl">
+              Creatives at Inkbound Society
             </h1>
 
+            <p className="mx-auto mt-5 max-w-3xl text-base leading-8 text-white/68 md:text-lg">
+              A space for artists, designers, editors, narrators, and bookish
+              businesses to be seen by the authors and readers moving through
+              the Inkbound ecosystem.
+            </p>
+          </div>
+        </section>
+
+        <div className="mt-8 flex flex-col gap-8 lg:flex-row">
+          {/* Sidebar */}
+          <aside className="lg:w-[260px] lg:shrink-0">
+            <div className="rounded-[1.8rem] border border-white/10 bg-white/5 p-5 backdrop-blur-xl lg:sticky lg:top-24">
+              <div className="mb-4 text-[0.72rem] uppercase tracking-[0.28em] text-[#c8a04e]">
+                On this page
+              </div>
+
+              <nav className="space-y-2">
+                {sections.map((section) => (
+                  <a
+                    key={section.id}
+                    href={`#${section.id}`}
+                    className="block rounded-xl px-3 py-2 text-sm text-white/62 transition hover:bg-white/8 hover:text-white"
+                  >
+                    {section.title}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
+
+          {/* Main */}
+          <main className="flex-1 space-y-6">
             <CollapsibleSection id="welcome" title="Welcome">
               <p>
-                Are you a cover artist, illustrator, editor, formatter, audiobook narrator,
-                trailer maker, or book marketer? <strong>We want to showcase you</strong>.
+                Are you a cover artist, illustrator, editor, formatter,
+                audiobook narrator, trailer maker, or book marketer? This is
+                your place to be seen.
               </p>
-              <p className="text-emerald-300 font-semibold">
-                This is a <u>free opportunity</u> to link up with indie authors and get your work seen.
+              <p className="text-[#f6dca0]">
+                This is a free opportunity to connect with indie authors and
+                showcase your work.
               </p>
               <p>
-                We feature creative professionals alongside our shelves, quests, and community, so the
-                authors browsing our world can discover, bookmark, and <em>hire/contact you directly</em>.
-                No platform fees. No middleman. Your rates, your links, your terms.
+                We feature creative professionals alongside our shelves, quests,
+                and community spaces so authors can discover, bookmark, and
+                contact you directly.
               </p>
             </CollapsibleSection>
 
             <CollapsibleSection id="who" title="Who It’s For">
-              <ul className="list-disc list-inside space-y-2">
+              <ul className="list-disc pl-5 space-y-2">
                 <li>Cover Artists & Illustrators</li>
                 <li>Audiobook Narrators & Producers</li>
-                <li>Editors (Developmental, Line, Copy, Proof)</li>
-                <li>Formatters & Interior/Exterior Book Designers</li>
+                <li>Editors — developmental, line, copy, proof</li>
+                <li>Formatters & Book Designers</li>
                 <li>Trailer / Motion Graphics & Social Video Editors</li>
                 <li>Marketing, Launch & Street-Team Support</li>
                 <li>Photographers, Calligraphers, Map Artists & more</li>
               </ul>
-              <p className="text-sm text-gray-400">
-                Not on the list but still bookish? If you help stories come to life, you belong here.
+              <p className="text-sm text-white/45">
+                Not on the list but still bookish? If you help stories come to
+                life, you belong here.
               </p>
             </CollapsibleSection>
 
             <CollapsibleSection id="benefits" title="What You Get">
-              <ul className="list-disc list-inside space-y-3">
-                <li>
-                  <strong>Public profile</strong> on our site with your specialties, genres, and links.
-                </li>
-                <li>
-                  <strong>Exposure to indie authors</strong> browsing our Virtual Shelf, Narrator Shelf, and quests.
-                </li>
-                <li>
-                  <strong>Zero fees from us</strong> — authors contact you via your portfolio/site/socials.
-                </li>
-                <li>
-                  <strong>Optional features</strong> in social posts, email highlights, or in-shop boards.
-                </li>
+              <ul className="list-disc pl-5 space-y-3">
+                <li>A public profile on our site with your specialties and links</li>
+                <li>Exposure to indie authors browsing Inkbound</li>
+                <li>Zero fees from us — your rates, your links, your terms</li>
+                <li>Optional features in social posts and highlights</li>
               </ul>
-              <p className="text-sm text-gray-400">
-                You keep full control. Update or remove your listing anytime by emailing{" "}
-                <a className="underline text-amber-300" href="mailto:summon@inkboundsociety.com">
+              <p className="text-sm text-white/45">
+                You keep full control. Update or remove your listing anytime by
+                emailing{" "}
+                <a
+                  className="text-[#f6dca0] underline decoration-[#c8a04e]/40 underline-offset-4"
+                  href="mailto:summon@inkboundsociety.com"
+                >
                   summon@inkboundsociety.com
-                </a>.
+                </a>
+                .
               </p>
             </CollapsibleSection>
 
             <CollapsibleSection id="how" title="How It Works">
-              <ol className="list-decimal list-inside space-y-3">
-                <li>
-                  <strong>Apply (free):</strong> Tell us what you do and share portfolio links.
-                </li>
-                <li>
-                  <strong>We review:</strong> Quick fit & safety check (clear links, family-friendly assets).
-                </li>
-                <li>
-                  <strong>Get featured:</strong> Your card goes live; authors reach out to you directly.
-                </li>
+              <ol className="list-decimal pl-5 space-y-3">
+                <li>Apply and tell us what you do</li>
+                <li>We review for fit, clarity, and safe presentation</li>
+                <li>Your card goes live and authors reach out to you directly</li>
               </ol>
-              <div className="rounded-lg border border-emerald-600 bg-emerald-900/20 p-4">
-                <p className="text-emerald-300 text-sm">
-                  We don’t mediate payments or rates. You own your process; we provide the stage.
+
+              <div className="rounded-[1.2rem] border border-[#c8a04e]/25 bg-[#c8a04e]/10 p-4">
+                <p className="text-sm text-white/75">
+                  We don’t mediate payments or rates. You own your process — we
+                  provide the stage.
                 </p>
               </div>
             </CollapsibleSection>
 
             <CollapsibleSection id="apply" title="Apply Free">
               <p>
-                Ready to showcase your craft? Apply now — it’s fast and free.
+                Ready to showcase your craft? Apply now. It’s fast, direct, and
+                free.
               </p>
-              <div className="mt-2">
+
+              <div className="pt-2">
                 <a
                   href="https://tally.so/r/3ybB1d"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block relative px-8 py-3 rounded-full font-semibold text-white bg-amber-700 hover:bg-amber-600 shadow-[0_0_20px_rgba(245,158,11,0.6)] transition-all duration-300"
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl border border-[#c8a04e]/40 bg-[#c8a04e] px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-black transition hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(200,160,78,0.2)]"
                 >
-                  Apply Free — Creatives Sign-Up
+                  <ScrollText className="h-4 w-4" />
+                  Apply Free
+                  <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
-              <p className="text-sm text-gray-400">
-                Include portfolio links, specialties, genres, typical turnaround, and how you prefer to be contacted.
+
+              <p className="text-sm text-white/45">
+                Include portfolio links, specialties, genres, turnaround, and
+                how you prefer to be contacted.
               </p>
             </CollapsibleSection>
           </main>
