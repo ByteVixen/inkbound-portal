@@ -44,7 +44,7 @@ const ecosystemLinks = [
   { label: "Inkbound Community Discord", href: "https://discord.gg/BkHyN6hDwJ" },
   { label: "Inkbound Studios", href: "https://www.inkboundstudios.com" },
   { label: "Inkbound Publishing", href: "https://www.inkboundpublishing.com" },
-  { label: "InkSpire Academy", href: "https://www.inkspireacademy.com" },
+  { label: "InkSpire Academy", href: "https://www.inkspire-academy.com" },
   { label: "Inkbound Marketplace – in development", href: "#" },
 ];
 
