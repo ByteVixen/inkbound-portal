@@ -9,6 +9,15 @@ export type NewsletterIssueData = {
   };
   
   export const newsletterIssues = [
+     {
+      slug: "issue-05",
+      title: "The Inkbound Times",
+      issueNumber: "Issue 05",
+      dateLabel: "April 4, 2026",
+      coverImage: "/newsletter/covers/issue-05.jpg",
+      pdfUrl: "/newsletter/issues/inkbound-times-issue-05.pdf",
+      description: "400 Authors, New Bookclub Picks, and a Community That’s Only Getting Stronger"
+    },
        {
       slug: "issue-04",
       title: "The Inkbound Times",
