@@ -120,43 +120,57 @@ export default function LandingPage() {
     },
   ];
 
-  const suiteSites = [
-    {
-      title: "Inkbound Publishing",
-      href: "https://www.inkboundpublishing.com",
-      blurb:
-        "The Sixth House — Inkbound’s community imprint built around affiliation, visibility, and a creator-first future.",
-      status: "Live now",
-    },
-    {
-      title: "Inkbound Studios",
-      href: "https://www.inkboundstudios.com",
-      blurb:
-        "The cinematic and media branch of Inkbound — built for adaptation, digital presence, visual identity, and immersive expansion.",
-      status: "Live now",
-    },
-    {
-      title: "Inkspire Academy",
-      href: "https://www.inkspire-academy.com",
-      blurb:
-        "Education, mentorship, and structured pathways for indie creators who want strategy, support, and momentum.",
-      status: "Live now",
-    },
-    {
-      title: "Inkbound Marketplace",
-      href: "#",
-      blurb:
-        "A future platform designed to bring together books, creators, services, and discovery in one connected ecosystem.",
-      status: "Coming soon",
-    },
-    {
-      title: "Inkbound Merch",
-      href: "https://www.theinkboundbookshop.com",
-      blurb:
-        "Merchandise, branded pieces, and extensions of the Inkbound world through the bookshop and beyond.",
-      status: "Live now",
-    },
-  ];
+const suiteSites = [
+  {
+    title: "Inkwish Comics",
+    href: "https://www.house-of-inkwish.com",
+    blurb:
+      "Where every panel pulls you deeper. The comic and graphic novel arm of the Inkbound universe — dark, mythic, and built to be experienced.",
+    status: "Live now",
+  },
+  {
+    title: "Inkbound Publishing",
+    href: "https://www.inkboundpublishing.com",
+    blurb:
+      "The Sixth House — Inkbound’s community imprint built around affiliation, visibility, and a creator-first future.",
+    status: "Live now",
+  },
+  {
+    title: "Inkbound Studios",
+    href: "https://www.inkboundstudios.com",
+    blurb:
+      "The cinematic and media branch of Inkbound — built for adaptation, digital presence, visual identity, and immersive expansion.",
+    status: "Live now",
+  },
+  {
+    title: "Inkspire Academy",
+    href: "https://www.inkspire-academy.com",
+    blurb:
+      "Education, mentorship, and structured pathways for indie creators who want strategy, support, and momentum.",
+    status: "Live now",
+  },
+  {
+    title: "Inkbound Marketplace",
+    href: "#",
+    blurb:
+      "A future platform designed to connect books, creators, services, and discovery into one living ecosystem.",
+    status: "Coming soon",
+  },
+  {
+    title: "Inkbound Merch",
+    href: "https://www.theinkboundbookshop.com",
+    blurb:
+      "Physical pieces of the world — merchandise, collectibles, and extensions of the Inkbound universe.",
+    status: "Live now",
+  },
+  {
+    title: "Inkbound Games",
+    href: "#",
+    blurb:
+      "Interactive stories and playable worlds set inside the Inkbound universe — where readers don’t just observe, they participate.",
+    status: "Coming soon",
+  },
+]
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#050506] font-marcellus text-[#f5efe3]">
