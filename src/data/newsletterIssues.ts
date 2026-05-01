@@ -9,6 +9,15 @@ export type NewsletterIssueData = {
   };
   
   export const newsletterIssues = [
+    {
+      slug: "issue-09",
+      title: "The Inkbound Times",
+      issueNumber: "Issue 09",
+      dateLabel: "May 1, 2026",
+      coverImage: "/newsletter/covers/issue-09.jpg",
+      pdfUrl: "/newsletter/issues/inkbound-times-issue-09.pdf",
+      description: "Submissions Open, The Forge Arrives, and Inkbound Picks Up Speed"
+    },
      {
       slug: "issue-08",
       title: "The Inkbound Times",
