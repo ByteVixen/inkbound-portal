@@ -12,7 +12,7 @@ import OpeningOverlay from "./components/OpeningOverlay";
 import CountdownBanner from "./components/CountdownBanner";
 import FamiliarSelector from "./components/FamiliarSelector";
 import { FamiliarProvider } from "./components/FamiliarContext";
-
+import AuctionPage from "./pages/AuctionPage";
 // Lazy Pages
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AuthorMapPage = lazy(() => import("./pages/AuthorMapPage"));
@@ -93,7 +93,7 @@ const App: React.FC = () => {
               <Route path="/book-club" element={<BookClubPage />} />
 
               <Route path="/black-diadem" element={<BlackDiademSeries />} />
-
+              <Route path="/auction" element={<AuctionPage />} />
               <Route path="/featured-books" element={<FeaturedBooksPage />} />
               <Route path="/new-releases" element={<NewReleasesPage />} />
 

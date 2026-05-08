@@ -30,7 +30,7 @@ import ReactMarkdown from "react-markdown";
 interface Quest {
   title: string;
   description: string;
-  startDate: string; // yyyy-mm-dd
+  startDate: string;
   archivedAt?: Timestamp;
 }
 
@@ -41,10 +41,8 @@ const COLLECTIONS = [
   { key: "narrators", label: "🎙 Narrators", template: "narrators_template.csv" },
   { key: "audiobooks", label: "🔊 Audiobooks", template: "audiobooks_template.csv" },
   { key: "new_releases", label: "🗓 New Releases", template: "new_releases_template.csv" },
-
-  // ✅ NEW
   { key: "creatives", label: "🎨 Creatives", template: "creatives_template.csv" },
-
+  { key: "auction_items", label: "⚡ Auction", template: "auction_items_template.csv" },
   { key: "current_quest", label: "🧽 Current Quest", template: "" },
 ] as const;
 
@@ -54,7 +52,6 @@ const ADMIN_UID = "reTG4KXRVeU4jzWdXstO5K78wCF3";
 
 /* ---------- Labels / Tooltips ---------- */
 const FIELD_LABELS: Record<string, string> = {
-  // common
   name: "Name",
   bookTitle: "Book Title",
   genre: "Genre",
@@ -64,8 +61,7 @@ const FIELD_LABELS: Record<string, string> = {
   link: "Link",
   image: "Image URL (or Upload)",
 
-  // releases
-  title: "Book Title",
+  title: "Title",
   author: "Author Name",
   releaseDate: "Release Date",
   preorder: "Preorder Available",
@@ -73,19 +69,28 @@ const FIELD_LABELS: Record<string, string> = {
   blurb: "Blurb / Description",
   series: "Series (Optional)",
   tags: "Tags (comma-separated)",
-  format: "Format (eBook / PB / HB / Audio etc.)",
+  format: "Format",
 
-  // creatives
   businessName: "Business Name (Optional)",
   creativeType: "Creative Type",
-  shortDescription: "Short Description (1–2 sentences)",
+  shortDescription: "Short Description",
   offers: "Services / Products Offered",
-  website: "Website (Optional but recommended)",
-  socials: "Socials (single text field)",
+  website: "Website",
+  socials: "Socials",
   exampleImageUrl: "Example Image URL (or Upload)",
-  creditTag: "Preferred credit/tag (Optional)",
+  creditTag: "Preferred credit/tag",
   openToCollabs: "Open to collaborations?",
   featuredWhere: "Featured where?",
+
+  imageUrl: "Auction Image URL (or Upload)",
+  donorName: "Donor Name",
+  startingBid: "Starting Bid",
+  value: "Estimated Value",
+  currentBid: "Current Bid",
+  currentBidderName: "Highest Bidder Name",
+  currentBidderEmail: "Highest Bidder Email",
+  status: "Auction Status",
+  order: "Display Order",
 };
 
 const FIELD_TOOLTIPS: Record<string, string> = {
@@ -94,59 +99,74 @@ const FIELD_TOOLTIPS: Record<string, string> = {
   genre: "e.g., Fantasy, Dark Romance, Horror.",
   quote: "Optional highlight or tagline.",
   narrator: "List narrator(s) if applicable.",
-  style: "Narration style e.g., Deep, Sultry, Dramatic.",
+  style: "Narration style.",
   link: "A valid URL. We'll auto-add https:// if missing.",
   image: "Upload a file or paste a direct URL.",
 
-  title: "The book title.",
+  title: "Title shown publicly.",
   author: "The author name.",
-  releaseDate: "Release date (YYYY-MM-DD).",
+  releaseDate: "Release date.",
   preorder: "Tick if preorder is available.",
   cover: "Upload a cover file or paste an image URL.",
-  blurb: "Short description shown on the calendar.",
-  series: "Optional series name / number.",
+  blurb: "Short description.",
+  series: "Optional series name.",
   tags: "Comma-separated tags.",
-  format: "Optional formats: eBook, PB, HB, Audio…",
+  format: "Optional format.",
 
   businessName: "Optional studio/business name.",
   creativeType: "Cover Artist / Illustrator / Designer / Bookish Business…",
-  shortDescription: "A short client-facing intro.",
+  shortDescription: "A short public intro.",
   offers: "What you sell/provide.",
-  website: "Where people can find you (optional).",
-  socials: "Example: IG: @x, TikTok: @y, Linktree: https://...",
+  website: "Where people can find you.",
+  socials: "Social handles or links.",
   exampleImageUrl: "A portfolio/example image.",
-  creditTag: "How Inkbound should credit you (optional).",
-  openToCollabs: "Show a collab badge on the card.",
+  creditTag: "How Inkbound should credit you.",
+  openToCollabs: "Show a collab badge.",
   featuredWhere: "Website / Discord / Both.",
+
+  imageUrl: "Upload an image or paste a direct image URL.",
+  donorName: "The person or business donating the prize.",
+  startingBid: "The minimum opening bid.",
+  value: "Approximate retail value of the item or bundle.",
+  currentBid: "Usually same as starting bid when creating the lot.",
+  currentBidderName: "Leave blank when creating a new lot.",
+  currentBidderEmail: "Leave blank when creating a new lot.",
+  status: "Use upcoming, live, closed, paid, or released.",
+  order: "Controls display order.",
 };
 
-/* ---------- Per-tab required fields ---------- */
+/* ---------- Required Fields ---------- */
 const REQUIRED: Record<CollectionKey, string[]> = {
   virtual_shelf_books: ["name", "bookTitle", "genre"],
   featured_authors: ["name", "bookTitle", "genre"],
   narrators: ["name", "genre", "style"],
   audiobooks: ["bookTitle", "name", "narrator"],
   new_releases: ["title", "author", "releaseDate"],
-
-  // ✅ creatives minimal
   creatives: ["name", "creativeType", "shortDescription", "offers", "exampleImageUrl", "featuredWhere"],
-
-  current_quest: [], // handled separately
+  auction_items: [
+  "title",
+  "description",
+  "donorName",
+  "startingBid",
+  "value",
+  "status",
+  "order",
+],
+  current_quest: [],
 };
 
-/* ---------- Storage Upload Settings ---------- */
+/* ---------- Upload Settings ---------- */
 const MAX_FILE_MB = 8;
 const ALLOWED = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+
 const folderForTab: Record<string, string> = {
   virtual_shelf_books: "covers/virtual_shelf",
   featured_authors: "covers/featured_authors",
   narrators: "covers/narrators",
   audiobooks: "covers/audiobooks",
   new_releases: "covers/new_releases",
-
-  // ✅ creatives
   creatives: "covers/creatives",
-
+  auction_items: "covers/auction",
   current_quest: "covers/quests",
 };
 
@@ -182,6 +202,8 @@ function safeStr(v: any) {
   return (v ?? "").toString();
 }
 
+const AUCTION_STATUSES = ["upcoming", "live", "closed", "paid", "released"];
+
 /* =======================================================
    Admin Dashboard
 ======================================================= */
@@ -192,19 +214,15 @@ export default function AdminDashboard() {
   const [formData, setFormData] = useState<any>({});
   const [editingId, setEditingId] = useState<string | null>(null);
   const [previousQuests, setPreviousQuests] = useState<Quest[]>([]);
-  const [bulkResults, setBulkResults] = useState<{ success: number; failed: number }>({
-    success: 0,
-    failed: 0,
-  });
-  const [imageUploading, setImageUploading] = useState<boolean>(false);
-  const [search, setSearch] = useState<string>("");
+  const [bulkResults, setBulkResults] = useState({ success: 0, failed: 0 });
+  const [imageUploading, setImageUploading] = useState(false);
+  const [search, setSearch] = useState("");
 
   const isQuestTab = activeTab === "current_quest";
+  const isAuctionTab = activeTab === "auction_items";
 
-  /* ---------- Auth ---------- */
   useEffect(() => onAuthStateChanged(auth, setUser), []);
 
-  /* ---------- Visible Fields Per Tab ---------- */
   const visibleFields = useMemo(() => {
     switch (activeTab) {
       case "virtual_shelf_books":
@@ -216,35 +234,18 @@ export default function AdminDashboard() {
       case "audiobooks":
         return ["bookTitle", "name", "narrator", "link"];
       case "new_releases":
-        return [
-          "title",
-          "author",
-          "releaseDate",
-          "preorder",
-          "link",
-          "format",
-          "series",
-          "tags",
-          "blurb",
-          "cover",
-        ];
-
-      // ✅ NEW creatives tab
+        return ["title", "author", "releaseDate", "preorder", "link", "format", "series", "tags", "blurb", "cover"];
       case "creatives":
+        return ["name", "businessName", "creativeType", "shortDescription", "offers", "website", "socials", "creditTag", "openToCollabs", "featuredWhere", "exampleImageUrl"];
+      case "auction_items":
         return [
-          "name",
-          "businessName",
-          "creativeType",
-          "shortDescription",
-          "offers",
-          "website",
-          "socials",
-          "creditTag",
-          "openToCollabs",
-          "featuredWhere",
-          "exampleImageUrl",
-        ];
-
+  "title",
+  "description",
+  "imageUrl",
+  "donorName",
+  "startingBid",
+  "value",
+  "currentBid", "currentBidderName", "currentBidderEmail", "status", "order"];
       default:
         return [];
     }
@@ -252,13 +253,13 @@ export default function AdminDashboard() {
 
   const requiredFields = useMemo(() => REQUIRED[activeTab] ?? [], [activeTab]);
 
-  /* ---------- Data Fetch ---------- */
   const fetchActiveTab = async () => {
     if (!user || user.uid !== ADMIN_UID) return;
 
     if (isQuestTab) {
       const questDoc = await getDoc(doc(db, "site_content", "current_quest"));
       setFormData(questDoc.exists() ? questDoc.data() : {});
+
       const prevSnap = await getDocs(
         query(collection(db, "previous_quests"), orderBy("archivedAt", "desc"))
       );
@@ -268,7 +269,9 @@ export default function AdminDashboard() {
     }
 
     try {
-      const snap = await getDocs(query(collection(db, activeTab), orderBy("updatedAt", "desc")));
+      const orderField = isAuctionTab ? "order" : "updatedAt";
+      const direction = isAuctionTab ? "asc" : "desc";
+      const snap = await getDocs(query(collection(db, activeTab), orderBy(orderField, direction as any)));
       setEntries(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
     } catch {
       const snap = await getDocs(collection(db, activeTab));
@@ -281,45 +284,44 @@ export default function AdminDashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, user]);
 
-  /* ---------- Auth Buttons ---------- */
   const handleLogin = () =>
     signInWithPopup(auth, new GoogleAuthProvider()).catch(console.error);
+
   const handleLogout = () => signOut(auth);
 
-  /* ---------- Validation ---------- */
   const validateEntry = (row: any) => {
-    const allRequiredPresent = requiredFields.every((f) => !!row[f]);
+    const allRequiredPresent = requiredFields.every((f) => {
+      if (f === "startingBid" || f === "order") return row[f] !== undefined && row[f] !== "";
+      return !!row[f];
+    });
 
-    // URL checks per tab
     const linkOk = !visibleFields.includes("link") || !row.link || isValidUrl(row.link);
-    const websiteOk =
-      activeTab !== "creatives" || !row.website || isValidUrl(row.website);
+    const websiteOk = activeTab !== "creatives" || !row.website || isValidUrl(row.website);
 
-    return allRequiredPresent && linkOk && websiteOk;
+    const auctionStatusOk =
+      activeTab !== "auction_items" || AUCTION_STATUSES.includes(safeStr(row.status));
+
+    return allRequiredPresent && linkOk && websiteOk && auctionStatusOk;
   };
 
-  /* ---------- Submit / Update ---------- */
   const handleSubmit = async () => {
     const working: any = { ...formData };
 
-    // normalize common url fields
-    if (visibleFields.includes("link") && working.link) working.link = normalizeUrl(working.link);
+    if (visibleFields.includes("link") && working.link) {
+      working.link = normalizeUrl(working.link);
+    }
 
     if (activeTab === "creatives") {
       if (working.website) working.website = normalizeUrl(working.website);
-
       working.name = safeStr(working.name).trim();
       working.businessName = safeStr(working.businessName).trim();
       working.creativeType = safeStr(working.creativeType).trim();
       working.shortDescription = safeStr(working.shortDescription).trim();
       working.offers = safeStr(working.offers).trim();
-      working.socials = safeStr(working.socials); // keep user formatting
+      working.socials = safeStr(working.socials);
       working.creditTag = safeStr(working.creditTag).trim();
-      working.featuredWhere = (safeStr(working.featuredWhere).trim() ||
-        "website") as "website" | "discord" | "both";
+      working.featuredWhere = safeStr(working.featuredWhere).trim() || "website";
       working.openToCollabs = toBool(working.openToCollabs);
-
-      // ensure image url field is correct
       working.exampleImageUrl = safeStr(working.exampleImageUrl).trim();
     }
 
@@ -333,29 +335,48 @@ export default function AdminDashboard() {
       working.blurb = safeStr(working.blurb);
     }
 
+    if (activeTab === "auction_items") {
+      working.title = safeStr(working.title).trim();
+      working.description = safeStr(working.description).trim();
+      working.imageUrl = safeStr(working.imageUrl).trim();
+      working.donorName = safeStr(working.donorName).trim();
+
+      working.startingBid = Number(working.startingBid || 0);
+      working.value = Number(working.value || 0);
+      working.currentBid = Number(working.currentBid || working.startingBid || 0);
+      working.currentBidderName = safeStr(working.currentBidderName).trim();
+      working.currentBidderEmail = safeStr(working.currentBidderEmail).trim();
+      working.status = safeStr(working.status).trim() || "upcoming";
+      working.order = Number(working.order || 999);
+    }
+
     if (isQuestTab) {
       const payload: any = { ...working, _tab: activeTab, updatedAt: serverTimestamp() };
       const { title, startDate, description } = payload as Quest;
+
       if (!title || !startDate || !description) {
         alert("Please fill Title, Start Date, and Description for the quest.");
         return;
       }
+
       await setDoc(doc(db, "site_content", "current_quest"), payload);
       alert("Quest saved.");
       return;
     }
 
     if (!validateEntry(working)) {
-      const missing = requiredFields.filter((f) => !working[f]);
+      const missing = requiredFields.filter((f) => !working[f] && working[f] !== 0);
       const problems: string[] = [];
+
       if (missing.length) problems.push(`Missing required: ${missing.join(", ")}`);
-
       if (visibleFields.includes("link") && working.link && !isValidUrl(working.link)) {
-        problems.push("Link must be a valid URL (or leave it blank).");
+        problems.push("Link must be a valid URL.");
       }
-
       if (activeTab === "creatives" && working.website && !isValidUrl(working.website)) {
-        problems.push("Website must be a valid URL (or leave it blank).");
+        problems.push("Website must be a valid URL.");
+      }
+      if (activeTab === "auction_items" && !AUCTION_STATUSES.includes(working.status)) {
+        problems.push("Auction status must be upcoming, live, closed, paid, or released.");
       }
 
       alert(problems.join("\n") || "Please fix validation issues.");
@@ -365,7 +386,7 @@ export default function AdminDashboard() {
     const payload: any = {
       ...working,
       _tab: activeTab,
-      published: toBool(working.published),
+      published: isAuctionTab ? true : toBool(working.published),
       updatedAt: serverTimestamp(),
       createdAt: working.createdAt ?? serverTimestamp(),
     };
@@ -381,24 +402,64 @@ export default function AdminDashboard() {
     await fetchActiveTab();
   };
 
-  /* ---------- Archive Quest ---------- */
   const archiveQuest = async () => {
     if (!formData?.title) return alert("No quest title found.");
+
     const ok = confirm(`Archive quest "${formData.title}"? This will clear the current quest.`);
     if (!ok) return;
-    await addDoc(collection(db, "previous_quests"), { ...formData, archivedAt: serverTimestamp() });
+
+    await addDoc(collection(db, "previous_quests"), {
+      ...formData,
+      archivedAt: serverTimestamp(),
+    });
+
     await setDoc(doc(db, "site_content", "current_quest"), {});
     setFormData({});
     alert("Quest archived.");
     await fetchActiveTab();
   };
 
-  /* ---------- CSV Bulk Upload ---------- */
+ const openAuctionItem = async (itemId: string) => {
+  const ok = confirm("Open this lot live?");
+  if (!ok) return;
+
+  await updateDoc(doc(db, "auction_items", itemId), {
+    status: "live",
+    updatedAt: serverTimestamp(),
+  });
+
+  await fetchActiveTab();
+};
+
+  const setAuctionStatus = async (itemId: string, status: string) => {
+    await updateDoc(doc(db, "auction_items", itemId), {
+      status,
+      updatedAt: serverTimestamp(),
+    });
+
+    await fetchActiveTab();
+  };
+
+  const resetAuctionBid = async (entry: any) => {
+    const ok = confirm(`Reset bids for "${entry.title}" back to starting bid?`);
+    if (!ok) return;
+
+    await updateDoc(doc(db, "auction_items", entry.id), {
+      currentBid: Number(entry.startingBid || 0),
+      currentBidderName: "",
+      currentBidderEmail: "",
+      updatedAt: serverTimestamp(),
+    });
+
+    await fetchActiveTab();
+  };
+
   const handleBulkUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (isQuestTab) {
-      e.target.value = "";
-      return alert("Bulk upload is disabled for Current Quest.");
-    }
+  if (isQuestTab) {
+  e.target.value = "";
+  return alert("Bulk upload is disabled for Current Quest.");
+}
+
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -414,13 +475,15 @@ export default function AdminDashboard() {
           try {
             const normalized: any = { ...row };
 
-            // Optional header conveniences (old tabs)
-            if (normalized.title && !normalized.bookTitle && activeTab !== "new_releases")
+            if (normalized.title && !normalized.bookTitle && activeTab !== "new_releases") {
               normalized.bookTitle = normalized.title;
-            if (normalized.author && !normalized.name && activeTab !== "new_releases")
+            }
+            if (normalized.author && !normalized.name && activeTab !== "new_releases") {
               normalized.name = normalized.author;
-            if (normalized.cover && !normalized.image && activeTab !== "new_releases")
+            }
+            if (normalized.cover && !normalized.image && activeTab !== "new_releases") {
               normalized.image = normalized.cover;
+            }
 
             if (activeTab === "new_releases") {
               if (normalized.date && !normalized.releaseDate) normalized.releaseDate = normalized.date;
@@ -431,8 +494,9 @@ export default function AdminDashboard() {
               if (normalized.website) normalized.website = normalizeUrl(normalized.website);
               normalized.openToCollabs = toBool(normalized.openToCollabs);
               normalized.featuredWhere = normalized.featuredWhere || "website";
-              // allow "image" alias for example image
-              if (normalized.image && !normalized.exampleImageUrl) normalized.exampleImageUrl = normalized.image;
+              if (normalized.image && !normalized.exampleImageUrl) {
+                normalized.exampleImageUrl = normalized.image;
+              }
             } else {
               if (normalized.link) normalized.link = normalizeUrl(normalized.link);
               normalized.published = toBool(normalized.published);
@@ -463,7 +527,6 @@ export default function AdminDashboard() {
     });
   };
 
-  /* ---------- Image Upload (Firebase Storage) ---------- */
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -472,12 +535,14 @@ export default function AdminDashboard() {
       alert("Please upload a JPG/PNG/WebP/GIF image.");
       return;
     }
+
     if (file.size > MAX_FILE_MB * 1024 * 1024) {
       alert(`Image too large. Max ${MAX_FILE_MB} MB.`);
       return;
     }
 
     setImageUploading(true);
+
     try {
       const folder = folderForTab[activeTab] || "covers/misc";
       const safeName = file.name.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9._-]/g, "");
@@ -486,10 +551,10 @@ export default function AdminDashboard() {
       await uploadBytes(storageRef, file, { contentType: file.type });
       const url = await getDownloadURL(storageRef);
 
-      // ✅ choose the correct field per tab
       let fieldName = "image";
       if (activeTab === "new_releases") fieldName = "cover";
       if (activeTab === "creatives") fieldName = "exampleImageUrl";
+      if (activeTab === "auction_items") fieldName = "imageUrl";
 
       setFormData((prev: any) => ({ ...prev, [fieldName]: url }));
     } catch (err) {
@@ -500,7 +565,6 @@ export default function AdminDashboard() {
     }
   };
 
-  /* ---------- Edit / Delete ---------- */
   const handleEdit = (entry: any) => {
     setFormData(entry);
     setEditingId(entry.id || null);
@@ -510,14 +574,16 @@ export default function AdminDashboard() {
   const handleDelete = async (id: string) => {
     const ok = confirm("Delete this entry? This cannot be undone.");
     if (!ok) return;
+
     await deleteDoc(doc(db, activeTab, id));
     await fetchActiveTab();
   };
 
-  /* ---------- Filter ---------- */
   const filteredEntries = useMemo(() => {
     if (!search.trim()) return entries;
+
     const q = search.toLowerCase();
+
     return entries.filter((e) =>
       Object.values(e)
         .filter(Boolean)
@@ -525,8 +591,7 @@ export default function AdminDashboard() {
     );
   }, [entries, search]);
 
-  /* ---------- Auth Gates ---------- */
-  if (!user)
+  if (!user) {
     return (
       <div className="p-6 text-center">
         <p>🔐 Login required to access dashboard.</p>
@@ -535,16 +600,19 @@ export default function AdminDashboard() {
         </button>
       </div>
     );
+  }
 
-  if (user.uid !== ADMIN_UID) return <div className="p-6">⛔ Not authorized.</div>;
+  if (user.uid !== ADMIN_UID) {
+    return <div className="p-6">⛔ Not authorized.</div>;
+  }
 
-  // preview url for upload
   const previewUrl =
     activeTab === "creatives"
       ? formData.exampleImageUrl
+      : activeTab === "auction_items"
+      ? formData.imageUrl
       : formData.image || formData.cover;
 
-  /* ---------- UI ---------- */
   return (
     <div className="p-6 max-w-6xl mx-auto text-white">
       <div className="flex justify-between mb-4">
@@ -560,7 +628,7 @@ export default function AdminDashboard() {
             key={tab.key}
             onClick={() => {
               setActiveTab(tab.key);
-              setFormData({});
+              setFormData(tab.key === "auction_items" ? { status: "upcoming", startingBid: 5, currentBid: 5, order: entries.length + 1 } : {});
               setEditingId(null);
               setSearch("");
             }}
@@ -573,7 +641,6 @@ export default function AdminDashboard() {
         ))}
       </div>
 
-      {/* Edit mode banner */}
       {!isQuestTab && editingId && (
         <div className="mb-4 p-3 rounded border border-blue-600 bg-blue-900/30 flex items-center justify-between">
           <span>
@@ -659,7 +726,6 @@ export default function AdminDashboard() {
         </div>
       ) : (
         <>
-          {/* Search */}
           <div className="mb-4">
             <label htmlFor="search" className="block text-sm mb-1">
               Search
@@ -673,7 +739,6 @@ export default function AdminDashboard() {
             />
           </div>
 
-          {/* Dynamic Form */}
           <div className="grid gap-3 md:grid-cols-2 mb-6">
             {visibleFields.map((field) => (
               <div key={field} className="relative">
@@ -682,7 +747,6 @@ export default function AdminDashboard() {
                   {requiredFields.includes(field) && <span className="text-gold">*</span>}
                 </label>
 
-                {/* special fields */}
                 {field === "preorder" ? (
                   <label className="flex items-center gap-2 bg-black/20 border border-gray-700 rounded p-2">
                     <input
@@ -714,7 +778,20 @@ export default function AdminDashboard() {
                     <option value="discord">Discord</option>
                     <option value="both">Both</option>
                   </select>
-                ) : field === "blurb" || field === "offers" || field === "shortDescription" ? (
+                ) : field === "status" && isAuctionTab ? (
+                  <select
+                    id={`field-${field}`}
+                    className="border p-2 w-full text-black"
+                    value={formData.status || "upcoming"}
+                    onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                  >
+                    {AUCTION_STATUSES.map((status) => (
+                      <option key={status} value={status}>
+                        {status}
+                      </option>
+                    ))}
+                  </select>
+                ) : field === "description" || field === "blurb" || field === "offers" || field === "shortDescription" ? (
                   <textarea
                     id={`field-${field}`}
                     className="border p-2 w-full text-black min-h-[110px]"
@@ -729,6 +806,24 @@ export default function AdminDashboard() {
                     className="border p-2 w-full text-black"
                     value={(formData.releaseDate as string) || ""}
                     onChange={(e) => setFormData({ ...formData, releaseDate: e.target.value })}
+                  />
+                ) : field === "startingBid" || field === "value" || field === "currentBid" || field === "order" ? (
+                  <input
+                    id={`field-${field}`}
+                    type="number"
+                    className="border p-2 w-full text-black"
+                    placeholder={FIELD_LABELS[field] || field}
+                    value={formData[field] ?? ""}
+                    onChange={(e) => {
+                      const value = Number(e.target.value);
+                      setFormData((prev: any) => {
+                        const next = { ...prev, [field]: value };
+                        if (field === "startingBid" && !prev.currentBid) {
+                          next.currentBid = value;
+                        }
+                        return next;
+                      });
+                    }}
                   />
                 ) : field === "link" || field === "website" ? (
                   <input
@@ -763,10 +858,10 @@ export default function AdminDashboard() {
               </div>
             ))}
 
-            {/* File upload for image/cover/example */}
             {(visibleFields.includes("image") ||
               visibleFields.includes("cover") ||
-              visibleFields.includes("exampleImageUrl")) && (
+              visibleFields.includes("exampleImageUrl") ||
+              visibleFields.includes("imageUrl")) && (
               <div className="md:col-span-2">
                 <label htmlFor="image-file" className="block text-sm mb-1">
                   Upload Image
@@ -799,21 +894,24 @@ export default function AdminDashboard() {
               </div>
             )}
 
-            <label className="col-span-full flex items-center gap-2">
-              <input
-                id="published"
-                type="checkbox"
-                checked={!!formData.published}
-                onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
-                className="mr-1"
-              />
-              <span>Published</span>
-            </label>
+            {!isAuctionTab && (
+              <label className="col-span-full flex items-center gap-2">
+                <input
+                  id="published"
+                  type="checkbox"
+                  checked={!!formData.published}
+                  onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
+                  className="mr-1"
+                />
+                <span>Published</span>
+              </label>
+            )}
 
             <div className="col-span-full flex gap-2">
               <button onClick={handleSubmit} className="bg-green-700 text-white px-4 py-2 rounded">
-                {editingId ? "Update Entry" : "Add Entry"}
+                {editingId ? "Update Entry" : isAuctionTab ? "Add Auction Lot" : "Add Entry"}
               </button>
+
               {editingId && (
                 <button
                   onClick={() => {
@@ -828,99 +926,154 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          {/* Bulk Upload */}
-          <div className="mb-6">
-            <label className="block mb-1 text-sm font-semibold">📥 Bulk Upload CSV</label>
-            <input type="file" accept=".csv" onChange={handleBulkUpload} className="mb-2" />
-            {COLLECTIONS.find((c) => c.key === activeTab)?.template && (
-              <a
-                className="text-sm underline text-gold"
-                href={`/csv-templates/${COLLECTIONS.find((c) => c.key === activeTab)?.template}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Download Template
-              </a>
-            )}
-            {bulkResults.success + bulkResults.failed > 0 && (
-              <p className="text-sm mt-2">
-                Last upload: ✅ {bulkResults.success} added, ❌ {bulkResults.failed} failed
-              </p>
-            )}
-          </div>
+         {!isQuestTab && (
+  <div className="mb-6">
+              <label className="block mb-1 text-sm font-semibold">📥 Bulk Upload CSV</label>
+              <input type="file" accept=".csv" onChange={handleBulkUpload} className="mb-2" />
+              {COLLECTIONS.find((c) => c.key === activeTab)?.template && (
+                <a
+                  className="text-sm underline text-gold"
+                  href={`/csv-templates/${COLLECTIONS.find((c) => c.key === activeTab)?.template}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download Template
+                </a>
+              )}
+              {bulkResults.success + bulkResults.failed > 0 && (
+                <p className="text-sm mt-2">
+                  Last upload: ✅ {bulkResults.success} added, ❌ {bulkResults.failed} failed
+                </p>
+              )}
+            </div>
+          )}
 
-          {/* Entries List */}
           {filteredEntries.map((entry) => {
             const isEditingThis = editingId === entry.id;
+
             return (
               <div
                 key={entry.id}
-                className={`border p-4 mb-2 rounded flex justify-between items-start ${
+                className={`border p-4 mb-2 rounded ${
                   isEditingThis ? "border-blue-600 bg-blue-900/20" : "border-gray-700"
                 }`}
               >
-                <div className="pr-4">
-                  {visibleFields.map((field) => {
-                    const val = (entry as any)[field];
+                <div className="flex justify-between items-start gap-4">
+                  <div className="pr-4">
+                    {visibleFields.map((field) => {
+                      const val = entry[field];
 
-                    // image previews for any image field
-                    if (
-                      (field === "image" || field === "cover" || field === "exampleImageUrl") &&
-                      val
-                    ) {
-                      return (
-                        <img
-                          key={field}
-                          src={val}
-                          alt="preview"
-                          className="w-24 mt-2 rounded border border-gray-700"
-                        />
-                      );
-                    }
+                      if ((field === "image" || field === "cover" || field === "exampleImageUrl" || field === "imageUrl") && val) {
+                        return (
+                          <img
+                            key={field}
+                            src={val}
+                            alt="preview"
+                            className="w-24 mt-2 rounded border border-gray-700"
+                          />
+                        );
+                      }
 
-                    if (field === "preorder" || field === "openToCollabs") {
+                      if (field === "preorder" || field === "openToCollabs") {
+                        return (
+                          <p key={field}>
+                            <span className="text-gray-400 capitalize">{field}:</span>{" "}
+                            {toBool(val) ? "Yes" : "No"}
+                          </p>
+                        );
+                      }
+
                       return (
                         <p key={field}>
                           <span className="text-gray-400 capitalize">{field}:</span>{" "}
-                          {toBool(val) ? "Yes" : "No"}
+                          {val || val === 0 ? String(val) : "—"}
                         </p>
                       );
-                    }
+                    })}
 
-                    return (
-                      <p key={field}>
-                        <span className="text-gray-400 capitalize">{field}:</span> {val || "—"}
-                      </p>
-                    );
-                  })}
+                    <div className="mt-2 flex items-center gap-3 text-sm text-gray-400">
+                      <span>
+                        Updated:{" "}
+                        {entry.updatedAt instanceof Timestamp
+                          ? entry.updatedAt.toDate().toLocaleString()
+                          : "—"}
+                      </span>
 
-                  <div className="mt-2 flex items-center gap-3 text-sm text-gray-400">
-                    <span>
-                      Updated:{" "}
-                      {entry.updatedAt instanceof Timestamp
-                        ? entry.updatedAt.toDate().toLocaleString()
-                        : "—"}
-                    </span>
-                    <span
-                      className={`px-2 py-0.5 rounded text-xs ${
-                        entry.published
-                          ? "bg-green-900/50 border border-green-700"
-                          : "bg-gray-800 border border-gray-700"
-                      }`}
+                      {!isAuctionTab && (
+                        <span
+                          className={`px-2 py-0.5 rounded text-xs ${
+                            entry.published
+                              ? "bg-green-900/50 border border-green-700"
+                              : "bg-gray-800 border border-gray-700"
+                          }`}
+                        >
+                          {entry.published ? "Published" : "Draft"}
+                        </span>
+                      )}
+
+                      {isAuctionTab && (
+                        <span className="px-2 py-0.5 rounded text-xs bg-red-900/40 border border-red-700">
+                          {entry.status || "upcoming"}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2 shrink-0">
+                    <button
+                      className="bg-blue-700 text-white px-3 py-1 rounded"
+                      onClick={() => handleEdit(entry)}
                     >
-                      {entry.published ? "Published" : "Draft"}
-                    </span>
+                      Edit
+                    </button>
+
+                    <button
+                      className="bg-red-600 text-white px-3 py-1 rounded"
+                      onClick={() => entry.id && handleDelete(entry.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
 
-                <div className="flex gap-2 shrink-0">
-                  <button className="bg-blue-700 text-white px-3 py-1 rounded" onClick={() => handleEdit(entry)}>
-                    Edit
-                  </button>
-                  <button className="bg-red-600 text-white px-3 py-1 rounded" onClick={() => entry.id && handleDelete(entry.id)}>
-                    Delete
-                  </button>
-                </div>
+                {isAuctionTab && (
+                  <div className="mt-4 flex flex-wrap gap-2 border-t border-gray-700 pt-4">
+                    <button
+                      onClick={() => openAuctionItem(entry.id)}
+                      className="bg-green-700 text-white px-3 py-1 rounded"
+                    >
+                      Open Live
+                    </button>
+
+                    <button
+                      onClick={() => setAuctionStatus(entry.id, "closed")}
+                      className="bg-yellow-700 text-white px-3 py-1 rounded"
+                    >
+                      Close
+                    </button>
+
+                    <button
+                      onClick={() => setAuctionStatus(entry.id, "paid")}
+                      className="bg-blue-700 text-white px-3 py-1 rounded"
+                    >
+                      Mark Paid
+                    </button>
+
+                    <button
+                      onClick={() => setAuctionStatus(entry.id, "released")}
+                      className="bg-purple-700 text-white px-3 py-1 rounded"
+                    >
+                      Mark Released
+                    </button>
+
+                    <button
+                      onClick={() => resetAuctionBid(entry)}
+                      className="bg-gray-700 text-white px-3 py-1 rounded"
+                    >
+                      Reset Bid
+                    </button>
+                  </div>
+                )}
               </div>
             );
           })}

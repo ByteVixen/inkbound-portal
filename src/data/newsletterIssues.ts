@@ -10,6 +10,15 @@ export type NewsletterIssueData = {
   
   export const newsletterIssues = [
     {
+      slug: "issue-10",
+      title: "The Inkbound Times",
+      issueNumber: "Issue 10",
+      dateLabel: "May 1, 2026",
+      coverImage: "/newsletter/covers/issue-10.jpg",
+      pdfUrl: "/newsletter/issues/inkbound-times-issue-10.pdf",
+      description: "Tullie Summers, A Community Steps Forward, and the Live That Became Bigger Than Books"
+    },
+    {
       slug: "issue-09",
       title: "The Inkbound Times",
       issueNumber: "Issue 09",

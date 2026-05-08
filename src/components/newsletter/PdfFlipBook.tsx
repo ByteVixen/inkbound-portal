@@ -134,7 +134,7 @@ export default function PdfFlipBook({ pdfUrl, title }: Props) {
   const hasPages = useMemo(() => pages.length > 0, [pages]);
 
   if (loading) {
-    return <div className="pdf-flipbook-status">Loading issue...</div>;
+    return <div className="pdf-flipbook-status">Loading this weeks issue...</div>;
   }
 
   if (error) {
