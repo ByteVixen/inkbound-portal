@@ -60,7 +60,7 @@ export default function AuctionPage() {
               prizes are released.
             </p>
 
-            <div className="inline-flex flex-col items-center justify-center rounded-3xl border border-red-500/30 bg-red-950/20 px-6 md:px-10 py-6 shadow-[0_0_40px_rgba(255,0,0,0.15)]">
+            <div className="inline-flex flex-col items-center justify-center rounded-3xl border border-red-500/30 bg-red-950/20 px-6 py-6 shadow-[0_0_40px_rgba(255,0,0,0.15)] md:px-10">
               <p className="uppercase tracking-[0.35em] text-red-300 text-sm">
                 Confirmed Auction Bids
               </p>
