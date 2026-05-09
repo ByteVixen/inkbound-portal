@@ -15,6 +15,14 @@ function getMinIncrement(currentBid: number) {
   return 10;
 }
 
+function hasRealBid(item: AuctionItem) {
+  return Boolean(
+    item.currentBidderName ||
+      item.currentBidderEmail ||
+      item.currentBidderHandle
+  );
+}
+
 export default function AuctionPage() {
   const [items, setItems] = useState<AuctionItem[]>([]);
 
@@ -30,12 +38,7 @@ export default function AuctionPage() {
   );
 
   const totalRaised = items.reduce((sum, item) => {
-    const hasRealBid =
-      item.currentBidderName ||
-      item.currentBidderEmail ||
-      item.currentBidderHandle;
-
-    return hasRealBid ? sum + Number(item.currentBid || 0) : sum;
+    return hasRealBid(item) ? sum + Number(item.currentBid || 0) : sum;
   }, 0);
 
   return (
@@ -57,7 +60,7 @@ export default function AuctionPage() {
               prizes are released.
             </p>
 
-            <div className="inline-flex flex-col items-center justify-center rounded-3xl border border-red-500/30 bg-red-950/20 px-10 py-6 shadow-[0_0_40px_rgba(255,0,0,0.15)]">
+            <div className="inline-flex flex-col items-center justify-center rounded-3xl border border-red-500/30 bg-red-950/20 px-6 md:px-10 py-6 shadow-[0_0_40px_rgba(255,0,0,0.15)]">
               <p className="uppercase tracking-[0.35em] text-red-300 text-sm">
                 Confirmed Auction Bids
               </p>
@@ -221,6 +224,7 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
               <img
                 src={item.imageUrl}
                 alt={item.title}
+                loading="lazy"
                 onClick={() => setSelectedImage(item.imageUrl)}
                 className="w-full max-h-[600px] object-cover cursor-zoom-in"
               />
@@ -265,8 +269,11 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
             </div>
 
             <div className="rounded-3xl bg-white/5 border border-white/10 p-6">
-              <p className="text-white/50">Current highest bid</p>
-              <p className="text-6xl font-black text-red-300 mt-2">
+              <p className="text-white/50">
+                {hasRealBid(item) ? "Current highest bid" : "Starting bid"}
+              </p>
+
+              <p className="text-4xl md:text-6xl font-black text-red-300 mt-2 break-words">
                 €{item.currentBid || item.startingBid}
               </p>
             </div>
@@ -292,7 +299,7 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
 
             <div className="grid md:grid-cols-2 gap-3">
               <input
-                className="rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-red-400"
+                className="rounded-xl text-base bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-red-400"
                 placeholder="Your name"
                 value={bidderName}
                 onChange={(e) => setBidderName(e.target.value)}
@@ -300,7 +307,7 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
               />
 
               <input
-                className="rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-red-400"
+                className="rounded-xl text-base bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-red-400"
                 placeholder="Email address"
                 type="email"
                 value={bidderEmail}
@@ -309,14 +316,14 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
               />
 
               <input
-                className="rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-red-400"
+                className="rounded-xl text-base bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-red-400"
                 placeholder="Discord / TikTok handle optional"
                 value={bidderHandle}
                 onChange={(e) => setBidderHandle(e.target.value)}
               />
 
               <input
-                className="rounded-xl bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-red-400"
+                className="rounded-xl text-base bg-white/10 border border-white/10 px-4 py-3 outline-none focus:border-red-400"
                 type="number"
                 min={minimumBid}
                 value={amount}
@@ -407,6 +414,7 @@ function AuctionPreviewCard({ item }: { item: AuctionItem }) {
         <img
           src={item.imageUrl}
           alt={item.title}
+          loading="lazy"
           onClick={() => setSelectedImage(item.imageUrl)}
           className="h-64 w-full object-cover cursor-zoom-in"
         />
@@ -436,8 +444,11 @@ function AuctionPreviewCard({ item }: { item: AuctionItem }) {
           </div>
 
           <div>
-            <p className="text-white/40 text-sm">Current bid</p>
-            <p className="text-2xl font-black text-red-300">
+            <p className="text-white/40 text-sm">
+              {hasRealBid(item) ? "Current bid" : "Starting bid"}
+            </p>
+
+            <p className="text-2xl font-black text-red-300 break-words">
               €{item.currentBid || item.startingBid}
             </p>
           </div>
@@ -480,7 +491,7 @@ function ImageModal({
     >
       <button
         type="button"
-        className="absolute top-4 right-4 text-white text-4xl z-10 hover:text-red-300"
+        className="absolute top-2 right-2 md:top-4 md:right-4 p-2 text-white text-4xl z-10 hover:text-red-300"
         onClick={onClose}
         aria-label="Close image preview"
       >
