@@ -6,6 +6,9 @@ import {
   placeBid,
 } from "../services/auction";
 
+const GOFUNDME_LINK =
+  "https://www.gofundme.com/f/help-tullie-access-lifesaving-care?attribution_id=sl:1e3ff141-c8f7-41d9-9f76-6e182f61b9f3&lang=en_US&ts=1777868246&utm_campaign=fp_sharesheet&utm_content=amp17_tb-amp20_t1&utm_medium=customer&utm_source=copy_link";
+
 function getMinIncrement(currentBid: number) {
   if (currentBid < 50) return 2;
   if (currentBid < 100) return 5;
@@ -20,12 +23,20 @@ export default function AuctionPage() {
   }, []);
 
   const liveItems = items.filter((item) => item.status === "live");
-
   const upcoming = items.filter((item) => item.status === "upcoming");
 
   const closed = items.filter((item) =>
     ["closed", "paid", "released"].includes(item.status)
   );
+
+  const totalRaised = items.reduce((sum, item) => {
+    const hasRealBid =
+      item.currentBidderName ||
+      item.currentBidderEmail ||
+      item.currentBidderHandle;
+
+    return hasRealBid ? sum + Number(item.currentBid || 0) : sum;
+  }, 0);
 
   return (
     <main className="min-h-screen bg-black text-white px-4 py-10">
@@ -39,40 +50,113 @@ export default function AuctionPage() {
             Bid For The Cause
           </h1>
 
-          <p className="max-w-2xl mx-auto text-white/70">
-            Place your bid live. Winners donate through GoFundMe and send proof
-            before prizes are released.
-          </p>
+          <div className="space-y-6">
+            <p className="max-w-2xl mx-auto text-white/70">
+              Place your bid live. If you win, donate your final bid through
+              GoFundMe, then email proof to summon@inkboundsociety.com before
+              prizes are released.
+            </p>
+
+            <div className="inline-flex flex-col items-center justify-center rounded-3xl border border-red-500/30 bg-red-950/20 px-10 py-6 shadow-[0_0_40px_rgba(255,0,0,0.15)]">
+              <p className="uppercase tracking-[0.35em] text-red-300 text-sm">
+                Confirmed Auction Bids
+              </p>
+
+              <p className="text-5xl md:text-7xl font-black text-white mt-2">
+                €{totalRaised.toLocaleString()}
+              </p>
+
+              <p className="text-white/50 text-sm mt-2">
+                Every confirmed winning bid helps support Tullie and her family
+              </p>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-3">
+              <a
+                href={GOFUNDME_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-2xl border border-red-400/40 bg-red-700 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:bg-red-600"
+              >
+                Donate on GoFundMe
+              </a>
+
+              <a
+                href="mailto:summon@inkboundsociety.com?subject=Auction%20Donation%20Proof"
+                className="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:bg-white/10"
+              >
+                Email Proof
+              </a>
+            </div>
+          </div>
         </header>
 
-      {liveItems.length > 0 ? (
-  <section className="space-y-6">
-    <div>
-      <p className="uppercase tracking-[0.35em] text-red-300 text-sm">
-        Live Now
-      </p>
-      <h2 className="text-3xl md:text-5xl font-black mt-2">
-        Currently Open For Bidding
-      </h2>
-    </div>
+        <section className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
+          <p className="uppercase tracking-[0.3em] text-red-300 text-sm">
+            How it works
+          </p>
 
-    <div className="grid xl:grid-cols-2 gap-8">
-      {liveItems.map((item) => (
-        <LiveAuctionCard key={item.id} item={item} />
-      ))}
-    </div>
-  </section>
-) : (
-  <section className="rounded-3xl border border-white/10 bg-white/5 p-10 text-center">
-    <p className="text-red-300 uppercase tracking-[0.3em] text-sm">
-      Waiting Room
-    </p>
-    <h2 className="text-3xl font-bold mt-3">No lot is live yet.</h2>
-    <p className="text-white/60 mt-2">
-      Stay close. The next prize is being summoned.
-    </p>
-  </section>
-)}
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            <div>
+              <h3 className="text-xl font-bold">1. Bid live</h3>
+              <p className="mt-2 text-white/60">
+                Place your bid while a lot is open. The highest bidder wins when
+                the lot closes.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold">2. Donate</h3>
+              <p className="mt-2 text-white/60">
+                Winning bidders donate their final bid amount through the
+                GoFundMe fundraiser.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold">3. Send proof</h3>
+              <p className="mt-2 text-white/60">
+                Email your GoFundMe receipt or screenshot to{" "}
+                <a
+                  href="mailto:summon@inkboundsociety.com?subject=Auction%20Donation%20Proof"
+                  className="text-red-300 underline hover:text-red-200"
+                >
+                  summon@inkboundsociety.com
+                </a>{" "}
+                before prizes are released.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {liveItems.length > 0 ? (
+          <section className="space-y-6">
+            <div>
+              <p className="uppercase tracking-[0.35em] text-red-300 text-sm">
+                Live Now
+              </p>
+              <h2 className="text-3xl md:text-5xl font-black mt-2">
+                Currently Open For Bidding
+              </h2>
+            </div>
+
+            <div className="grid xl:grid-cols-2 gap-8">
+              {liveItems.map((item) => (
+                <LiveAuctionCard key={item.id} item={item} />
+              ))}
+            </div>
+          </section>
+        ) : (
+          <section className="rounded-3xl border border-white/10 bg-white/5 p-10 text-center">
+            <p className="text-red-300 uppercase tracking-[0.3em] text-sm">
+              Waiting Room
+            </p>
+            <h2 className="text-3xl font-bold mt-3">No lot is live yet.</h2>
+            <p className="text-white/60 mt-2">
+              Stay close. The next prize is being summoned.
+            </p>
+          </section>
+        )}
 
         <AuctionGrid title="Coming Up Next" items={upcoming} />
 
@@ -93,6 +177,7 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     setAmount(minimumBid);
@@ -136,7 +221,8 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
               <img
                 src={item.imageUrl}
                 alt={item.title}
-                className="w-full max-h-[600px] object-cover"
+                onClick={() => setSelectedImage(item.imageUrl)}
+                className="w-full max-h-[600px] object-cover cursor-zoom-in"
               />
             ) : (
               <div className="h-[420px] flex items-center justify-center text-white/40">
@@ -164,19 +250,20 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
               {item.title}
             </h2>
 
-            <p className="text-white/70 mt-4 text-lg leading-relaxed">
+            <p className="text-white/70 mt-4 text-lg leading-relaxed whitespace-pre-line">
               {item.description}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             <div className="rounded-3xl bg-white/5 border border-white/10 p-6">
-  <p className="text-white/50">Estimated Value</p>
+              <p className="text-white/50">Estimated Value</p>
 
-  <p className="text-5xl font-black mt-2 text-green-300">
-    €{item.value}
-  </p>
-</div>
+              <p className="text-5xl font-black mt-2 text-green-300">
+                €{item.value}
+              </p>
+            </div>
+
             <div className="rounded-3xl bg-white/5 border border-white/10 p-6">
               <p className="text-white/50">Current highest bid</p>
               <p className="text-6xl font-black text-red-300 mt-2">
@@ -187,7 +274,9 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
             <div className="rounded-3xl bg-white/5 border border-white/10 p-6">
               <p className="text-white/50">Leading bidder</p>
               <p className="text-2xl font-bold mt-2">
-                {item.currentBidderName || "No bids yet"}
+                {item.currentBidderHandle ||
+                  item.currentBidderName ||
+                  "No bids yet"}
               </p>
               <p className="text-white/40 text-sm mt-2">
                 Minimum next bid: €{minimumBid}
@@ -247,12 +336,35 @@ function LiveAuctionCard({ item }: { item: AuctionItem }) {
             {success && <p className="text-green-300">{success}</p>}
 
             <p className="text-white/40 text-xs leading-relaxed">
-              Winning bidders must donate the final amount through the fundraiser
-              link and send receipt/screenshot proof before prizes are released.
+              Winning bidders must donate the final amount through the{" "}
+              <a
+                href={GOFUNDME_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-red-300 underline hover:text-red-200"
+              >
+                GoFundMe fundraiser
+              </a>
+              , then email their receipt or screenshot proof to{" "}
+              <a
+                href="mailto:summon@inkboundsociety.com?subject=Auction%20Donation%20Proof"
+                className="text-red-300 underline hover:text-red-200"
+              >
+                summon@inkboundsociety.com
+              </a>{" "}
+              before prizes are released.
             </p>
           </form>
         </div>
       </div>
+
+      {selectedImage && (
+        <ImageModal
+          src={selectedImage}
+          alt={item.title}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
     </section>
   );
 }
@@ -280,6 +392,8 @@ function AuctionGrid({
 }
 
 function AuctionPreviewCard({ item }: { item: AuctionItem }) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const statusLabel = useMemo(() => {
     if (item.status === "paid") return "Payment Confirmed";
     if (item.status === "released") return "Prize Released";
@@ -293,7 +407,8 @@ function AuctionPreviewCard({ item }: { item: AuctionItem }) {
         <img
           src={item.imageUrl}
           alt={item.title}
-          className="h-64 w-full object-cover"
+          onClick={() => setSelectedImage(item.imageUrl)}
+          className="h-64 w-full object-cover cursor-zoom-in"
         />
       ) : (
         <div className="h-64 bg-white/5 flex items-center justify-center text-white/40">
@@ -308,24 +423,76 @@ function AuctionPreviewCard({ item }: { item: AuctionItem }) {
 
         <h3 className="text-2xl font-bold">{item.title}</h3>
 
-        <p className="text-white/60 line-clamp-3">{item.description}</p>
-<div className="pt-3 border-t border-white/10 grid grid-cols-2 gap-3">
-  <div>
-    <p className="text-white/40 text-sm">Value</p>
-    <p className="text-2xl font-black text-green-300">
-      €{item.value || 0}
-    </p>
-  </div>
+        <p className="text-white/60 line-clamp-3 whitespace-pre-line">
+          {item.description}
+        </p>
 
-  <div>
-    <p className="text-white/40 text-sm">Current bid</p>
-    <p className="text-2xl font-black text-red-300">
-      €{item.currentBid || item.startingBid}
-    </p>
-  </div>
-</div>
-        
+        <div className="pt-3 border-t border-white/10 grid grid-cols-2 gap-3">
+          <div>
+            <p className="text-white/40 text-sm">Value</p>
+            <p className="text-2xl font-black text-green-300">
+              €{item.value || 0}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-white/40 text-sm">Current bid</p>
+            <p className="text-2xl font-black text-red-300">
+              €{item.currentBid || item.startingBid}
+            </p>
+          </div>
+
+          {item.currentBidderHandle || item.currentBidderName ? (
+            <p className="col-span-2 text-sm text-white/50">
+              Leading bidder:{" "}
+              <span className="text-white/80 font-semibold">
+                {item.currentBidderHandle || item.currentBidderName}
+              </span>
+            </p>
+          ) : null}
+        </div>
       </div>
+
+      {selectedImage && (
+        <ImageModal
+          src={selectedImage}
+          alt={item.title}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
     </article>
+  );
+}
+
+function ImageModal({
+  src,
+  alt,
+  onClose,
+}: {
+  src: string;
+  alt: string;
+  onClose: () => void;
+}) {
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <button
+        type="button"
+        className="absolute top-4 right-4 text-white text-4xl z-10 hover:text-red-300"
+        onClick={onClose}
+        aria-label="Close image preview"
+      >
+        ×
+      </button>
+
+      <img
+        src={src}
+        alt={alt}
+        className="max-w-full max-h-[90vh] object-contain rounded-2xl"
+        onClick={(e) => e.stopPropagation()}
+      />
+    </div>
   );
 }

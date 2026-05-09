@@ -29,6 +29,7 @@ export type AuctionItem = {
   currentBid: number;
   currentBidderName?: string;
   currentBidderEmail?: string;
+  currentBidderHandle?: string;
   status: AuctionStatus;
   order: number;
 };
@@ -100,12 +101,13 @@ export async function placeBid({
       throw new Error(`Your bid must be higher than €${currentBid}.`);
     }
 
-    transaction.update(itemRef, {
-      currentBid: amount,
-      currentBidderName: bidderName,
-      currentBidderEmail: bidderEmail,
-      updatedAt: serverTimestamp(),
-    });
+   transaction.update(itemRef, {
+  currentBid: amount,
+  currentBidderName: bidderName,
+  currentBidderEmail: bidderEmail,
+  currentBidderHandle: bidderHandle || "",
+  updatedAt: serverTimestamp(),
+});
 
     const bidRef = doc(collection(db, "auction_bids"));
 

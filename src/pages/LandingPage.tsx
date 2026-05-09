@@ -315,7 +315,66 @@ const suiteSites = [
     </motion.div>
   </motion.div>
 </section>
+{/* TULLIE AUCTION FEATURE */}
+<section className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
+  <Reveal>
+    <div className="overflow-hidden rounded-[2rem] border border-red-500/25 bg-[linear-gradient(135deg,rgba(127,29,29,0.35),rgba(255,255,255,0.05),rgba(0,0,0,0.65))] p-6 backdrop-blur-2xl md:p-8">
+      <div className="grid items-center gap-8 lg:grid-cols-5">
+        <div className="lg:col-span-2">
+          <Link to="/auction" className="group block">
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-red-400/25 bg-black/40">
+              <img
+                src="/tullie-auction.png"
+                alt="Tullie Summers fundraising auction"
+                className="h-auto w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/10" />
+            </div>
+          </Link>
+        </div>
 
+        <div className="lg:col-span-3">
+          <div className="text-xs uppercase tracking-[0.32em] text-red-300">
+            Live Fundraising Auction
+          </div>
+
+          <h2 className="mt-3 text-3xl font-semibold text-white md:text-5xl">
+            For Tullie Summers
+          </h2>
+
+          <p className="mt-5 text-base leading-8 text-white/70">
+            One of Inkbound’s earliest community members needs support, and
+            today we show up. Browse the auction lots, follow the live
+            bidding, and help us raise funds for Tullie and her family.
+          </p>
+
+          <p className="mt-4 text-base leading-8 text-white/55">
+            Books, services, narration, artwork, bundles, chaos, community, and
+            a whole lot of people refusing to look away.
+          </p>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              to="/auction"
+              className="inline-flex items-center gap-2 rounded-2xl border border-red-400/40 bg-red-700 px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:scale-[1.02] hover:bg-red-600 hover:shadow-[0_0_40px_rgba(220,38,38,0.25)]"
+            >
+              Enter the Auction
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+
+            <Link
+              to="/newsletter"
+              className="inline-flex items-center gap-2 rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:border-white/30 hover:bg-white/10"
+            >
+              Read the story
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Reveal>
+</section>
         {/* PATHWAYS */}
         <section className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
           <Reveal>
