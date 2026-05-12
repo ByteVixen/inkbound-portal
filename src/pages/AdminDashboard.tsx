@@ -1,6 +1,7 @@
 // src/pages/AdminDashboard.tsx
 import { useState, useEffect, useMemo } from "react";
 import { db, auth, storage } from "../firebase";
+
 import {
   collection,
   addDoc,
@@ -453,6 +454,65 @@ export default function AdminDashboard() {
 
     await fetchActiveTab();
   };
+const exportAuctionWinnersCSV = () => {
+  const closedStatuses = ["closed", "paid", "released"];
+
+  const winners = entries
+    .filter(
+      (entry) =>
+        closedStatuses.includes(entry.status) &&
+        (entry.currentBidderName ||
+          entry.currentBidderEmail ||
+          entry.currentBidderHandle)
+    )
+    .map((entry) => ({
+      title: entry.title || "",
+      donorName: entry.donorName || "",
+      winnerName:
+        entry.currentBidderName ||
+        entry.currentBidderHandle ||
+        "Unknown",
+      winnerEmail: entry.currentBidderEmail || "",
+      winningBid: entry.currentBid || entry.startingBid || 0,
+      status: entry.status || "closed",
+    }));
+
+  if (!winners.length) {
+    alert("No winners found.");
+    return;
+  }
+
+  const headers = Object.keys(winners[0]);
+
+  const csvRows = [
+    headers.join(","),
+    ...winners.map((row) =>
+      headers
+        .map((field) => {
+          const value = row[field as keyof typeof row] ?? "";
+          return `"${String(value).replace(/"/g, '""')}"`;
+        })
+        .join(",")
+    ),
+  ];
+
+  const blob = new Blob([csvRows.join("\n")], {
+    type: "text/csv;charset=utf-8;",
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = window.document.createElement("a");
+
+  link.href = url;
+  link.setAttribute("download", "inkbound-auction-winners.csv");
+
+  window.document.body.appendChild(link);
+  link.click();
+  window.document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+};
+
 
   const handleBulkUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
   if (isQuestTab) {
@@ -926,28 +986,48 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-         {!isQuestTab && (
-  <div className="mb-6">
-              <label className="block mb-1 text-sm font-semibold">📥 Bulk Upload CSV</label>
-              <input type="file" accept=".csv" onChange={handleBulkUpload} className="mb-2" />
-              {COLLECTIONS.find((c) => c.key === activeTab)?.template && (
-                <a
-                  className="text-sm underline text-gold"
-                  href={`/csv-templates/${COLLECTIONS.find((c) => c.key === activeTab)?.template}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Download Template
-                </a>
-              )}
-              {bulkResults.success + bulkResults.failed > 0 && (
-                <p className="text-sm mt-2">
-                  Last upload: ✅ {bulkResults.success} added, ❌ {bulkResults.failed} failed
-                </p>
-              )}
-            </div>
-          )}
+       {!isQuestTab && (
+  <div className="mb-6 space-y-3">
+    {isAuctionTab && (
+      <button
+        onClick={exportAuctionWinnersCSV}
+        className="bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded"
+      >
+        Export Winners CSV
+      </button>
+    )}
 
+    <div>
+      <label className="block mb-1 text-sm font-semibold">
+        📥 Bulk Upload CSV
+      </label>
+
+      <input
+        type="file"
+        accept=".csv"
+        onChange={handleBulkUpload}
+        className="mb-2"
+      />
+
+      {COLLECTIONS.find((c) => c.key === activeTab)?.template && (
+        <a
+          className="text-sm underline text-gold"
+          href={`/csv-templates/${COLLECTIONS.find((c) => c.key === activeTab)?.template}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Download Template
+        </a>
+      )}
+
+      {bulkResults.success + bulkResults.failed > 0 && (
+        <p className="text-sm mt-2">
+          Last upload: ✅ {bulkResults.success} added, ❌ {bulkResults.failed} failed
+        </p>
+      )}
+    </div>
+  </div>
+)}
           {filteredEntries.map((entry) => {
             const isEditingThis = editingId === entry.id;
 
