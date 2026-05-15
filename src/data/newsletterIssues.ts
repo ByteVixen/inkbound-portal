@@ -9,6 +9,15 @@ export type NewsletterIssueData = {
   };
   
   export const newsletterIssues = [
+     {
+      slug: "issue-11",
+      title: "The Inkbound Times",
+      issueNumber: "Issue 11",
+      dateLabel: "May 15, 2026",
+      coverImage: "/newsletter/covers/issue-11.jpg",
+      pdfUrl: "/newsletter/issues/inkbound-times-issue-11.pdf",
+      description: "Twelve Hours of Chaos, Pineapple Pizza Crimes, and the Indie Space Refusing to Slow Down"
+    },
     {
       slug: "issue-10",
       title: "The Inkbound Times",
